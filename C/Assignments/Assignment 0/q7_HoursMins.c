@@ -1,3 +1,4 @@
+#include <stdio.h>
 void main(){
 	//Q7. Write a C program to convert given minutes into hours and remaining minutes.
 	int min=100, hours, remaining;

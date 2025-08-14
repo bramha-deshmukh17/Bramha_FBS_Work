@@ -1,3 +1,4 @@
+#include <stdio.h>
 void main(){
 	/*
 	3. Write a C program to convert temperature from Celsius to Fahrenheit using the
@@ -5,8 +6,8 @@ void main(){
 	F = (C *9/5) + 32
 	*/
 
-	int c=16, f;
-	f=((c * (9/5)) + 32);
+	double c=16.0, f;
+	f=((c * 1.8) + 32);
 
-	printf("%d Celcius = %d Fahrenheit", c, f);
+	printf("%lf Celcius = %lf Fahrenheit", c, f);
 }

@@ -1,3 +1,4 @@
+#include <stdio.h>
 void main(){
 	//Q6. Write a C program to find the square and cube of a given number
 	int num=5, square, cube;

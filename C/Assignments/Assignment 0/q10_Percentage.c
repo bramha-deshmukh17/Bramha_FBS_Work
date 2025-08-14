@@ -1,3 +1,4 @@
+#include <stdio.h>
 void main(){
 	//Q10. Write a C program to input marks of five subjects, find the total marks, and calculate the percentage.
 

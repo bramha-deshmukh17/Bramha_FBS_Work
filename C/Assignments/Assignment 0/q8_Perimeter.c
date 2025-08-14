@@ -1,3 +1,4 @@
+#include <stdio.h>
 void main(){
 	//Q8. Write a C program to input the length and width of a rectangle and find its perimeter.
 	int len=20, breadth=10, perimeter;

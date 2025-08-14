@@ -1,3 +1,4 @@
+#include <stdio.h>
 void main(){
 	//Q5. Write a C program to input five numbers and find their average
 	int num1=15, num2=25, num3=35, num4=45, num5=55;
