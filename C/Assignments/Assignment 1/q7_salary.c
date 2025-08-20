@@ -4,11 +4,10 @@ respectively.
 */
 
 void main(){
-	float basic = 570.0, salary, da, ta, hra;
+	double basic = 5700.0, salary, da, ta, hra;
 
-	if(basic<=500){
+	if(basic<=5000){
 		da=0.10; ta=0.20; hra=0.25;
-		printf("Assigened");
 	}
 	else{
 		da=0.15; ta=0.25; hra=0.30;
@@ -16,5 +15,5 @@ void main(){
 
 	salary = basic + (basic * da) + (basic * ta) + (basic * hra);
 
-    printf("Total salary is: %f\n", salary);
+    printf("Total salary is: %lf\n", salary);
 }
