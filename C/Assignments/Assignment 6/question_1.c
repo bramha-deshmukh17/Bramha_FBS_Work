@@ -1,7 +1,7 @@
 // Q1. Convert Ass_1 and ASS_2 program into functions with four types of function.
 
 #include <stdio.h>
-#include<conio.h>
+#include <conio.h>
 
 // func w/o return w/o param
 void checkAgeGroup()
@@ -11,21 +11,13 @@ void checkAgeGroup()
     scanf("%d", &age);
 
     if (age < 12)
-    {
         printf("Child");
-    }
     else if (age >= 12 && age <= 19)
-    {
         printf("Teenager");
-    }
     else if (age >= 20 && age <= 59)
-    {
         printf("Adult");
-    }
     else
-    {
         printf("Senior");
-    }
 }
 
 // func w/o return w/o param
@@ -36,21 +28,13 @@ void divisibility()
     scanf("%d", &num);
 
     if (num % 3 == 0 && num % 5 == 0)
-    {
         printf("Divisible by both");
-    }
     else if (num % 3 == 0)
-    {
         printf("Divisible by 3 but not by 5");
-    }
     else if (num % 5 == 0)
-    {
         printf("Divisible by 5 but not by 3");
-    }
     else
-    {
         printf("Divisible by None");
-    }
 }
 
 // func w/o return w/o param
@@ -61,25 +45,15 @@ void result()
     scanf("%d", &marks);
 
     if (marks > 75)
-    {
         printf("Distinction");
-    }
     else if (marks > 65)
-    {
         printf("First class");
-    }
     else if (marks > 55)
-    {
         printf("Second class");
-    }
     else if (marks > 40)
-    {
         printf("Pass class");
-    }
     else
-    {
         printf("Fail");
-    }
 }
 
 // func w/o return with param
@@ -87,69 +61,45 @@ void greatestNum(int a, int b, int c)
 {
 
     if (a > b && a > c)
-    {
         printf("a is greater");
-    }
     else
     {
         if (b > a && b > c)
-        {
             printf("b is greater");
-        }
         else
-        {
             printf("c is greater");
-        }
     }
 }
 
 // func w/o return with param
 void voteAgeCheck(int age)
 {
-
     if (age >= 18)
-    {
         printf("Eligible to vote");
-    }
     else
-    {
         printf("Not eligible to vote");
-    }
 }
 
 // func w/o return with param
 void charCaseCheck(char ch)
 {
-
     if (ch >= 'A' && ch <= 'Z')
-    {
         printf("Character is uppercase");
-    }
     else
-    {
         printf("Character is lowercase");
-    }
 }
 
 // func w/o return with param
 void typeOfTrinagle(int a, int b, int c)
 {
-    
-
     if (a == b && b == c)
-    {
         printf("Equilateral triangle");
-    }
     else
     {
         if (a == b || b == c || a == c)
-        {
             printf("Isosceles triangle");
-        }
         else
-        {
             printf("Scalene triangle");
-        }
     }
 }
 
@@ -192,34 +142,21 @@ int arithematicOperation()
         }
     }
     else
-    {
         printf("Enter a valid option");
-    }
+
 }
 
 // func with return w/o param
 double salary()
 {
-    double basic, salary, da, ta, hra;
+    double basic, da, ta, hra;
     printf("Enter base salary: ");
     scanf("%lf", &basic);
-    
+
     if (basic <= 5000)
-    {
-        da = 0.10;
-        ta = 0.20;
-        hra = 0.25;
-    }
+        return basic + (basic * 0.10) + (basic * 0.20) + (basic * 0.25);
     else
-    {
-        da = 0.15;
-        ta = 0.25;
-        hra = 0.30;
-    }
-
-    salary = basic + (basic * da) + (basic * ta) + (basic * hra);
-
-    return salary;
+        return basic + (basic * 0.15) + (basic * 0.25) + (basic * 0.30);
 }
 
 // func with return w/o param
@@ -228,27 +165,13 @@ int vowelCheck()
     printf("Enter a char: ");
     char ch = getch();
     printf("%c\n", ch);
-    if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u')
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
+    return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' ? 1 : 0;
 }
 
 // func with return with param
 int leapCheck(int year)
 {
-    if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
+    return year % 4 == 0 && year % 100 != 0 || year % 400 == 0 ? 1 : 0;
 }
 
 // func with return with param
@@ -265,14 +188,13 @@ int palindrome(int num)
 
     num = (temp0 * 100) + (temp1 * 10) + num;
 
-    return copy == num ? 1 : 0;
+    return copy == num;
 }
 
 // func with return with param
 int checkEvenOdd(int num)
 {
-
-    return num % 2 == 0 ? 1 : 0;
+    return num % 2 == 0 ;
 }
 
 // func with return with param
@@ -282,24 +204,16 @@ float checkDiscount(float price, char student)
     if (student == 'y')
     {
         if (price > 500.0)
-        {
             return (price * 0.80);
-        }
         else
-        {
             return price;
-        }
     }
     else
     {
         if (price > 600.0)
-        {
             return (price * 0.85);
-        }
         else
-        {
             return price;
-        }
     }
 }
 
@@ -365,7 +279,8 @@ void main()
             charCaseCheck(ch);
         }
 
-        else if (choice == 7){
+        else if (choice == 7)
+        {
             printf("Enter sides of th triangle:\n");
             int a, b, c;
             scanf("%d", &a);
@@ -377,8 +292,9 @@ void main()
         else if (choice == 8)
             printf("%d", arithematicOperation());
 
-        else if (choice == 9){
-            
+        else if (choice == 9)
+        {
+
             printf("Total salry: %lf", salary());
         }
 
@@ -386,20 +302,20 @@ void main()
             vowelCheck() ? printf("Vowel") : printf("Consonant");
 
         else if (choice == 11)
-            {
-                int year;
-                printf("Enter year: ");
-                scanf("%d", &year);
-                leapCheck(year) ? printf("Leap year") : printf("Not a Leap year");
-            }
+        {
+            int year;
+            printf("Enter year: ");
+            scanf("%d", &year);
+            leapCheck(year) ? printf("Leap year") : printf("Not a Leap year");
+        }
 
         else if (choice == 12)
-            {
-                int num;
-                printf("Enter Number: ");
-                scanf("%d", &num);
-                palindrome(num) ? printf("Palindrome number") : printf("Not palindrome number");
-            }
+        {
+            int num;
+            printf("Enter Number: ");
+            scanf("%d", &num);
+            palindrome(num) ? printf("Palindrome number") : printf("Not palindrome number");
+        }
 
         else if (choice == 13)
         {

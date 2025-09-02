@@ -7,7 +7,6 @@ return type and with parameter and w/o return type.
 
 void displayRange()
 {
-
     int i = 1;
     while (i <= 10)
     {
@@ -57,7 +56,7 @@ void prime(){
     }
 
     // n>=2 to avoid negative and 1 to be prime
-    flag &&n >= 2 ? printf("Prime number") : printf("Not prime number");
+    flag && n >= 2 ? printf("Prime number") : printf("Not prime number");
 }
 
 void armstrong(){
@@ -127,14 +126,13 @@ int strong(){
         n /= 10;
     }
 
-    return sum == copy ? 1 : 0;
+    return sum == copy;
 }
 
 int palindrome(){
     int n, r, sum = 0, copy;
     printf("Enter a number: ");
     scanf("%d", &n);
-
     copy = n;
 
     while (n > 0)
@@ -143,7 +141,7 @@ int palindrome(){
         n /= 10;
     }
 
-    return copy == sum ? 1 : 0;
+    return copy == sum;
 }
 
 int factorial(int n){
