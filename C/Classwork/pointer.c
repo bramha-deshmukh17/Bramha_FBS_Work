@@ -16,4 +16,7 @@ void main(){
     printf("%u\t", pt);
     pt=ptr;
     printf("%u\t", pt);
+    
+    b=ptr;
+    printf("%u\t", b);
 }
