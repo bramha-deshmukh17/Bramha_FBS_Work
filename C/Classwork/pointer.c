@@ -1,22 +1,20 @@
-#include<stdio.h>
+#include <stdio.h>
+
+int getCount(int *no){
+
+    int count = 0;
+    while (*no != 0)
+    {
+        *no /= 10;
+        count++;
+    }
+    return count;
+}
 
 void main(){
 
-    int a=10, b=30;
-    int* ptr=&a;
-    int* pt=&b;
+    int no = 12345;
+    int cout = getCount(&no);
 
-    *pt=25;
-    printf("%d\t", *ptr);
-    printf("%d\t", *pt);
-
-    b=*ptr;
-    printf("%d\t", b);
-
-    printf("%u\t", pt);
-    pt=ptr;
-    printf("%u\t", pt);
-    
-    b=ptr;
-    printf("%u\t", b);
+    printf("Count: %d", cout);
 }
