@@ -1,7 +1,7 @@
 #include<stdio.h>
 void main(){
 
-    int size, num, found=1;
+    int size, num, index = -1;
 
     printf("Enter size of array: ");
     scanf("%d", &size);
@@ -25,13 +25,9 @@ void main(){
 
     for (int i = 0; i < size; i++)
         if(num==arr[i]){
-            printf("Number found at %dth position", i+1);
-            found = 0;
+            index = 1;
             break;
         }
 
-    if(found)
-        printf("Number not found");
-    
-    
+    index == -1 ? printf("Number not found") : printf("Number found at %d index", index);
 }
