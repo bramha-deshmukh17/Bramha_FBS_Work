@@ -14,7 +14,7 @@ void main(){
         scanf("%d", &arr[i]);
     }
 
-    printf("[", arr[0]);
+    printf("[");
     for (int i = 0; i < size; i++)
         printf(" %d ",arr[i]);
     
@@ -25,7 +25,7 @@ void main(){
 
     for (int i = 0; i < size; i++)
         if(num==arr[i]){
-            index = 1;
+            index = i;
             break;
         }
 
