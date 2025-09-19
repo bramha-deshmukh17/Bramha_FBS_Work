@@ -7,7 +7,7 @@ void main()
 
     char str1[] = "Bramha Deshmukh";
     char str2[30];
-    printf("\nLength of str1: %d", (int)strlen(str1));
+    printf("\nLength of str1: %d", strlen(str1));
     printf("\nCopied to str2: %s", strcpy(str2, str1));
     printf("\nUpper case str1: %s", strupr(str1));
     printf("\nLower case str1: %s", strlwr(str1));
@@ -47,17 +47,17 @@ void main()
     }
 
     char str9[] = "Bramha Deshmukh";
-    int n1 = (int)strspn(str9, "Bramha Deshmukh");
+    int n1 = strspn(str9, "Bramha Deshmukh");
     printf("\nstrspn: %d", n1);
 
-    int n2 = (int)strcspn(str9, "Deshmukh");
+    int n2 = strcspn(str9, "Deshmukh");
     printf("\nstrcspn: %d", n2);
 
     char *ptr5 = strpbrk(str9, "Deshmukh");
     printf("\nstrpbrk: %s", ptr5 ? ptr5 : "NULL");
 
     char str10[] = "Bramha Deshmukh";
-    char *ptr6 = (char *)memchr(str10, 'D', sizeof(str10));
+    char *ptr6 = memchr(str10, 'D', sizeof(str10));
     printf("\nmemchr: %s", ptr6 ? ptr6 : "NULL");
 
     char str11[30] = "Bramha Deshmukh";
