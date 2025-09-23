@@ -138,8 +138,7 @@ void mergeArrays(int* arr, int size)
     for (int i = 0; i < size2; i++)
         scanf("%d", &arr2[i]);
 
-    int limit = size3 < size ? size3 : size;
-    for (int i = 0; i < limit; i++)
+    for (int i = 0; i < size3; i++)
     {
         if (i < size1)
             arr[i] = arr1[i];
@@ -148,7 +147,7 @@ void mergeArrays(int* arr, int size)
     }
 
     printf("Elements after merging into 3rd array: [");
-    for (int i = 0; i < limit; i++)
+    for (int i = 0; i < size3; i++)
         printf(" %d ", arr[i]);
     printf("]");
 }
