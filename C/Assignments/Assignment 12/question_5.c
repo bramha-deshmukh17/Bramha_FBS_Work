@@ -1,0 +1,31 @@
+// Q5. WAP to Count the Number of Vowels in a String
+
+#include<stdio.h>
+#include<string.h>
+void main(){
+
+    char str[100];
+
+    int i = 0, count=0;
+    printf("Enter a string: ");
+    while (i < 100)
+    {
+        str[i] = getchar();
+        if (str[i] == '\n')
+        {
+            str[i] = '\0';
+            break;
+        }
+        i++;
+    }
+    str[i] = '\0';
+
+    i=0;
+    while(str[i]!='\0'){
+        if (strchr("aeiouAEIOU", str[i]))
+            count++;
+        i++;
+    }
+
+    printf("Number of vowels: %d", count);
+}
