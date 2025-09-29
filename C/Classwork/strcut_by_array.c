@@ -1,39 +1,51 @@
 #include <stdio.h>
-#include <string.h>
-struct house
+
+typedef struct Student
 {
-    int house_no;
-    int floor_no;
-    char owner[20];
-};
+    int roll_no;
+    char name[20];
 
-void store(struct house* h){
-    printf("Enter floor no: ");
-    scanf("%d", &h->floor_no);
-    printf("Enter house no: ");
-    scanf("%d", &h->house_no);
+} Student;
 
-    // to clear enter in input buffer
-    fflush(stdin);
-    printf("Enter owner name: ");
-    gets(h->owner);
+void storeStudent(Student *ptr, int size)
+{
+
+    for (int i = 0; i < size; i++)
+    {
+        printf("Enter Roll no: ");
+        scanf("%d", &ptr[i].roll_no);
+
+        printf("Enter name: ");
+        scanf("%s", ptr[i].name);
+    }
 }
 
-void display(struct house* h){
-    printf("\nHouse 1: Floor - %d, House no - %d, Owner Name - %s", &h->floor_no, &h->house_no, h->owner);
+void displayStudent(Student *ptr, int size)
+{
+    for (int i = 0; i < size; i++)
+        printf("\nRoll no.: %d, Name: %s", ptr[i].roll_no, ptr[i].name);
 }
 
 void main()
 {
 
-    struct house h[2];
+    Student july[10], aug[5], sep[15];
 
-    for(int i=0; i<2; i++){
-        store(&h[i]);
-    }
+    printf("\n\nJuly Batch\n");
+    storeStudent(july, 10);
 
-    for (int i = 0; i < 2; i++)
-    {
-        display(&h[i]);
-    }
+    printf("\n\nAugust Batch\n");
+    storeStudent(aug, 5);
+
+    printf("\n\nSeptember Batch\n");
+    storeStudent(sep, 15);
+
+    printf("\n\nJuly Batch");
+    displayStudent(july, 10);
+
+    printf("\n\nAugust Batch");
+    displayStudent(aug, 5);
+
+    printf("\n\nSeptember Batch");
+    displayStudent(sep, 15);
 }
