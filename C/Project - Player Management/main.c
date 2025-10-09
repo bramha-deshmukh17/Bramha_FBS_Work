@@ -230,8 +230,10 @@ Player *addNewPlayer(Player *ptr)
     printf("Jersey No.: ");
     scanf("%d", &ptr[playerCount].jno);
 
-    for(int i=0; i<playerCount; i++) {
-        if(ptr[i].jno == ptr[playerCount].jno) {
+    for (int i = 0; i < playerCount; i++)
+    {
+        if (ptr[i].jno == ptr[playerCount].jno)
+        {
             printf("Jersey No. already exists. Please enter a unique Jersey No.\n");
             return ptr;
         }
@@ -245,66 +247,12 @@ Player *addNewPlayer(Player *ptr)
     printf("Category (Batsman/Bowler/All-Rounder): ");
     scanf("%s", ptr[playerCount].category);
 
-    if (strcmp(ptr[playerCount].category, "Batsman") == 0)
-    {
-        
-    }
-    else if (strcmp(ptr[playerCount].category, "Bowler") == 0)
-    {
-        
-    }
-    else if (strcmp(ptr[playerCount].category, "All-Rounder") == 0)
-    {
-        
-    }
-    else
-    {
-        printf("Invalid category. Please enter Batsman, Bowler, or All-Rounder.\n");
-        return ptr; 
-    }
-
-        int d, m, y, valid = 0;
-        while (!valid) {
-            printf("DOB (dd mm yyyy): ");
-            if (scanf("%d %d %d", &d, &m, &y) != 3) {
-                printf("Invalid input. Enter numbers only.\n");
-                int c; while ((c = getchar()) != '\n' && c != EOF) {}
-                continue;
-            }
-
-            if (y >= 1900 && y <= 2011) {
-                printf("Invalid year. Enter a year between 1900 and 2011.\n");
-                continue;
-            }
-
-            if (m >= 1 && m <= 12) {
-                printf("Invalid month. Enter a value between 1 and 12.\n");
-                continue;
-            }
-
-            int isLeap = (y % 4 == 0 && (y % 100 != 0 || y % 400 == 0));
-            int mdays;
-            if(m==1 || m==3 || m==5 || m==7 || m==8 || m==10 || m==12) {
-                mdays = 31;
-            } else if(m==4 || m==6 || m==9 || m==11) {
-                mdays = 30;
-            } else if(m==2) {
-                mdays = isLeap ? 29 : 28;
-            } else {
-                mdays = 0; 
-            }
-
-            if (d < 1 || d > mdays) {
-                printf("Invalid day. Enter a value between 1 and %d for the given month/year.\n", mdays);
-                continue;
-            }
-
-            ptr[playerCount].dob.day = d;
-            ptr[playerCount].dob.month = m;
-            ptr[playerCount].dob.year = y;
-            valid = 1;
-        }
-    
+    int d, m, y;
+    printf("DOB (dd mm yyyy): ");
+    scanf("%d %d %d", &d, &m, &y);
+    ptr[playerCount].dob.day = d;
+    ptr[playerCount].dob.month = m;
+    ptr[playerCount].dob.year = y;
 
     printf("Matches: ");
     scanf("%d", &ptr[playerCount].matches);
@@ -378,7 +326,7 @@ void updateBattingStats(Player *ptr)
             printf("Add new batting stats for one match:\n");
             printf("Runs: ");
             scanf("%d", &runs);
-            printf("Outs: ");
+            printf("Outs: (0:No, 1:Yes)");
             scanf("%d", &outs);
 
             int century = runs / 100;
@@ -439,6 +387,29 @@ void updateBothStats(Player *ptr)
     printf("\nPlayer with Jersey No. %d not found.", jno);
 }
 
+void updatePlayerName(Player *ptr)
+{
+    int jno;
+    printf("Enter Jersey No. of player to update Name: ");
+    scanf("%d", &jno);
+
+    for (int i = 0; i < playerCount; i++)
+    {
+        if (ptr[i].jno == jno)
+        {
+            char name[20];
+            fflush(stdin);
+            printf("Enter new Name: ");
+            gets(name);
+            strcpy(ptr[i].name, name);
+
+            printf("\nName updated successfully!");
+            return;
+        }
+    }
+    printf("\nPlayer with Jersey No. %d not found.", jno);
+}
+
 void updatePlayer(Player *ptr)
 {
 
@@ -451,7 +422,9 @@ void updatePlayer(Player *ptr)
         printf("\nEnter 1: to update bowling stats");
         printf("\nEnter 2: to update batting stats");
         printf("\nEnter 3: to update both stats");
+        printf("\nEnter 4: to update player name");
 
+        printf("\nEnter choice: ");
         scanf("%d", &choice);
 
         switch (choice)
@@ -464,6 +437,9 @@ void updatePlayer(Player *ptr)
             break;
         case 3:
             updateBothStats(ptr);
+            break;
+        case 4:
+            updatePlayerName(ptr);
             break;
         default:
             choice != 0 ? printf("\nWrong choice... \nEnter correct choice...\n\n") : printf("\nExited");
@@ -576,6 +552,7 @@ void searchPlayer(Player *ptr)
         printf("\nEnter 1: to search by Jersey No.");
         printf("\nEnter 2: to search by Name");
 
+        printf("\nEnter choice: ");
         scanf("%d", &choice);
 
         switch (choice)
@@ -594,14 +571,14 @@ void searchPlayer(Player *ptr)
     } while (choice != 0);
 }
 
-void sortPlayerByRuns(Player *ptr, int displayFlag)
+void sortPlayerByRuns(Player *ptr, int displayFlag, int ascending)
 {
     Player temp;
     for (int i = 0; i < playerCount - 1; i++)
     {
         for (int j = 0; j < playerCount - i - 1; j++)
         {
-            if (ptr[j].runs < ptr[j + 1].runs)
+            if (ascending ? (ptr[j].runs > ptr[j + 1].runs) : (ptr[j].runs < ptr[j + 1].runs))
             {
                 temp = ptr[j];
                 ptr[j] = ptr[j + 1];
@@ -609,19 +586,19 @@ void sortPlayerByRuns(Player *ptr, int displayFlag)
             }
         }
     }
-    printf("\nPlayers sorted by Runs in descending order:");
+    printf("\nPlayers sorted by Runs in %s order:", ascending ? "ascending" : "descending");
     if (displayFlag)
         display(ptr);
 }
 
-void sortPlayerByWickets(Player *ptr, int displayFlag)
+void sortPlayerByWickets(Player *ptr, int displayFlag, int ascending)
 {
     Player temp;
     for (int i = 0; i < playerCount - 1; i++)
     {
         for (int j = i; j < playerCount - i - 1; j++)
         {
-            if (ptr[j].wickets < ptr[j + 1].wickets)
+            if (ascending ? (ptr[j].wickets > ptr[j + 1].wickets) : (ptr[j].wickets < ptr[j + 1].wickets))
             {
                 temp = ptr[j];
                 ptr[j] = ptr[j + 1];
@@ -629,7 +606,7 @@ void sortPlayerByWickets(Player *ptr, int displayFlag)
             }
         }
     }
-    printf("\nPlayers sorted by Wickets in descending order:");
+    printf("\nPlayers sorted by Wickets in %s order:", ascending ? "ascending" : "descending");
     if (displayFlag)
         display(ptr);
 }
@@ -643,17 +620,26 @@ void sortPlayer(Player *ptr)
             break;
         printf("\n\nPress 0: Exit sort submenu");
         printf("\nEnter 1: sort by Runs (descending)");
-        printf("\nEnter 2: sort by Wickets (descending)\n");
+        printf("\nEnter 2: sort by Runs (ascending)");
+        printf("\nEnter 3: sort by Wickets (descending)");
+        printf("\nEnter 4: sort by Wickets (ascending)");
 
+        printf("\nEnter choice: ");
         scanf("%d", &choice);
 
         switch (choice)
         {
         case 1:
-            sortPlayerByRuns(ptr, 1);
+            sortPlayerByRuns(ptr, 1, 0);
             break;
         case 2:
-            sortPlayerByWickets(ptr, 1);
+            sortPlayerByRuns(ptr, 1, 1);
+            break;
+        case 3:
+            sortPlayerByWickets(ptr, 1, 0);
+            break;
+        case 4:
+            sortPlayerByWickets(ptr, 1, 1);
             break;
         default:
             choice != 0 ? printf("\nWrong choice... \nEnter correct choice...\n\n") : printf("\nExited");
@@ -665,7 +651,7 @@ void sortPlayer(Player *ptr)
 
 void findTop3Batsmen(Player *ptr)
 {
-    sortPlayerByRuns(ptr, 0);
+    sortPlayerByRuns(ptr, 0, 0);
     printf("\nTop 3 Batsmen:");
     for (int i = 0; i < 3 && i < playerCount; i++)
     {
@@ -675,7 +661,7 @@ void findTop3Batsmen(Player *ptr)
 
 void findTop3Bowlers(Player *ptr)
 {
-    sortPlayerByWickets(ptr, 0);
+    sortPlayerByWickets(ptr, 0, 0);
     printf("\nTop 3 Bowlers:");
     for (int i = 0; i < 3 && i < playerCount; i++)
     {
@@ -692,6 +678,7 @@ void topThreePlayers(Player *ptr)
         printf("\nEnter 1: Top 3 Batsmen");
         printf("\nEnter 2: Top 3 Bowlers\n");
 
+        printf("Enter choice: ");
         scanf("%d", &choice);
         switch (choice)
         {
