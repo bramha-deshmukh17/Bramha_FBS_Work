@@ -1,0 +1,425 @@
+mysql> create table insurance_details (
+    -> insurance_id int primary key,
+    -> name varchar(255),
+    -> address varchar(255),
+    -> policy_number varchar(255),
+    -> validity date);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into insurance_details (insurance_id, name, address, policy_number, validity) values
+    -> (1, 'star health', 'mumbai', 'sh12345', '2026-05-20'),
+    -> (2, 'lic', 'delhi', 'lic67890', '2025-11-30'),
+    -> (3, 'hdfc ergo', 'bangalore', 'hdfc11223', '2027-01-15'),
+    -> (4, 'bajaj allianz', 'pune', 'bajaj44556', '2025-08-22'),
+    -> (5, 'icici lombard', 'chennai', 'icici77889', '2026-03-10'),
+    -> (6, 'new india assurance', 'kolkata', 'nia12121', '2025-12-01'),
+    -> (7, 'united india insurance', 'hyderabad', 'uii34343', '2026-07-19'),
+    -> (8, 'oriental insurance', 'ahmedabad', 'oic56565', '2027-02-28'),
+    -> (9, 'max bupa', 'gurgaon', 'max78787', '2025-10-05'),
+    -> (10, 'reliance general', 'mumbai', 'rgi90909', '2026-06-12'),
+    -> (11, 'apollo munich', 'delhi', 'amc23232', '2025-09-14'),
+    -> (12, 'tata aig', 'pune', 'tata45454', '2027-03-25'),
+    -> (13, 'kotak mahindra general', 'bangalore', 'kmg67676', '2026-01-30'),
+    -> (14, 'sbi general', 'chennai', 'sbi89898', '2025-07-07'),
+    -> (15, 'cholamandalam ms', 'hyderabad', 'cms11111', '2026-09-21'),
+    -> (16, 'iffco tokio', 'kolkata', 'itg22222', '2025-11-18'),
+    -> (17, 'future generali', 'mumbai', 'fgi33333', '2027-04-01'),
+    -> (18, 'go digit general', 'pune', 'gdg44444', '2026-02-14'),
+    -> (19, 'acko general', 'bangalore', 'acko55555', '2025-06-30'),
+    -> (20, 'edelweiss general', 'delhi', 'egi66666', '2026-10-11'),
+    -> (21, 'royal sundaram', 'chennai', 'rsg77777', '2027-05-18'),
+    -> (22, 'shriram general', 'hyderabad', 'sgi88888', '2025-12-25'),
+    -> (23, 'bharti axa', 'mumbai', 'bag99999', '2026-08-08'),
+    -> (24, 'manipalcigna', 'bangalore', 'mcg10101', '2027-06-09'),
+    -> (25, 'care health', 'gurgaon', 'chg20202', '2026-04-16');
+Query OK, 25 rows affected (0.03 sec)
+Records: 25  Duplicates: 0  Warnings: 0
+
+mysql> create table patient (
+    -> patient_id int primary key,
+    -> name varchar(255),
+    -> dob date,
+    -> gender varchar(10),
+    -> mobile varchar(15),
+    -> insurance_id int,
+    -> foreign key (insurance_id) references insurance_details(insurance_id),
+    -> check (gender in ('male', 'female', 'other')));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into patient (patient_id, name, dob, gender, mobile, insurance_id) values
+    -> (1, 'rohan sharma', '1985-03-15', 'male', '9876543210', 1),
+    -> (2, 'sneha patel', '1992-07-22', 'female', '9876543211', 2),
+    -> (3, 'amit singh', '1978-11-30', 'male', '9876543212', 3),
+    -> (4, 'priya kumar', '2005-01-10', 'female', '9876543213', 4),
+    -> (5, 'vikas reddy', '1980-09-05', 'male', '9876543214', 5),
+    -> (6, 'aditi gupta', '1998-04-25', 'female', '9876543215', 6),
+    -> (7, 'arjun nair', '1965-12-12', 'male', '9876543216', 7),
+    -> (8, 'pooja verma', '1989-06-18', 'female', '9876543217', 8),
+    -> (9, 'rahul joshi', '1995-02-28', 'male', '9876543218', 9),
+    -> (10, 'neha mehta', '1982-10-08', 'female', '9876543219', 10),
+    -> (11, 'manoj desai', '1973-05-14', 'male', '9876543220', 11),
+    -> (12, 'kavita malhotra', '1990-08-01', 'female', '9876543221', 12),
+    -> (13, 'sumit bisht', '1988-03-20', 'male', '9876543222', 13),
+    -> (14, 'sunita prasad', '1969-11-11', 'female', '9876543223', 14),
+    -> (15, 'deepak aggarwal', '2001-07-07', 'male', '9876543224', 15),
+    -> (16, 'geeta saxena', '1958-01-26', 'female', '9876543225', 16),
+    -> (17, 'sandeep shinde', '1984-09-19', 'male', '9876543226', 17),
+    -> (18, 'isha tiwari', '1999-04-03', 'female', '9876543227', 18),
+    -> (19, 'ankur khanna', '1986-12-25', 'male', '9876543228', 19),
+    -> (20, 'divya anand', '1993-02-14', 'female', '9876543229', 20),
+    -> (21, 'mohit roy', '1975-10-02', 'male', '9876543230', 21),
+    -> (22, 'riya jain', '2010-06-09', 'female', '9876543231', 22),
+    -> (23, 'varun pandey', '1981-08-15', 'male', '9876543232', 23),
+    -> (24, 'tanvi agarwal', '1996-05-29', 'female', '9876543233', 24),
+    -> (25, 'sanjay mathur', '1970-03-01', 'male', '9876543234', 25);
+Query OK, 25 rows affected (0.01 sec)
+Records: 25  Duplicates: 0  Warnings: 0
+
+mysql> create table doctors (
+    -> doctor_id int primary key,
+    -> name varchar(255),
+    -> address varchar(255),
+    -> gender varchar(10),
+    -> specialisation varchar(255),
+    -> qualification varchar(255),
+    -> experience int,
+    -> check (gender in ('male', 'female', 'other')));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into doctors (doctor_id, name, address, gender, specialisation, qualification, experience) values
+    -> (1, 'dr. anjali sharma', '123 main street, delhi', 'female', 'cardiologist', 'md, cardiology', 15),
+    -> (2, 'dr. vikram singh', '456 park avenue, mumbai', 'male', 'orthopedic surgeon', 'ms, orthopedics', 12),
+    -> (3, 'dr. priya patel', '789 lake road, bangalore', 'female', 'dermatologist', 'md, dermatology', 8),
+    -> (4, 'dr. rajesh kumar', '101 hill view, pune', 'male', 'pediatrician', 'md, pediatrics', 20),
+    -> (5, 'dr. sunita reddy', '212 river side, chennai', 'female', 'neurologist', 'dm, neurology', 18),
+    -> (6, 'dr. amit gupta', '333 ocean drive, kolkata', 'male', 'gastroenterologist', 'dm, gastroenterology', 10),
+    -> (7, 'dr. meera nair', '444 sky tower, hyderabad', 'female', 'oncologist', 'dm, oncology', 14),
+    -> (8, 'dr. sanjay verma', '555 green valley, ahmedabad', 'male', 'ent specialist', 'ms, ent', 22),
+    -> (9, 'dr. deepa joshi', '666 sunshine apts, gurgaon', 'female', 'gynecologist', 'ms, obstetrics & gynaecology', 11),
+    -> (10, 'dr. arun mehta', '777 city plaza, mumbai', 'male', 'urologist', 'mch, urology', 16),
+    -> (11, 'dr. kavita desai', '888 garden estate, delhi', 'female', 'endocrinologist', 'dm, endocrinology', 9),
+    -> (12, 'dr. manish malhotra', '999 silver heights, pune', 'male', 'pulmonologist', 'md, respiratory medicine', 13),
+    -> (13, 'dr. neha bisht', '111 golden arch, bangalore', 'female', 'rheumatologist', 'dm, rheumatology', 7),
+    -> (14, 'dr. rohit prasad', '222 pearl residency, chennai', 'male', 'nephrologist', 'dm, nephrology', 19),
+    -> (15, 'dr. pooja aggarwal', '321 diamond complex, hyderabad', 'female', 'psychiatrist', 'md, psychiatry', 6),
+    -> (16, 'dr. alok saxena', '432 emerald court, kolkata', 'male', 'general surgeon', 'ms, general surgery', 25),
+    -> (17, 'dr. swati shinde', '543 ruby palace, ahmedabad', 'female', 'ophthalmologist', 'ms, ophthalmology', 17),
+    -> (18, 'dr. ankit tiwari', '654 sapphire towers, gurgaon', 'male', 'dentist', 'bds, mds', 5),
+    -> (19, 'dr. ritu khanna', '765 platinum heights, mumbai', 'female', 'physiotherapist', 'bpt, mpt', 10),
+    -> (20, 'dr. vivek anand', '876 crystal building, delhi', 'male', 'radiologist', 'md, radiology', 21),
+    -> (21, 'dr. seema roy', '987 star apartments, pune', 'female', 'general physician', 'mbbs, md', 12),
+    -> (22, 'dr. karan jain', '192 metro street, bangalore', 'male', 'cardiothoracic surgeon', 'mch, cardiothoracic surgery', 14),
+    -> (23, 'dr. isha pandey', '231 central market, chennai', 'female', 'plastic surgeon', 'mch, plastic surgery', 8),
+    -> (24, 'dr. mohit agarwal', '345 trade center, hyderabad', 'male', 'hematologist', 'dm, hematology', 11),
+    -> (25, 'dr. reena mathur', '456 business park, kolkata', 'female', 'allergist', 'md, allergy & immunology', 9);
+Query OK, 25 rows affected (0.01 sec)
+Records: 25  Duplicates: 0  Warnings: 0
+
+mysql> create table medical_history (
+    -> id int primary key,
+    -> patient_id int,
+    -> diagnosis varchar(255),
+    -> treatment varchar(255),
+    -> medication varchar(255),
+    -> details varchar(250),
+    -> foreign key (patient_id) references patient(patient_id));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into medical_history (id, patient_id, diagnosis, treatment, medication, details) values
+    -> (1, 1, 'hypertension', 'lifestyle changes', 'amlodipine', 'patient has a history of high blood pressure'),
+    -> (2, 2, 'type 2 diabetes', 'oral medication', 'metformin', 'regular monitoring of blood sugar levels'),
+    -> (3, 3, 'asthma', 'inhaler therapy', 'salbutamol', 'patient experiences seasonal wheezing'),
+    -> (4, 4, 'acne vulgaris', 'topical creams', 'benzoyl peroxide', 'mild to moderate acne on face'),
+    -> (5, 5, 'migraine', 'pain management', 'sumatriptan', 'experiences frequent headaches with aura'),
+    -> (6, 6, 'gastritis', 'antacids', 'pantoprazole', 'complains of stomach pain after meals'),
+    -> (7, 7, 'coronary artery disease', 'angioplasty', 'atorvastatin', 'had a stent placed in 2020'),
+    -> (8, 8, 'osteoarthritis', 'physiotherapy', 'nsaids', 'knee joint pain and stiffness'),
+    -> (9, 9, 'pcos', 'hormonal therapy', 'metformin', 'irregular menstrual cycles'),
+    -> (10, 10, 'hypothyroidism', 'thyroid hormone replacement', 'levothyroxine', 'diagnosed 5 years ago'),
+    -> (11, 11, 'peptic ulcer disease', 'antibiotics', 'amoxicillin', 'h. pylori positive'),
+    -> (12, 12, 'chronic sinusitis', 'nasal spray', 'fluticasone', 'recurrent sinus infections'),
+    -> (13, 13, 'rheumatoid arthritis', 'dmards', 'methotrexate', 'joint swelling and pain in hands'),
+    -> (14, 14, 'chronic kidney disease', 'dietary restrictions', 'epoetin alfa', 'stage 3 ckd'),
+    -> (15, 15, 'anxiety disorder', 'counseling', 'sertraline', 'experiences panic attacks'),
+    -> (16, 16, 'cataract', 'surgery', 'none', 'right eye cataract surgery scheduled'),
+    -> (17, 17, 'gout', 'medication', 'allopurinol', 'high uric acid levels'),
+    -> (18, 18, 'dental caries', 'filling', 'none', 'cavity found in molar tooth'),
+    -> (19, 19, 'lower back pain', 'exercise', 'ibuprofen', 'muscle strain from lifting heavy object'),
+    -> (20, 20, 'pneumonia', 'antibiotics', 'azithromycin', 'community-acquired pneumonia'),
+    -> (21, 21, 'dvt', 'anticoagulants', 'warfarin', 'history of deep vein thrombosis'),
+    -> (22, 22, 'tonsillitis', 'antibiotics', 'penicillin', 'recurrent throat infections'),
+    -> (23, 23, 'hernia', 'surgical repair', 'none', 'inguinal hernia repair'),
+    -> (24, 24, 'anemia', 'iron supplements', 'ferrous sulfate', 'iron-deficiency anemia'),
+    -> (25, 25, 'allergic rhinitis', 'antihistamines', 'cetirizine', 'seasonal allergies to pollen');
+Query OK, 25 rows affected (0.01 sec)
+Records: 25  Duplicates: 0  Warnings: 0
+
+mysql> create table encounter (
+    -> encounter_id int primary key,
+    -> patient_id int,
+    -> doctor_id int,
+    -> date date,
+    -> discharge_date date,
+    -> encounter_type varchar(50),
+    -> details varchar(250),
+    -> foreign key (patient_id) references patient(patient_id),
+    -> foreign key (doctor_id) references doctors(doctor_id),
+    -> check (encounter_type in ('appointment', 'admission', 'discharge')));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> insert into encounter (encounter_id, patient_id, doctor_id, date, discharge_date, encounter_type, details) values
+    -> (1, 1, 1, '2025-10-01', '2025-10-01', 'appointment', 'routine checkup for hypertension'),
+    -> (2, 2, 11, '2025-10-02', '2025-10-02', 'appointment', 'follow-up for diabetes management'),
+    -> (3, 7, 1, '2025-09-15', '2025-09-20', 'admission', 'admitted for chest pain evaluation'),
+    -> (4, 4, 3, '2025-10-03', '2025-10-03', 'appointment', 'consultation for skin rash'),
+    -> (5, 22, 4, '2025-10-04', '2025-10-04', 'appointment', 'pediatric vaccination'),
+    -> (6, 5, 5, '2025-09-28', '2025-09-28', 'appointment', 'severe headache consultation'),
+    -> (7, 6, 6, '2025-10-05', '2025-10-05', 'appointment', 'endoscopy scheduled'),
+    -> (8, 8, 2, '2025-09-10', '2025-09-18', 'admission', 'knee replacement surgery'),
+    -> (9, 9, 9, '2025-10-06', '2025-10-06', 'appointment', 'annual gynecological exam'),
+    -> (10, 10, 11, '2025-10-07', '2025-10-07', 'appointment', 'thyroid function test review'),
+    -> (11, 1, 21, '2025-09-05', '2025-09-05', 'appointment', 'general physician visit for flu'),
+    -> (12, 14, 14, '2025-08-20', '2025-08-25', 'admission', 'admitted for dialysis'),
+    -> (13, 13, 13, '2025-10-08', '2025-10-08', 'appointment', 'follow-up on joint pain'),
+    -> (14, 15, 15, '2025-10-09', '2025-10-09', 'appointment', 'therapy session'),
+    -> (15, 16, 17, '2025-10-10', '2025-10-10', 'appointment', 'pre-operative check for cataract surgery'),
+    -> (16, 3, 12, '2025-09-22', '2025-09-22', 'appointment', 'asthma control checkup'),
+    -> (17, 17, 21, '2025-10-11', '2025-10-11', 'appointment', 'consultation for foot pain'),
+    -> (18, 18, 18, '2025-10-12', '2025-10-12', 'appointment', 'dental cleaning and checkup'),
+    -> (19, 19, 19, '2025-10-13', '2025-10-13', 'appointment', 'physiotherapy for back pain'),
+    -> (20, 20, 12, '2025-09-01', '2025-09-07', 'admission', 'hospitalized for pneumonia treatment'),
+    -> (21, 23, 16, '2025-09-25', '2025-09-27', 'admission', 'admitted for hernia surgery'),
+    -> (22, 2, 5, '2025-10-14', '2025-10-14', 'appointment', 'neurology follow-up'),
+    -> (23, 24, 24, '2025-10-15', '2025-10-15', 'appointment', 'blood test results review'),
+    -> (24, 25, 25, '2025-10-16', '2025-10-16', 'appointment', 'allergy testing session'),
+    -> (25, 8, 2, '2025-09-20', '2025-09-20', 'discharge', 'discharged after successful surgery');
+Query OK, 25 rows affected (0.01 sec)
+Records: 25  Duplicates: 0  Warnings: 0
+
+mysql> create table diagnosis_test (
+    -> diagnosis_id int primary key,
+    -> test varchar(255),
+    -> test_type varchar(255),
+    -> description varchar(250));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into diagnosis_test (diagnosis_id, test, test_type, description) values
+    -> (1, 'complete blood count', 'blood test', 'evaluates overall health and detects a wide range of disorders'),
+    -> (2, 'lipid profile', 'blood test', 'measures cholesterol and triglyceride levels'),
+    -> (3, 'liver function test', 'blood test', 'measures enzymes and proteins in the blood to assess liver health'),
+    -> (4, 'kidney function test', 'blood test', 'checks how well the kidneys are working'),
+    -> (5, 'thyroid stimulating hormone', 'blood test', 'screens for thyroid problems'),
+    -> (6, 'urine routine', 'urine test', 'checks for various compounds in the urine'),
+    -> (7, 'x-ray chest', 'imaging', 'produces images of the heart, lungs, and bones'),
+    -> (8, 'ultrasound abdomen', 'imaging', 'uses sound waves to create pictures of the organs in the abdomen'),
+    -> (9, 'ct scan head', 'imaging', 'creates detailed images of the brain and skull'),
+    -> (10, 'mri spine', 'imaging', 'provides detailed images of the spine and surrounding tissues'),
+    -> (11, 'ecg', 'cardiac test', 'records the electrical signal from the heart to check for different heart conditions'),
+    -> (12, 'echocardiogram', 'cardiac test', 'uses sound waves to produce live images of your heart'),
+    -> (13, 'treadmill test', 'cardiac test', 'monitors heart rate while you walk on a treadmill'),
+    -> (14, 'endoscopy', 'procedure', 'a procedure to look inside your body'),
+    -> (15, 'colonoscopy', 'procedure', 'exam used to detect changes or abnormalities in the large intestine'),
+    -> (16, 'biopsy', 'procedure', 'a sample of tissue is taken from the body to examine it more closely'),
+    -> (17, 'pap smear', 'womens health', 'procedure to test for cervical cancer in women'),
+    -> (18, 'mammogram', 'womens health', 'an x-ray picture of the breast'),
+    -> (19, 'prostate-specific antigen', 'mens health', 'blood test to screen for prostate cancer'),
+    -> (20, 'allergy skin test', 'allergy test', 'skin tests use extracts of suspected allergens'),
+    -> (21, 'hba1c', 'blood test', 'measures average blood sugar levels over the past 3 months'),
+    -> (22, 'vitamin d test', 'blood test', 'measures the level of vitamin d in the blood'),
+    -> (23, 'vitamin b12 test', 'blood test', 'measures the level of vitamin b12 in the blood'),
+    -> (24, 'pulmonary function test', 'lung test', 'measures lung function, specifically the amount and speed of air that can be inhaled and exhaled'),
+    -> (25, 'bone density scan', 'imaging', 'measures how much calcium and other types of minerals are in an area of your bone');
+Query OK, 25 rows affected (0.01 sec)
+Records: 25  Duplicates: 0  Warnings: 0
+
+mysql> create table encounter_diagnosis (
+    -> encounter_id int,
+    -> diagnosis_id int,
+    -> result varchar(255),
+    -> date date,
+    -> note varchar(250),
+    -> primary key (encounter_id, diagnosis_id),
+    -> foreign key (encounter_id) references encounter(encounter_id),
+    -> foreign key (diagnosis_id) references diagnosis_test(diagnosis_id));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into encounter_diagnosis (encounter_id, diagnosis_id, result, date, note) values
+    -> (1, 1, 'normal', '2025-10-01', 'all parameters within normal range'),
+    -> (2, 21, '7.2%', '2025-10-02', 'hba1c slightly elevated'),
+    -> (3, 11, 'st segment depression', '2025-09-15', 'suggestive of ischemia'),
+    -> (3, 12, 'normal ejection fraction', '2025-09-16', 'no structural abnormalities found'),
+    -> (4, 20, 'positive for dust mites', '2025-10-03', 'patient advised to take precautions'),
+    -> (7, 14, 'mild gastritis found', '2025-10-05', 'biopsy taken for h. pylori'),
+    -> (8, 7, 'joint space narrowing', '2025-09-10', 'confirms osteoarthritis in the knee'),
+    -> (10, 5, 'tsh level 8.5', '2025-10-07', 'dosage of levothyroxine adjusted'),
+    -> (12, 4, 'creatinine elevated', '2025-08-20', 'requires regular monitoring'),
+    -> (13, 1, 'esr elevated', '2025-10-08', 'indicates inflammation'),
+    -> (16, 24, 'fev1 reduced', '2025-09-22', 'indicative of obstructive airway disease'),
+    -> (20, 7, 'infiltrate in right lower lobe', '2025-09-01', 'consistent with pneumonia'),
+    -> (21, 8, 'inguinal hernia visible', '2025-09-25', 'pre-operative assessment'),
+    -> (23, 1, 'hemoglobin low', '2025-10-15', 'confirms anemia diagnosis'),
+    -> (24, 20, 'positive for pollen', '2025-10-16', 'seasonal allergy confirmed'),
+    -> (1, 2, 'cholesterol high', '2025-10-01', 'dietary advice given'),
+    -> (5, 1, 'normal', '2025-10-04', 'routine check'),
+    -> (6, 9, 'normal scan', '2025-09-28', 'no abnormalities detected'),
+    -> (9, 8, 'cysts seen on ovaries', '2025-10-06', 'confirms pcos'),
+    -> (11, 1, 'wbc count high', '2025-09-05', 'indicates infection'),
+    -> (15, 25, 'osteopenia detected', '2025-10-10', 'calcium supplements prescribed'),
+    -> (17, 7, 'uric acid crystals seen', '2025-10-11', 'confirms gout'),
+    -> (18, 7, 'dental cavity visible', '2025-10-12', 'x-ray of tooth taken'),
+    -> (19, 10, 'lumbar strain noted', '2025-10-13', 'no disc herniation'),
+    -> (25, 7, 'normal chest x-ray', '2025-09-20', 'post-operative check');
+Query OK, 25 rows affected (0.01 sec)
+Records: 25  Duplicates: 0  Warnings: 0
+
+mysql> create table procedure_and_surgery (
+    -> procedure_id int primary key,
+    -> procedure_name varchar(255),
+    -> surgery_name varchar(255),
+    -> type varchar(255),
+    -> details varchar(250));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into procedure_and_surgery (procedure_id, procedure_name, surgery_name, type, details) values
+    -> (1, 'cardiac catheterization', 'angioplasty', 'cardiac', 'procedure to open narrowed or blocked blood vessels that supply blood to the heart'),
+    -> (2, 'knee arthroscopy', 'knee replacement', 'orthopedic', 'surgical procedure to resurface a knee damaged by arthritis'),
+    -> (3, 'skin biopsy', 'none', 'dermatology', 'a procedure in which a sample of skin tissue is removed'),
+    -> (4, 'vaccination', 'none', 'preventive', 'administration of a vaccine to help the immune system develop protection'),
+    -> (5, 'eeg', 'none', 'neurology', 'electroencephalogram to detect electrical activity in your brain'),
+    -> (6, 'upper gi endoscopy', 'none', 'gastroenterology', 'procedure to visually examine your upper digestive system'),
+    -> (7, 'chemotherapy session', 'none', 'oncology', 'cancer treatment that uses one or more anti-cancer drugs'),
+    -> (8, 'tonsillectomy', 'tonsillectomy', 'ent', 'surgical removal of the tonsils'),
+    -> (9, 'c-section', 'cesarean section', 'obstetrics', 'surgical delivery of a baby'),
+    -> (10, 'cystoscopy', 'none', 'urology', 'procedure to look inside the bladder'),
+    -> (11, 'thyroid biopsy', 'none', 'endocrinology', 'removal of a small piece of thyroid tissue for examination'),
+    -> (12, 'bronchoscopy', 'none', 'pulmonology', 'procedure to look directly at the airways in the lungs'),
+    -> (13, 'joint aspiration', 'none', 'rheumatology', 'procedure to remove fluid from the space around a joint'),
+    -> (14, 'hemodialysis', 'none', 'nephrology', 'a procedure to remove waste products and extra fluid from the blood'),
+    -> (15, 'counseling session', 'none', 'psychiatry', 'talk therapy with a trained mental health professional'),
+    -> (16, 'phacoemulsification', 'cataract surgery', 'ophthalmology', 'a modern cataract surgery method'),
+    -> (17, 'abscess drainage', 'none', 'general surgery', 'procedure to drain pus from an abscess'),
+    -> (18, 'root canal treatment', 'none', 'dentistry', 'treatment to repair and save a badly damaged or infected tooth'),
+    -> (19, 'physiotherapy session', 'none', 'rehabilitation', 'treatment to restore, maintain, and make the most of a patient''s mobility'),
+    -> (20, 'intravenous antibiotic administration', 'none', 'treatment', 'giving antibiotics directly into a vein'),
+    -> (21, 'herniorrhaphy', 'hernia repair', 'general surgery', 'surgical repair of a hernia'),
+    -> (22, 'lumbar puncture', 'none', 'neurology', 'procedure to collect and look at the fluid surrounding the brain and spinal cord'),
+    -> (23, 'blood transfusion', 'none', 'hematology', 'procedure of transferring blood products into one''s circulation intravenously'),
+    -> (24, 'allergy shot', 'none', 'allergy', 'immunotherapy to treat allergies'),
+    -> (25, 'casting', 'none', 'orthopedic', 'application of a cast for a fractured bone');
+Query OK, 25 rows affected (0.01 sec)
+Records: 25  Duplicates: 0  Warnings: 0
+
+mysql> create table encounter_procedure (
+    -> encounter_id int,
+    -> procedure_id int,
+    -> date date,
+    -> result varchar(255),
+    -> note varchar(250),
+    -> primary key (encounter_id, procedure_id),
+    -> foreign key (encounter_id) references encounter(encounter_id),
+    -> foreign key (procedure_id) references procedure_and_surgery(procedure_id));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> insert into encounter_procedure (encounter_id, procedure_id, date, result, note) values
+    -> (3, 1, '2025-09-17', 'successful', 'stent placed in rca, patient stable'),
+    -> (8, 2, '2025-09-12', 'successful', 'total knee replacement of the right knee completed'),
+    -> (4, 3, '2025-10-03', 'sample collected', 'biopsy sent for histopathology'),
+    -> (5, 4, '2025-10-04', 'completed', 'mmr vaccine administered'),
+    -> (6, 5, '2025-09-28', 'normal brain activity', 'no seizure activity detected'),
+    -> (7, 6, '2025-10-05', 'mild inflammation', 'biopsy taken from stomach lining'),
+    -> (9, 9, '2025-10-06', 'n/a', 'routine procedure'),
+    -> (12, 14, '2025-08-21', 'completed', '4-hour session completed without complications'),
+    -> (14, 15, '2025-10-09', 'in progress', 'patient is responsive to therapy'),
+    -> (15, 16, '2025-10-10', 'scheduled', 'pre-operative checks are normal'),
+    -> (16, 12, '2025-09-22', 'clear airways', 'no obstructions found'),
+    -> (18, 18, '2025-10-12', 'to be started', 'root canal scheduled for next visit'),
+    -> (19, 19, '2025-10-13', 'ongoing', 'patient showing improvement in mobility'),
+    -> (20, 20, '2025-09-02', 'completed', 'full course of iv antibiotics administered'),
+    -> (21, 21, '2025-09-26', 'successful', 'hernia repaired using mesh'),
+    -> (22, 22, '2025-10-14', 'csf clear', 'no signs of meningitis'),
+    -> (23, 23, '2025-10-15', 'completed', 'one unit of prbc transfused'),
+    -> (24, 24, '2025-10-16', 'initiated', 'first dose of immunotherapy given'),
+    -> (1, 19, '2025-10-01', 'recommended', 'lifestyle modification counseling'),
+    -> (2, 19, '2025-10-02', 'recommended', 'diabetic diet counseling'),
+    -> (11, 4, '2025-09-05', 'completed', 'flu shot administered'),
+    -> (13, 13, '2025-10-08', 'fluid analyzed', 'no crystals found in joint fluid'),
+    -> (17, 25, '2025-10-11', 'applied', 'cast applied for ankle fracture'),
+    -> (25, 19, '2025-09-20', 'completed', 'post-operative physiotherapy initiated'),
+    -> (10, 11, '2025-10-07', 'sample collected', 'fine needle aspiration cytology done');
+Query OK, 25 rows affected (0.01 sec)
+Records: 25  Duplicates: 0  Warnings: 0
+
+mysql> create table prescription (
+    -> prescription_id int primary key,
+    -> medication varchar(255),
+    -> dosage varchar(255),
+    -> dispensing_data varchar(250));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into prescription (prescription_id, medication, dosage, dispensing_data) values
+    -> (1, 'amlodipine', '5mg once daily', '30 tablets'),
+    -> (2, 'metformin', '500mg twice daily', '60 tablets'),
+    -> (3, 'salbutamol inhaler', '2 puffs as needed', '1 inhaler'),
+    -> (4, 'clindamycin phosphate gel', 'apply thin layer twice daily', '1 tube'),
+    -> (5, 'sumatriptan', '50mg at onset of migraine', '10 tablets'),
+    -> (6, 'pantoprazole', '40mg once daily before breakfast', '30 tablets'),
+    -> (7, 'atorvastatin', '20mg once daily at night', '30 tablets'),
+    -> (8, 'ibuprofen', '400mg as needed for pain', '20 tablets'),
+    -> (9, 'oral contraceptive pill', '1 pill daily', '1 pack'),
+    -> (10, 'levothyroxine', '75mcg once daily', '30 tablets'),
+    -> (11, 'amoxicillin', '500mg three times a day for 7 days', '21 capsules'),
+    -> (12, 'fluticasone nasal spray', '2 sprays in each nostril daily', '1 bottle'),
+    -> (13, 'methotrexate', '15mg once a week', '4 tablets'),
+    -> (14, 'epoetin alfa injection', '4000 iu twice a week', '8 injections'),
+    -> (15, 'sertraline', '50mg once daily', '30 tablets'),
+    -> (16, 'moxifloxacin eye drops', '1 drop in right eye 4 times a day', '1 bottle'),
+    -> (17, 'allopurinol', '300mg once daily', '30 tablets'),
+    -> (18, 'paracetamol', '500mg for pain after procedure', '10 tablets'),
+    -> (19, 'calcium and vitamin d tablets', '1 tablet twice daily', '60 tablets'),
+    -> (20, 'azithromycin', '500mg once daily for 3 days', '3 tablets'),
+    -> (21, 'warfarin', '5mg once daily', '30 tablets'),
+    -> (22, 'penicillin vk', '250mg four times a day for 10 days', '40 tablets'),
+    -> (23, 'tramadol', '50mg for post-operative pain', '15 tablets'),
+    -> (24, 'ferrous sulfate', '200mg once daily', '30 tablets'),
+    -> (25, 'cetirizine', '10mg once daily as needed', '20 tablets');
+Query OK, 25 rows affected (0.01 sec)
+Records: 25  Duplicates: 0  Warnings: 0
+
+mysql> create table encounter_prescription (
+    -> encounter_id int,
+    -> prescription_id int,
+    -> date date,
+    -> note varchar(250),
+    -> primary key (encounter_id, prescription_id),
+    -> foreign key (encounter_id) references encounter(encounter_id),
+    -> foreign key (prescription_id) references prescription(prescription_id));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into encounter_prescription (encounter_id, prescription_id, date, note) values
+    -> (1, 1, '2025-10-01', 'continue current dosage'),
+    -> (2, 2, '2025-10-02', 'monitor blood sugar levels'),
+    -> (3, 7, '2025-09-20', 'discharge medication'),
+    -> (4, 4, '2025-10-03', 'for external use only'),
+    -> (5, 18, '2025-10-04', 'for post-vaccination fever if any'),
+    -> (6, 5, '2025-09-28', 'do not exceed 2 doses in 24 hours'),
+    -> (7, 6, '2025-10-05', 'continue for 4 weeks'),
+    -> (8, 23, '2025-09-20', 'for post-operative pain management'),
+    -> (9, 9, '2025-10-06', 'start new pack on sunday'),
+    -> (10, 10, '2025-10-07', 'recheck tsh after 6 weeks'),
+    -> (11, 18, '2025-09-05', 'for fever and body ache'),
+    -> (12, 14, '2025-08-25', 'to be administered by nurse'),
+    -> (13, 13, '2025-10-08', 'monitor for side effects'),
+    -> (14, 15, '2025-10-09', 'continue medication as advised'),
+    -> (15, 16, '2025-10-10', 'start after surgery'),
+    -> (16, 3, '2025-09-22', 'use for shortness of breath'),
+    -> (17, 17, '2025-10-11', 'take with plenty of water'),
+    -> (18, 18, '2025-10-12', 'for any pain after dental work'),
+    -> (19, 8, '2025-10-13', 'take after meals'),
+    -> (20, 20, '2025-09-07', 'complete the full course'),
+    -> (21, 23, '2025-09-27', 'discharge pain medication'),
+    -> (22, 5, '2025-10-14', 'refill prescription'),
+    -> (23, 24, '2025-10-15', 'take with orange juice for better absorption'),
+    -> (24, 25, '2025-10-16', 'can cause drowsiness'),
+    -> (25, 19, '2025-09-20', 'for bone health post-surgery');
+Query OK, 25 rows affected (0.01 sec)
+Records: 25  Duplicates: 0  Warnings: 0
