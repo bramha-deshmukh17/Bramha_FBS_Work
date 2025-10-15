@@ -1,0 +1,50 @@
+Q1. 1. Write a SQL statement to display all the information of all actors
+answer - select * from actors;
+
+Q2. Write a query to display the columns in descending order of rating of movie
+
+answer - select *from movies order by IMDB_rating desc;
+
+Q3. 3. Write a SQL statement to display names of actors who are male and received awards more than 10.
+
+answer - select name from actors where gender = "Male" and no_of_awards > 10;
+
+Q4. Write a SQL query to display the role followed by all movie id for the actor who is having actor id as 101
+
+answer - select role, m_id from movie_cast where a_id = 101;
+
+5. Write a SQL query to find the actor who is not Indian
+
+answer - select *from actors where not nationality = "Indian";
+
+6. Write a SQL statement to find the number of actors worked in each movie.
+
+answer - 
+select m.mname, count(*) "Number of Actors"
+from movies m
+inner join movie_cast mc
+on m.m_id=mc.m_id
+group by m.mname;
+
+7. Write a SQL statement to find the role played by ‘Amir khan’ actor in 3 idiots movie.
+
+answer - 
+select role from movie_cast 
+where a_id = (select act_id from actors where name="Amir Khan")
+and m_id = (select m_id from movies where mname="3 idiots");
+
+8. Write a SQL statement to find the details of movie having lowest total budget.
+
+answer - select *from movies where t_budget = (select min(t_budget) from movies);
+
+9. Write a SQL statement that finds out count of actors according to gender
+
+answer - select gender, count(*) from actors group by gender;
+
+10. Write a query to find all the roles of actor who have played in movie with id 3.
+
+answer -
+select mc.role, a.name from actors a 
+inner join movie_cast mc
+on mc.a_id=a.act_id
+where mc.m_id=3;
