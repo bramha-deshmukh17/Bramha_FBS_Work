@@ -2,3 +2,4 @@
 *.exe
 /.metadata/
 /.metadata/
+/JavaNotepad/*.class
