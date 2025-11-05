@@ -75,8 +75,7 @@ class AdminDemo {
         a1.display();
 
         // Using getters
-        System.out.println(
-                "Getter: " + a1.getId() + ", " + a1.getName() + ", " + a1.getSalary() + ", " + a1.getAllowance());
+        System.out.println("Data: " + a1.getId() + ", " + a1.getName() + ", " + a1.getSalary() + ", " + a1.getAllowance());
 
         // Using parameterized constructor
         Admin a2 = new Admin(102, "XYZ", 90000.0, 12000.0);
@@ -87,6 +86,6 @@ class AdminDemo {
         a2.setName("ABC");
         a2.setSalary(95000.0);
         a2.setAllowance(15000.0);
-        System.out.println("Updated via getters: " + a2.getId() + ", " + a2.getName() + ", " + a2.getSalary() + ", " + a2.getAllowance());
+        System.out.println("Data: " + a2.getId() + ", " + a2.getName() + ", " + a2.getSalary() + ", " + a2.getAllowance());
     }
 }

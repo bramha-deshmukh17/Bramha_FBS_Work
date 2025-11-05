@@ -49,7 +49,7 @@ class ComplexDemo {
         c1.display();
 
         // Using getters
-        System.out.println("Getter check: " + c1.getReal() + ", " + c1.getImaginary());
+        System.out.println("Data: " + c1.getReal() + ", " + c1.getImaginary());
 
         // Using parameterized constructor
         Complex c2 = new Complex(5, 6);
@@ -58,12 +58,6 @@ class ComplexDemo {
         // Update via setters and show getters
         c2.setReal(7);
         c2.setImaginary(8);
-        System.out.println("Updated via getters: " + c2.getReal() + ", " + c2.getImaginary());
-
-        // Another object using setters
-        Complex c3 = new Complex();
-        c3.setReal(0);
-        c3.setImaginary(1);
-        c3.display();
+        System.out.println("Data: " + c2.getReal() + ", " + c2.getImaginary());
     }
 }

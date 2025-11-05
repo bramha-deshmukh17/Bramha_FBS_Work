@@ -55,23 +55,23 @@ class Student {
 class StudentDemo {
     public static void main(String[] args) {
         // Using default constructor and setters
-        Student sAbc = new Student();
-        sAbc.setRollno(1);
-        sAbc.setName("Abc");
-        sAbc.setMarks(85);
-        sAbc.display();
+        Student s1 = new Student();
+        s1.setRollno(1);
+        s1.setName("Abc");
+        s1.setMarks(85);
+        s1.display();
 
         // Using getters
-        System.out.println("Getter check: " + sAbc.getRollno() + ", " + sAbc.getName() + ", " + sAbc.getMarks());
+        System.out.println("Data: " + s1.getRollno() + ", " + s1.getName() + ", " + s1.getMarks());
 
         // Using parameterized constructor
-        Student sPQR = new Student(2, "PQR", 90);
-        sPQR.display();
+        Student s2 = new Student(2, "PQR", 90);
+        s2.display();
 
         // Update via setters and show getters
-        sPQR.setRollno(3);
-        sPQR.setName("Bramha");
-        sPQR.setMarks(95);
-        System.out.println("Updated via getters: " + sPQR.getRollno() + ", " + sPQR.getName() + ", " + sPQR.getMarks());
+        s2.setRollno(3);
+        s2.setName("Bramha");
+        s2.setMarks(95);
+        System.out.println("Data: " + s2.getRollno() + ", " + s2.getName() + ", " + s2.getMarks());
     }
 }

@@ -75,8 +75,7 @@ class BookDemo {
         b1.display();
 
         // Using getters
-        System.out.println("Getter check: " + b1.getIsbn() + ", " + b1.getBname() + ", " + b1.getCategory() + ", "
-                + b1.getPrice());
+        System.out.println("Data: " + b1.getIsbn() + ", " + b1.getBname() + ", " + b1.getCategory() + ", " + b1.getPrice());
 
         // Using parameterized constructor
         Book b2 = new Book(1002, "PQR", "Abc", 349);
@@ -87,15 +86,7 @@ class BookDemo {
         b2.setBname("Xyz");
         b2.setCategory("PQR");
         b2.setPrice(399);
-        System.out.println("Updated via getters: " + b2.getIsbn() + ", " + b2.getBname() + ", " + b2.getCategory()
-                + ", " + b2.getPrice());
+        System.out.println("Data: " + b2.getIsbn() + ", " + b2.getBname() + ", " + b2.getCategory() + ", " + b2.getPrice());
 
-        // Another object using setters
-        Book b3 = new Book();
-        b3.setIsbn(1004);
-        b3.setBname("Abc");
-        b3.setCategory("PQR");
-        b3.setPrice(199);
-        b3.display();
-    }
+       }
 }

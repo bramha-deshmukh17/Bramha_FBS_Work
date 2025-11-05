@@ -88,8 +88,7 @@ class CarDemo {
         c1.display();
 
         // Using getters
-        System.out.println("Getter check: " + c1.getModel() + ", " + c1.getBrand() + ", " + c1.getPrice() + ", "
-                + c1.getFuelCapacity() + ", " + c1.getColor());
+        System.out.println("Data: " + c1.getModel() + ", " + c1.getBrand() + ", " + c1.getPrice() + ", " + c1.getFuelCapacity() + ", " + c1.getColor());
 
         // Using parameterized constructor
         Car c2 = new Car("Model S", "Tesla", 80000, 75, "Blue");
@@ -101,16 +100,7 @@ class CarDemo {
         c2.setPrice(45000);
         c2.setFuelCapacity(60);
         c2.setColor("Black");
-        System.out.println("Updated via getters: " + c2.getModel() + ", " + c2.getBrand() + ", " + c2.getPrice() + ", "
-                + c2.getFuelCapacity() + ", " + c2.getColor());
+        System.out.println("Data: " + c2.getModel() + ", " + c2.getBrand() + ", " + c2.getPrice() + ", " + c2.getFuelCapacity() + ", " + c2.getColor());
 
-        // Another object using setters
-        Car c3 = new Car();
-        c3.setModel("Corolla");
-        c3.setBrand("Toyota");
-        c3.setPrice(22000);
-        c3.setFuelCapacity(50);
-        c3.setColor("White");
-        c3.display();
-    }
+       }
 }

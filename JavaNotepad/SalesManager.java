@@ -88,8 +88,7 @@ class SalesManagerDemo {
         s1.display();
 
         // Using getters
-        System.out.println("Getter check: " + s1.getId() + ", " + s1.getName() + ", " + s1.getSalary() + ", "
-                + s1.getIncentive() + ", " + s1.getTarget());
+        System.out.println("Data: " + s1.getId() + ", " + s1.getName() + ", " + s1.getSalary() + ", " + s1.getIncentive() + ", " + s1.getTarget());
 
         // Using parameterized constructor
         SalesManager s2 = new SalesManager(302, "PQR", 65000.0, 6000.0, 60);
@@ -101,7 +100,6 @@ class SalesManagerDemo {
         s2.setSalary(70000.0);
         s2.setIncentive(7000.0);
         s2.setTarget(70);
-        System.out.println("Updated via getters: " + s2.getId() + ", " + s2.getName() + ", " + s2.getSalary() + ", "
-                + s2.getIncentive() + ", " + s2.getTarget());
+        System.out.println("Data: " + s2.getId() + ", " + s2.getName() + ", " + s2.getSalary() + ", " + s2.getIncentive() + ", " + s2.getTarget());
     }
 }

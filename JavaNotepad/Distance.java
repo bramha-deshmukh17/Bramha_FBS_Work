@@ -43,27 +43,22 @@ class Distance {
 class DistanceDemo {
     public static void main(String[] args) {
         // Using default constructor and setters
-        Distance dAbc = new Distance();
-        dAbc.setKm(1);
-        dAbc.setMtr(250);
-        dAbc.display();
+        Distance d1 = new Distance();
+        d1.setKm(1);
+        d1.setMtr(250);
+        d1.display();
 
         // Using getters
-        System.out.println("Getter check: " + dAbc.getKm() + " km, " + dAbc.getMtr() + " m");
+        System.out.println("Data: " + d1.getKm() + " km, " + d1.getMtr() + " m");
 
         // Using parameterized constructor
-        Distance dPQR = new Distance(2, 500);
-        dPQR.display();
+        Distance d2 = new Distance(2, 500);
+        d2.display();
 
         // Update via setters and show getters
-        dPQR.setKm(3);
-        dPQR.setMtr(750);
-        System.out.println("Updated via getters: " + dPQR.getKm() + " km, " + dPQR.getMtr() + " m");
+        d2.setKm(3);
+        d2.setMtr(750);
+        System.out.println("Data: " + d2.getKm() + " km, " + d2.getMtr() + " m");
 
-        // Another object using setters
-        Distance dBramha = new Distance();
-        dBramha.setKm(0);
-        dBramha.setMtr(100);
-        dBramha.display();
     }
 }

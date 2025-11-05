@@ -75,8 +75,7 @@ class ProductDemo {
         p1.display();
 
         // Using getters
-        System.out.println("Getter check: " + p1.getProdid() + ", " + p1.getPname() + ", " + p1.getPrice() + ", "
-                + p1.getQuantity());
+        System.out.println("Data: " + p1.getProdid() + ", " + p1.getPname() + ", " + p1.getPrice() + ", " + p1.getQuantity());
 
         // Using parameterized constructor
         Product p2 = new Product(102, "PQR", 2000, 5);
@@ -87,7 +86,6 @@ class ProductDemo {
         p2.setPname("Xyz");
         p2.setPrice(2500);
         p2.setQuantity(7);
-        System.out.println("Updated via getters: " + p2.getProdid() + ", " + p2.getPname() + ", " + p2.getPrice() + ", "
-                + p2.getQuantity());
+        System.out.println("Data: " + p2.getProdid() + ", " + p2.getPname() + ", " + p2.getPrice() + ", " + p2.getQuantity());
     }
 }

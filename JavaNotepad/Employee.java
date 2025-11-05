@@ -62,7 +62,7 @@ class EmployeeDemo {
         e1.display();
 
         // Using getters
-        System.out.println("Getter check: " + e1.getId() + ", " + e1.getName() + ", " + e1.getSalary());
+        System.out.println("Data: " + e1.getId() + ", " + e1.getName() + ", " + e1.getSalary());
 
         // Using parameterized constructor
         Employee e2 = new Employee(2, "Xyz", 65000.0);
@@ -72,6 +72,6 @@ class EmployeeDemo {
         e2.setId(3);
         e2.setName("ABC");
         e2.setSalary(70000.0);
-        System.out.println("Updated via getters: " + e2.getId() + ", " + e2.getName() + ", " + e2.getSalary());
+        System.out.println("Data: " + e2.getId() + ", " + e2.getName() + ", " + e2.getSalary());
     }
 }

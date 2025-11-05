@@ -75,8 +75,7 @@ class HrDemo {
         h1.display();
 
         // Using getters
-        System.out.println(
-                "Getter check: " + h1.getId() + ", " + h1.getName() + ", " + h1.getSalary() + ", " + h1.getCommision());
+        System.out.println("Data: " + h1.getId() + ", " + h1.getName() + ", " + h1.getSalary() + ", " + h1.getCommision());
 
         // Using parameterized constructor
         Hr h2 = new Hr(202, "ABC", 75000.0, 9000.0);
@@ -87,7 +86,6 @@ class HrDemo {
         h2.setName("PQR");
         h2.setSalary(80000.0);
         h2.setCommision(9500.0);
-        System.out.println("Updated via getters: " + h2.getId() + ", " + h2.getName() + ", " + h2.getSalary() + ", "
-                + h2.getCommision());
+        System.out.println("Data: " + h2.getId() + ", " + h2.getName() + ", " + h2.getSalary() + ", " + h2.getCommision());
     }
 }
