@@ -1,3 +1,13 @@
+/*
+ 1. Create a Class Calculator
+Write functions to perform all arithmetic operations (add, subtract, multiply, divide) and
+overload those functions for the following parameters:
+• Two int values
+• Two double values
+• One int and one double value
+• One double and one int value
+ */
+
 class Calculator{
 	
 	//addition

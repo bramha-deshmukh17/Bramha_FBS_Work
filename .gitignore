@@ -2,4 +2,4 @@
 *.exe
 /.metadata/
 /.metadata/
-/CoreJava/Classwork/*.class
+/CoreJava/*/*.class
