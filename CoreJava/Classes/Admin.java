@@ -1,3 +1,4 @@
+import java.util.Scanner;
 class Admin {
     int id;
     String name;
@@ -66,6 +67,9 @@ class Admin {
 
 class AdminDemo {
     public static void main(String[] args) {
+	
+	Scanner sc=new Scanner(System.in);	
+	
         // Using default constructor and setters
         Admin a1 = new Admin();
         a1.setId(101);
@@ -87,5 +91,23 @@ class AdminDemo {
         a2.setSalary(95000.0);
         a2.setAllowance(15000.0);
         System.out.println("Data: " + a2.getId() + ", " + a2.getName() + ", " + a2.getSalary() + ", " + a2.getAllowance());
+
+	//user input
+	System.out.println("Enter Admin Id:");
+	int id = sc.nextInt();
+
+	System.out.println("Enter Name:");
+	sc.nextLine();
+	String name = sc.nextLine();
+
+	System.out.println("Enter Salary:");
+	double salary = sc.nextDouble();
+	
+	System.out.println("Enter Allowance:");
+	double allowance = sc.nextDouble();
+
+	Admin a3=new Admin(id, name, salary, allowance);
+	a3.display();
+
     }
 }

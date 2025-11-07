@@ -1,3 +1,4 @@
+import java.util.Scanner;
 class Book {
     int isbn;
     String bname;
@@ -66,6 +67,9 @@ class Book {
 
 class BookDemo {
     public static void main(String[] args) {
+	
+	Scanner sc = new Scanner(System.in);
+		
         // Using default constructor and setters
         Book b1 = new Book();
         b1.setIsbn(1001);
@@ -86,7 +90,21 @@ class BookDemo {
         b2.setBname("Xyz");
         b2.setCategory("PQR");
         b2.setPrice(399);
-        System.out.println("Data: " + b2.getIsbn() + ", " + b2.getBname() + ", " + b2.getCategory() + ", " + b2.getPrice());
+        b2.display();
+
+	System.out.println("Enter ISBN:");
+	int isbn = sc.nextInt();
+
+	System.out.println("Enter book name:");
+	sc.nextLine();
+	String name = sc.nextLine();
+
+	System.out.println("Enter category");
+	sc.nextLine();
+	String cat = sc.nextLine();
+
+	System.out.println("Enter price:");
+	int price = sc.nextInt();
 
        }
 }
