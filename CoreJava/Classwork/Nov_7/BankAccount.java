@@ -1,25 +1,24 @@
-import java.util.Scanner;
+//import java.util.Scanner;
 
 class BankAccount{
 	
 	int accountNumber;
 	String accountHolderName;
-	double currentBalance, interestRate;
+	double currentBalance; 
+	static double interestRate = 12.0;
 	
 	//default constructor
 	BankAccount(){
 		this.accountNumber=0;
 		this.accountHolderName="";
 		this.currentBalance=0.0;
-		this.interestRate=0.0;	
 	}
 	
 	//parameterised constructor
-	BankAccount(int accountNumber, String accountHolderName, double currentBalance, double interestRate){
+	BankAccount(int accountNumber, String accountHolderName, double currentBalance){
 		this.accountNumber=accountNumber;
 		this.accountHolderName=accountHolderName;
-		this.currentBalance=currentBalance;
-		this.interestRate=interestRate;	
+		this.currentBalance=currentBalance;	
 	}
 
 	//setters
@@ -31,8 +30,8 @@ class BankAccount{
 		this.currentBalance=amt;
 	}
 
-	void setInterestRate(double interestRate){
-		this.interestRate=interestRate;
+	static void setInterestRate(double rate){
+		interestRate=rate;
 	}
 
 	//getter
@@ -53,13 +52,16 @@ class BankAccount{
 	}
 		
 	void display(){
-		System.out.println("Account Number:" + getAccountNumber() + " Name: " + getAccountHolderName() + " Current Balance: " + getCurrentBalance() + " Interest Rate: " + getInterestRate());
+		System.out.println("\nAccount Number:" + this.accountNumber + " Name: " + this.accountHolderName + " Current Balance: " + this.currentBalance + " Interest Rate: " + interestRate);
 			
 	}
 
+}
+
+class Test{
 	public static void main(String[] args){
 
-		Scanner sc=new Scanner(System.in);
+		/*Scanner sc=new Scanner(System.in);
 
 		System.out.println("Enter Account number: ");
 		int num = sc.nextInt();
@@ -75,8 +77,25 @@ class BankAccount{
 		double rate = sc.nextDouble();
 
 		BankAccount b1=new BankAccount(num, name, bal, rate);
+		b1.display();*/
+
+
+
+		BankAccount b1=new BankAccount(101, "ABC", 2000.0);
+		b1.display();
+
+		BankAccount b2=new BankAccount(102, "LMN", 2000.0);
+		b2.display();
+		
+		BankAccount b3=new BankAccount(103, "PQR", 2000.0);
+		b3.display();
+
+		BankAccount.setInterestRate(5.0);
+		//b3.setInterestRate(15.0);
+		
+		b3.display();
+		b2.display();
 		b1.display();
 		
 	}
-
 }
