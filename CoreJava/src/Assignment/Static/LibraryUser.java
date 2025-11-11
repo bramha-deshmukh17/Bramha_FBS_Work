@@ -1,3 +1,4 @@
+package Assignment.Static;
 class LibraryUser{
     static double finePerDay = 2.0;
 

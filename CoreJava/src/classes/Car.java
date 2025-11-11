@@ -1,3 +1,4 @@
+package classes;
 class Car {
     String model;
     String brand;

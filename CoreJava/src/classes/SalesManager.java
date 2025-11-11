@@ -1,3 +1,4 @@
+package classes;
 class SalesManager {
     int id;
     String name;

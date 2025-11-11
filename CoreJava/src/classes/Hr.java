@@ -1,3 +1,4 @@
+package classes;
 class Hr {
     int id;
     String name;

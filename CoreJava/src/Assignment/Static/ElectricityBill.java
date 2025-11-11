@@ -1,3 +1,4 @@
+package Assignment.Static;
 class ElectricityBill{
     
     static double ratePerUnit = 6.5; 

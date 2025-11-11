@@ -1,4 +1,4 @@
-
+package classes;
 class Admin {
     int id;
     String name;

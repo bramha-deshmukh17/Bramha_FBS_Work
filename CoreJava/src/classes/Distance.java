@@ -1,3 +1,4 @@
+package classes;
 class Distance {
     int km;
     int mtr;

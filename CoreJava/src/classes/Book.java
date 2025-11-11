@@ -1,4 +1,4 @@
-
+package classes;
 class Book {
     int isbn;
     String bname;

@@ -1,3 +1,4 @@
+package classes;
 class Product {
     int prodid;
     String pname;

@@ -1,3 +1,4 @@
+package Assignment.Static;
 public class Employee{
     static double companyBonusRate = 10.0;
 
