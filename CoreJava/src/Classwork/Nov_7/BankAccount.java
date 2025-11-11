@@ -1,5 +1,5 @@
 //import java.util.Scanner;
-
+package Classwork.Nov_7;
 class BankAccount{
 	
 	int accountNumber;

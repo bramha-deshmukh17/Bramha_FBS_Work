@@ -1,4 +1,4 @@
-import java.util.Scanner;
+package classes10;
 class Admin {
     int id;
     String name;
@@ -66,17 +66,29 @@ class Admin {
 }
 
 class AdminDemo {
-    public static void main(String[] args) {
+    public static void main(String[] args) {	
 	
-	Admin[] arr=new Admin[3];
+        // Using default constructor and setters
+        Admin a1 = new Admin();
+        a1.setId(101);
+        a1.setName("Bramha");
+        a1.setSalary(80000.0);
+        a1.setAllowance(10000.0);
+        a1.display();
 
-	arr[0] = new Admin();
-	arr[1] = new Admin(101, "ABC", 20000.0, 1000.0);
-	arr[2] = new Admin(102, "PQR", 30000.0, 2000.0);
+        // Using getters
+        System.out.println("Data: " + a1.getId() + ", " + a1.getName() + ", " + a1.getSalary() + ", " + a1.getAllowance());
 
-	for(int i = 0; i < arr.length; i++){
-		arr[i].display();
-	}
+        // Using parameterized constructor
+        Admin a2 = new Admin(102, "XYZ", 90000.0, 12000.0);
+        a2.display();
+
+        // Update via setters and show getters
+        a2.setId(103);
+        a2.setName("ABC");
+        a2.setSalary(95000.0);
+        a2.setAllowance(15000.0);
+        System.out.println("Data: " + a2.getId() + ", " + a2.getName() + ", " + a2.getSalary() + ", " + a2.getAllowance());
 
 	
     }

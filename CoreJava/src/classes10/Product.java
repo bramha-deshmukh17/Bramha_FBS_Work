@@ -1,4 +1,4 @@
-package classes;
+package classes10;
 class Product {
     int prodid;
     String pname;

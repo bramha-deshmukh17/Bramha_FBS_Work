@@ -1,5 +1,5 @@
 package Assignment.Static;
-public class Employee{
+class Employee{
     static double companyBonusRate = 10.0;
 
     String name;
