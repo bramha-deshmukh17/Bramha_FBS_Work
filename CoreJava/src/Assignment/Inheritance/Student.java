@@ -69,11 +69,42 @@ class PlacedStudent extends Student {
     }
 }
 
+class CommiteeStudent extends Student{
+	
+	String role;
+	
+	
+
+	CommiteeStudent() {
+
+	}
+
+	public CommiteeStudent(String name, int roll, String role) {
+		super(name, roll);
+		this.role = role;
+	}
+
+	String getRole() {
+		return role;
+	}
+
+	void setRole(String role) {
+		this.role = role;
+	}
+	void display() {
+        super.display();
+        System.out.println("Role in commitee: " + this.role);
+    }
+}
+
 
 class StudentDemo {
 	public static void main(String[] args) {
         PlacedStudent ps = new PlacedStudent("Abc", 101, "ABC Corp", "Software Engineer");
         ps.display();
+        
+        CommiteeStudent cs = new CommiteeStudent("pqr", 102, "Member");
+        cs.display();
 
     }
 }

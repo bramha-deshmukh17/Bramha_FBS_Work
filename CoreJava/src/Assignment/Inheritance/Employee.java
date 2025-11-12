@@ -3,12 +3,12 @@ package Assignment.Inheritance;
 class Employee {
     String name;
     int id;
-    static String companyName="ABC Corp";
+    double salary;
 
     Employee() {
     }
 
-    Employee(String name, int id) {
+    Employee(String name, int id, double salary) {
         this.name = name;
         this.id = id;
     }
@@ -29,101 +29,154 @@ class Employee {
         this.id = id;
     }
 
-    static String getCompanyName() {
-        return companyName;
-    }
+    double getSalary() {
+		return salary;
+	}
 
-    void display() {
+	void setSalary(double salary) {
+		this.salary = salary;
+	}
+
+	void display() {
         System.out.println("Id: " + this.id);
         System.out.println("Employee name: " + this.name );
-        System.out.println("Company: " + Employee.companyName);
+        System.out.println("Company: " + this.salary);
     }
 }
 
 class Hr extends Employee {
-    String region;
+
+    double commision;
 
     Hr() {
     }
 
-    Hr(String name, int id, String region) {
-        super(name, id);
-        this.region = region;
+    Hr(String name, int id, double commision, double salary) {
+        super(name, id, salary);
+        this.commision = commision;
     }
+    
+    double getCommision() {
+		return commision;
+	}
 
-    String getRegion() {
-        return region;
-    }
+	void setCommision(double commision) {
+		this.commision = commision;
+	}
 
-    void setRegion(String region) {
-        this.region = region;
-    }
-
-    void display() {
+	void display() {
         super.display();
-        System.out.println("Region: " + this.region);
+        System.out.println("Region: " + this.commision);
     }
 }
 
 class Admin extends Employee {
-    String department;
+
+    double allowance;
 
     Admin() {
     }
 
-    Admin(String name, int id, String department) {
-        super(name, id);
-        this.department = department;
+    Admin(String name, int id, double allowance, double salary) {
+        super(name, id, salary);
+        this.allowance = allowance;
     }
 
-    String getDepartment() {
-        return department;
-    }
+    double getAllowance() {
+		return allowance;
+	}
 
-    void setDepartment(String department) {
-        this.department = department;
-    }
+	void setAllowance(double allowance) {
+		this.allowance = allowance;
+	}
 
-    void display() {
+	void display() {
         super.display();
-        System.out.println("Department: " + this.department);
+        System.out.println("Department: " + this.allowance);
     }
 }
 
 class SalesManager extends Employee {
-    double target;
+
+
+    double incentive;
+    int target;
+    
+    
 
     SalesManager() {
-    }
+	}
 
-    SalesManager(String name, int id, double target) {
-        super(name, id);
-        this.target = target;
-    }
+	SalesManager(String name, int id,double salary, double incentive, int target) {
+		super(name, id, salary);
+		this.incentive = incentive;
+		this.target = target;
 
-    double getTarget() {
+	}
+
+	double getTarget() {
         return target;
     }
 
-    void setTarget(double target) {
+    void setTarget(int target) {
         this.target = target;
     }
 
-    void display() {
+    double getIncentive() {
+		return incentive;
+	}
+
+	void setIncentive(double incentive) {
+		this.incentive = incentive;
+	}
+
+	void display() {
         super.display();
         System.out.println("Target: " + this.target);
+        System.out.println("Incentive" + this.incentive);
     }
+}
+
+class AreaSalesManager extends SalesManager{
+	String areaName;
+	
+	
+
+	AreaSalesManager() {
+	}
+
+	AreaSalesManager(String name, int id, double salary, double incentive, int target, String areaName) {
+		super(name, id, salary, incentive, target);
+		this.areaName = areaName;
+	}
+
+	String getAreaName() {
+		return areaName;
+	}
+
+	void setAreaName(String areaName) {
+		this.areaName = areaName;
+	}
+	
+	void display() {
+		super.display();
+		System.out.println("Area: " + this.areaName);
+	}
+	
 }
 
 class EmployeeDemo {
 	public static void main(String[] args) {
-        Hr hr = new Hr("ABC", 1, "Central");
+        Hr hr = new Hr("ABC", 1, 10000.0, 100.0);
         hr.display();
 
-        Admin admin = new Admin("LMN", 2, "IT");
+        Admin admin = new Admin("LMN", 2, 20000.0, 120.0);
         admin.display();
 
-        SalesManager sm = new SalesManager("PQR", 3, 500000);
+        SalesManager sm = new SalesManager("PQR", 3, 500000.0, 500.0, 100);
         sm.display();
+        
+        AreaSalesManager asm = new AreaSalesManager("XYz", 4, 500000.0, 500.0, 100, "Pune");
+        asm.display();
     }
 }

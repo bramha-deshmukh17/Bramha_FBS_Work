@@ -2,13 +2,32 @@ package Assignment.Inheritance;
 
 class Animal {
     String name;
-
+    int weight, height;
+    
     Animal() {
     }
 
-    Animal(String name) {
+    Animal(String name, int height, int weight) {
         this.name = name;
+        this.height = height;
+        this.weight = weight;
     }
+
+    int getWeight() {
+		return weight;
+	}
+
+	void setWeight(int weight) {
+		this.weight = weight;
+	}
+
+	int getHeight() {
+		return height;
+	}
+
+	void setHeight(int height) {
+		this.height = height;
+	}
 
     String getName() {
         return name;
@@ -29,8 +48,8 @@ class Dog extends Animal {
     Dog() {
     }
 
-    Dog(String name, String breed) {
-        super(name);
+    Dog(String name, String breed, int weight, int height) {
+        super(name, height, weight);
         this.breed = breed;
     }
 
@@ -48,38 +67,41 @@ class Dog extends Animal {
     }
 }
 
-class Cat extends Animal {
-    String color;
+class Bird extends Animal {
+    int wingCount;
 
-    Cat() {
-    }
+    
+    
+    public Bird(String name, int weight, int height, int wingCount) {
+		super(name, height, weight);
+		this.wingCount = wingCount;
+	}
 
-    Cat(String name, String color) {
-        super(name);
-        this.color = color;
-    }
 
-    String getColor() {
-        return color;
-    }
+	int getWingCount() {
+		return wingCount;
+	}
 
-    void setColor(String color) {
-        this.color = color;
-    }
 
-    void display() {
+	void setWingCount(int wingCount) {
+		this.wingCount = wingCount;
+	}
+
+
+	void display() {
         super.display();
-        System.out.println("Color: " + this.getColor());
+        System.out.println("Wing Count: " + this.wingCount);
     }
 }
 
 class AnimalDemo {
     public static void main(String[] args) {
        
-        Dog d = new Dog("Rex", "Labrador");
+        Dog d = new Dog("PQR", "Labrador", 45, 10);
         d.display();
+        
+        Bird b = new Bird("ABC", 10, 1, 2);
+        b.display();
 
-        Cat c = new Cat("Mimi", "White");
-        c.display();
     }
 }
