@@ -1,6 +1,7 @@
-package Classwork.Nov_12;
+package Classwork.Nov_14;
 
-class Employee {
+
+abstract class Employee {
     String name;
     int id;
     double salary;
@@ -36,16 +37,12 @@ class Employee {
     void setSalary(double salary) {
         this.salary = salary;
     }
-
-    void display() {
-        System.out.println("\nId: " + this.id);
-        System.out.println("Employee name: " + this.name);
-        System.out.println("salary: " + this.salary);
+    
+    public String toString() {
+    	return "\nId: " + this.id + "Employee name: " + this.name;
     }
 
-    double calSalary() {
-        return salary;
-    }
+    abstract double calSalary();
 }
 
 class Hr extends Employee {
@@ -68,9 +65,8 @@ class Hr extends Employee {
         this.commision = commision;
     }
 
-    void display() {
-        super.display();
-        System.out.println("commision: " + this.commision);
+    public String toString() {
+    	return super.toString() + "Region: " + this.commision;
     }
 
     double calSalary() {
@@ -97,12 +93,11 @@ class Admin extends Employee {
     void setAllowance(double allowance) {
         this.allowance = allowance;
     }
-
-    void display() {
-        super.display();
-        System.out.println("allowance: " + this.allowance);
+    
+    public String toString() {
+    	return super.toString() + "allowance: " + this.allowance;
     }
-
+    
     double calSalary() {
         return salary + allowance;
     }
@@ -138,11 +133,9 @@ class SalesManager extends Employee {
     void setIncentive(double incentive) {
         this.incentive = incentive;
     }
-
-    void display() {
-        super.display();
-        System.out.println("Target: " + this.target);
-        System.out.println("Incentive" + this.incentive);
+    
+    public String toString() {
+    	return super.toString() + "Target: " + this.target + "Incentive" + this.incentive;
     }
 
     double calSalary() {
@@ -153,16 +146,18 @@ class SalesManager extends Employee {
 class EmployeeDemo {
     public static void main(String[] args) {
 
+    	//Employee e1=new Employee();
+    	
         Hr hr = new Hr("ABC", 1, 10000.0, 100.0);
-        hr.display();
+        System.out.println(hr.toString());
         System.out.println("Salary: " + hr.calSalary());
 
         Admin admin = new Admin("LMN", 2, 20000.0, 120.0);
-        admin.display();
+        System.out.println(admin.toString());
         System.out.println("Salary: " + admin.calSalary());
 
         SalesManager sm = new SalesManager("PQR", 3, 500000.0, 500.0, 100);
-        sm.display();
+        System.out.println(sm.toString());
         System.out.println("Salary: " + sm.calSalary());
 
     }
