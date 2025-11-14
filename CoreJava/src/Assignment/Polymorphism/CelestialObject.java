@@ -48,20 +48,11 @@ class CelestialObject {
         this.distanceFromEarth = distanceFromEarth;
     }
 
-    double getDensity() {
-        double radiusMeters = radius * 1000.0;
-        double volume = (4.0 / 3.0) * Math.PI * Math.pow(radiusMeters, 3);
-        if (volume == 0.0)
-            return 0.0;
-        return mass / volume;
-    }
-
     void display() {
         System.out.println("Name: " + name);
         System.out.println("Mass (kg): " + mass);
         System.out.println("Radius (km): " + radius);
         System.out.println("Distance from Earth (light years): " + distanceFromEarth);
-        System.out.println("Average Density (kg/m^3): " + getDensity());
     }
 
     void shine() {
