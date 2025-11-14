@@ -40,7 +40,7 @@ class Employee {
     void display() {
         System.out.println("\nId: " + this.id);
         System.out.println("Employee name: " + this.name);
-        System.out.println("Company: " + this.salary);
+        System.out.println("Salary: " + this.salary);
     }
 
     double calSalary() {
@@ -70,7 +70,7 @@ class Hr extends Employee {
 
     void display() {
         super.display();
-        System.out.println("Region: " + this.commision);
+        System.out.println("Commision: " + this.commision);
     }
 
     double calSalary() {
@@ -100,7 +100,7 @@ class Admin extends Employee {
 
     void display() {
         super.display();
-        System.out.println("Department: " + this.allowance);
+        System.out.println("Allowance: " + this.allowance);
     }
 
     double calSalary() {
