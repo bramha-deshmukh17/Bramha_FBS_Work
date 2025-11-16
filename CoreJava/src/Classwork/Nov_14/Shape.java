@@ -1,6 +1,5 @@
 package Classwork.Nov_14;
 
-
 abstract class Shape {
     String name;
 
@@ -19,10 +18,10 @@ abstract class Shape {
         this.name = name;
     }
 
-    void display() {
-        System.out.println("\nShape: name=" + name);
+    public String toString() {
+        return "Shape: name=" + name;
     }
-    
+
     abstract double area();
 }
 
@@ -55,14 +54,12 @@ class Triangle extends Shape {
         this.height = height;
     }
 
-    void display() {
-        super.display();
-        System.out.println("baseLength=" + this.baseLength);
-        System.out.println("height=" + this.height);
+    public String toString() {
+        return super.toString() + " baseLength=" + baseLength + " height=" + height;
     }
-    
+
     double area() {
-    	return 0.5 * baseLength * height;
+        return 0.5 * baseLength * height;
     }
 }
 
@@ -95,14 +92,12 @@ class Rectangle extends Shape {
         this.width = width;
     }
 
-    void display() {
-        super.display();
-        System.out.println("length=" + this.length);
-        System.out.println("width=" + this.width);
+    public String toString() {
+        return super.toString() + " length=" + length + " width=" + width;
     }
-    
+
     double area() {
-    	return length * width;
+        return length * width;
     }
 }
 
@@ -125,28 +120,27 @@ class Circle extends Shape {
         this.radius = radius;
     }
 
-    void display() {
-        super.display();
-        System.out.println("radius=" + this.radius);
+    public String toString() {
+        return super.toString() + " radius=" + radius;
     }
-    
+
     double area() {
-    	return 3.14 * radius * radius;
+        return 3.14 * radius * radius;
     }
 }
 
 class ShapeDemo {
-	public static void main(String[] args) {
-        Shape tri = new Triangle("Triangle", 10, 5);
-        tri.display();
+    public static void main(String[] args) {
+        Shape tri = new Triangle("Tri", 10, 5);
+        System.out.println(tri.toString());
         System.out.println("Area: " + tri.area());
 
-        Shape rect = new Rectangle("Rectangle", 8, 4);
-        rect.display();
+        Shape rect = new Rectangle("Rect", 8, 4);
+        System.out.println(rect);
         System.out.println("Area: " + rect.area());
 
-        Shape cir = new Circle("Circle", 3);
-        cir.display();
+        Shape cir = new Circle("Cir", 3);
+        System.out.println(cir.toString());
         System.out.println("Area: " + cir.area());
     }
 }

@@ -39,7 +39,7 @@ abstract class Employee {
     }
     
     public String toString() {
-    	return "\nId: " + this.id + "Employee name: " + this.name;
+    	return "\nId: " + this.id + " Employee name: " + this.name;
     }
 
     abstract double calSalary();
@@ -66,7 +66,7 @@ class Hr extends Employee {
     }
 
     public String toString() {
-    	return super.toString() + "Region: " + this.commision;
+    	return super.toString() + " Region: " + this.commision;
     }
 
     double calSalary() {
@@ -95,7 +95,7 @@ class Admin extends Employee {
     }
     
     public String toString() {
-    	return super.toString() + "allowance: " + this.allowance;
+    	return super.toString() + " allowance: " + this.allowance;
     }
     
     double calSalary() {
@@ -135,7 +135,7 @@ class SalesManager extends Employee {
     }
     
     public String toString() {
-    	return super.toString() + "Target: " + this.target + "Incentive" + this.incentive;
+    	return super.toString() + " Target: " + this.target + " Incentive" + this.incentive;
     }
 
     double calSalary() {
@@ -145,15 +145,13 @@ class SalesManager extends Employee {
 
 class EmployeeDemo {
     public static void main(String[] args) {
-
-    	//Employee e1=new Employee();
     	
         Hr hr = new Hr("ABC", 1, 10000.0, 100.0);
         System.out.println(hr.toString());
         System.out.println("Salary: " + hr.calSalary());
 
         Admin admin = new Admin("LMN", 2, 20000.0, 120.0);
-        System.out.println(admin.toString());
+        System.out.println(admin);
         System.out.println("Salary: " + admin.calSalary());
 
         SalesManager sm = new SalesManager("PQR", 3, 500000.0, 500.0, 100);

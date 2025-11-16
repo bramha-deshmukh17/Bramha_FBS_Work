@@ -1,5 +1,6 @@
 package Classwork.Nov_14;
 
+
 abstract class Vehicle {
     String name;
     String model;
@@ -28,13 +29,18 @@ abstract class Vehicle {
         this.model = model;
     }
 
-    void display() {
-        System.out.println("\nVehicle name:" + name );
+    /*void display() {
+        System.out.println("\nVehicle name:" + name);
         System.out.println("model:" + model);
-    }
+    }*/
     
+    public  String toString() {
+    	return "\nVehicle name: " + name + " model: " + model;
+    }
+
     abstract void brake();
 }
+
 class Car extends Vehicle {
     int doors;
     boolean sunroof;
@@ -74,15 +80,19 @@ class Car extends Vehicle {
         this.fuelType = fuelType;
     }
 
-    void display() {
+    /*void display() {
         super.display();
         System.out.println("no. of doors:" + this.doors);
         System.out.println("sunroof:" + this.sunroof);
         System.out.println("fuel type:" + this.fuelType);
-    }
+    }*/
     
+    public String toString() {
+    	return super.toString() + " no. of doors: " + this.doors + " sunroof: " + this.sunroof + " fuel type: " + this.fuelType;
+    }
+
     void brake() {
-    	System.out.println("Drum Brake Applied");
+        System.out.println("Drum Brake Applied");
     }
 }
 
@@ -99,7 +109,6 @@ class Bike extends Vehicle {
         this.hasABS = hasABS;
     }
 
-
     void setEngineCC(int engineCC) {
         this.engineCC = engineCC;
     }
@@ -111,18 +120,23 @@ class Bike extends Vehicle {
     int getEngineCC() {
         return engineCC;
     }
+
     boolean getHasABS() {
         return hasABS;
     }
 
-    void display() {
+    /*void display() {
         super.display();
         System.out.println("engine (cc):" + this.engineCC);
         System.out.println("has ABS:" + this.hasABS);
-    }
+    }*/
     
+    public String toString() {
+    	return super.toString() + " engine (cc): " + this.engineCC + " has ABS: " + this.hasABS;
+    }
+
     void brake() {
-    	System.out.println("Disc Brake Applied");
+        System.out.println("Disc Brake Applied");
     }
 }
 
@@ -131,8 +145,7 @@ class Bus extends Vehicle {
     boolean hasAC;
     String routeNumber;
 
-    Bus() {
-    }
+    Bus() {}
 
     Bus(String name, String model, int seatingCapacity) {
         super(name, model);
@@ -170,30 +183,33 @@ class Bus extends Vehicle {
         this.routeNumber = routeNumber;
     }
 
-    void display() {
+    /*void display() {
         super.display();
         System.out.println("seating capacity:" + seatingCapacity);
         System.out.println("has AC:" + hasAC);
         System.out.println("route number:" + routeNumber);
+    }*/
+    public String toString() {
+    	return super.toString() + " seating capacity: " + seatingCapacity + " has AC: " + hasAC + " route number: " + routeNumber;
     }
     
     void brake() {
-    	System.out.println("Air Brake Applied");
+        System.out.println("Air Brake Applied");
     }
 }
 
 class VehicleDemo {
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         Car car = new Car("Honda", "Civic", 4, true, "Petrol");
-        car.display();
+        System.out.println(car.toString());
         car.brake();
 
         Bike bike = new Bike("Yamaha", "MT-15", 155, true);
-        bike.display();
+        System.out.println(bike);
         bike.brake();
-        
+
         Bus bus = new Bus("Volvo", "9400", 48, true, "B12");
-        bus.display();
+        System.out.println(bus.toString());
         bus.brake();
     }
 }
