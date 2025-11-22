@@ -1,4 +1,4 @@
-package Classwork.Nov_14;
+package Classwork.Nov_18;
 
 
 abstract class Employee {
@@ -144,19 +144,42 @@ class SalesManager extends Employee {
 }
 
 class EmployeeDemo {
+	
+	static void giveBonus(Employee e) {
+		if(e instanceof SalesManager) {
+			SalesManager s = (SalesManager) e;
+			s.setIncentive(1000.0);
+		}
+		else if(e instanceof Admin) {
+			Admin a = (Admin) e;
+			a.setAllowance(2000.0);
+		}
+		else if(e instanceof Hr) {
+			Hr h = (Hr) e;
+			h.setCommision(2500.0);
+		}
+		
+	}
+	
     public static void main(String[] args) {
-    	
-        Hr hr = new Hr("ABC", 1, 10000.0, 100.0);
-        System.out.println(hr.toString());
-        System.out.println("Salary: " + hr.calSalary());
+    	Employee e;
+        e= new Hr("ABC", 1, 10000.0, 100.0);
+        System.out.println(e.toString());
+        System.out.println("Salary: " + e.calSalary());
+        EmployeeDemo.giveBonus(e);
+        System.out.println(e.toString());
 
-        Admin admin = new Admin("LMN", 2, 20000.0, 120.0);
-        System.out.println(admin);
-        System.out.println("Salary: " + admin.calSalary());
+        e = new Admin("LMN", 2, 20000.0, 120.0);
+        System.out.println(e);
+        System.out.println("Salary: " + e.calSalary());
+        EmployeeDemo.giveBonus(e);
+        System.out.println(e.toString());
 
-        SalesManager sm = new SalesManager("PQR", 3, 500000.0, 500.0, 100);
-        System.out.println(sm.toString());
-        System.out.println("Salary: " + sm.calSalary());
+        e = new SalesManager("PQR", 3, 500000.0, 500.0, 100);
+        System.out.println(e.toString());
+        System.out.println("Salary: " + e.calSalary());
+        EmployeeDemo.giveBonus(e);
+        System.out.println(e.toString());
 
     }
 }
