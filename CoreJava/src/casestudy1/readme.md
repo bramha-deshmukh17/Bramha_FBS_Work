@@ -1,19 +1,19 @@
 # Java Case Study 1 - Bank
 
-## Table of contents
+## Table of Contents
 - [Overview](#overview)  
 - [Features](#features)  
 - [Architecture](#architecture)  
-- [Project files](#project-files)  
-- [How the code flows](#how-the-code-flows)  
-  - [Open account flow](#open-account-flow)  
-  - [Deposit flow](#deposit-flow)  
-  - [Withdraw flow](#withdraw-flow)  
-  - [End of day (EOD) flow](#end-of-day-eod-flow)  
-  - [Account statement by date range](#account-statement-by-date-range)  
-- [Class and method reference (brief)](#class-and-method-reference-brief)  
+- [Project Files](#project-files)  
+- [How the Code Flows](#how-the-code-flows)  
+  - [Open Account Flow](#open-account-flow)  
+  - [Deposit Flow](#deposit-flow)  
+  - [Withdraw Flow](#withdraw-flow)  
+  - [End of Day (EOD) Flow](#end-of-day-eod-flow)  
+  - [Account Statement by Date Range](#account-statement-by-date-range)  
+- [Class and Method Reference (Brief)](#class-and-method-reference-brief)  
   - [Transaction](#transaction)  
-  - [Account (abstract)](#account-abstract)  
+  - [Account (Abstract)](#account-abstract)  
   - [SavingsAccount](#savingsaccount)  
   - [SalaryAccount](#salaryaccount)  
   - [CurrentAccount](#currentaccount)  
@@ -21,137 +21,135 @@
   - [BankModel](#bankmodel)  
   - [BankController](#bankcontroller)  
   - [BankView](#bankview)  
-- [How to compile and run](#how-to-compile-and-run)  
-- [Design notes and limitations](#design-notes-and-limitations)  
-- [Next improvements (suggestions)](#next-improvements-suggestions)  
-- [Source code](#source-code)
+- [How to Compile and Run](#how-to-compile-and-run)  
+- [Design Notes and Limitations](#design-notes-and-limitations)  
+- [Next Improvements (Suggestions)](#next-improvements-suggestions)  
+- [Source Code](#source-code)
 
 ---
 
 ## Overview
-this is a small console based banking case study implemented in java following an mvc pattern the system supports multiple account types and basic branch level operations transactions are recorded at account level and mirrored to branch level for eod reporting
+This is a small console-based banking case study implemented in Java following an MVC pattern. The system supports multiple account types and basic branch-level operations. Transactions are recorded at the account level and mirrored to the branch level for end-of-day reporting.
 
 ---
 
 ## Features
-- open accounts savings salary current and loan  
-- deposit and withdraw operations with business rules per account type  
-- loan repayment via deposit into loan account with automatic loan closure  
-- branch level daily transaction log and end of day report  
-- interest posting only on the first day of each month  
-- account statement retrieval for a specified date range  
+- Open accounts: Savings, Salary, Current, and Loan.  
+- Deposit and withdraw operations with business rules per account type.  
+- Loan repayment via deposit into a loan account with automatic loan closure.  
+- Branch-level daily transaction log and end-of-day report.  
+- Interest posting only on the first day of each month.  
+- Account statement retrieval for a specified date range.  
 
 ---
 
 ## Architecture
-the project follows mvc separation of concerns
+The project follows MVC separation of concerns.
 
-- model `BankModel Account subclasses Transaction` contains business logic and data  
-- controller `BankController` mediates between view and model and forwards user actions  
-- view `BankView` handles console input output and drives the application loop
+- Model: `BankModel`, `Account` subclasses, `Transaction` — contains business logic and data.  
+- Controller: `BankController` — mediates between view and model and forwards user actions.  
+- View: `BankView` — handles console input/output and drives the application loop.
 
-data relationships
-- branch has many accounts  
-- account has many transactions  
-
----
-
-## How the code flows
-
-### open account flow
-1 view collects account details and account type and passes an object array to controller  
-2 controller constructs the correct account subclass and calls model openAccount  
-3 model stores the account in the branch accounts array and prints confirmation
-
-### deposit flow
-1 view asks for account number and amount then calls controller.deposit  
-2 controller forwards to model.deposit  
-3 model finds account invokes account.deposit which updates balance and adds an account transaction  
-4 model then mirrors the account transaction to the branch allTransactions log
-
-### withdraw flow
-1 view asks for account number and amount then calls controller.withdraw  
-2 controller forwards to model.withdraw  
-3 model finds account invokes account.withdraw on the account which checks canWithdraw and status then updates balance and adds an account transaction  
-4 model mirrors account transaction to branch log if balance changed
-
-### end of day (eod) flow
-1 view triggers controller.generateReport  
-2 controller forwards to model.generateEODReport  
-3 model iterates accounts calls accountLifeCycle for each account  
-4 model applies interest only if current day is first day of month it calls calculateInterest on each account and if non zero it posts the interest to balance creates an account transaction and mirrors it to branch log  
-5 model prints the branch level transaction summary for the day
-
-### account statement by date range
-1 view collects account number start and end dates and calls controller.getStatement  
-2 controller forwards to model.getAccountStatement  
-3 model locates the account and calls account.getStatementByDate which prints transactions in the range
+Data relationships:
+- A branch has many accounts.  
+- An account has many transactions.  
 
 ---
 
-## Class and method reference (brief)
+## How the Code Flows
+
+### Open Account Flow
+1. The view collects account details and account type and passes an object array to the controller.  
+2. The controller constructs the correct account subclass and calls `model.openAccount()`.  
+3. The model stores the account in the branch accounts array and prints confirmation.
+
+### Deposit Flow
+1. The view asks for the account number and amount, then calls `controller.deposit()`.  
+2. The controller forwards to `model.deposit()`.  
+3. The model finds the account, invokes `account.deposit()`, which updates the balance and adds a transaction.  
+4. The model mirrors the account transaction to the branch `allTransactions` log.
+
+### Withdraw Flow
+1. The view asks for the account number and amount, then calls `controller.withdraw()`.  
+2. The controller forwards to `model.withdraw()`.  
+3. The model finds the account, invokes `account.withdraw()`, which checks `canWithdraw` and status, then updates the balance and adds a transaction.  
+4. The model mirrors the account transaction to the branch log if the balance changed.
+
+### End of Day (EOD) Flow
+1. The view triggers `controller.generateReport()`.  
+2. The controller forwards to `model.generateEODReport()`.  
+3. The model iterates accounts and calls `accountLifeCycle()` for each account.  
+4. The model applies interest only if the current day is the first day of the month. It calls `calculateInterest()` on each account and, if non-zero, posts the interest to balance, creates an account transaction, and mirrors it to the branch log.  
+5. The model prints the branch-level transaction summary for the day.
+
+### Account Statement by Date Range
+1. The view collects account number, start date, and end date, then calls `controller.getStatement()`.  
+2. The controller forwards to `model.getAccountStatement()`.  
+3. The model locates the account and calls `account.getStatementByDate()`, which prints transactions in the range.
+
+---
+
+## Class and Method Reference (Brief)
 
 ### Transaction
-- constructor sets transaction fields and date  
-  small purpose create a single transaction record used by account and branch logs
+- Constructor sets transaction fields and date. Purpose: create a single transaction record used by account and branch logs.
 
-### Account (abstract)
-- `deposit(amount)` deposit funds if account not freeze or closed add a transaction update lifecycle  
-- `withdraw(amount)` final method apply withdrawal only if account state and canWithdraw permit and add transaction then lifecycle  
-- `getStatementByDate(start,end)` final method prints transactions for specified date range and a small summary  
-- `addTransaction(amount,type,remark)` ensure internal array capacity create transaction record and append  
-- `getLastTransaction()` return most recent transaction or null  
-- `canWithdraw(amount)` abstract account specific withdrawal rule  
-- `accountLifeCycle()` abstract account specific lifecycle checks such as min balance or inactive detection  
-- `calculateInterest()` abstract return interest amount positive for credit negative for debit it is posted by model only on day 1 of month
+### Account (Abstract)
+- `deposit(amount)`: Deposit funds if account not frozen or closed; add a transaction; update lifecycle.  
+- `withdraw(amount)`: Final; apply withdrawal only if account state and `canWithdraw` permit; add transaction; then lifecycle.  
+- `getStatementByDate(start, end)`: Final; prints transactions for specified date range and a summary.  
+- `addTransaction(amount, type, remark)`: Ensure internal array capacity; create transaction record and append.  
+- `getLastTransaction()`: Return most recent transaction or null.  
+- `canWithdraw(amount)`: Abstract; account-specific withdrawal rule.  
+- `accountLifeCycle()`: Abstract; lifecycle checks such as minimum balance or inactivity detection.  
+- `calculateInterest()`: Abstract; return interest amount (positive for credit, negative for debit). Posted by model only on day 1.
 
 ### SavingsAccount
-- constructor sets status to inactive if opening balance below min balance  
-- `canWithdraw` enforces minimum balance rule  
-- `accountLifeCycle` sets status active or inactive based on min balance  
-- `calculateInterest` returns interest amount based on configured interestRate this value is used by model when posting interest
+- Constructor sets status to inactive if opening balance below minimum.  
+- `canWithdraw`: Enforces minimum balance rule.  
+- `accountLifeCycle`: Sets status active or inactive based on balance.  
+- `calculateInterest`: Returns interest based on configured `interestRate`.
 
 ### SalaryAccount
-- tracks `lastTransactionDate` updates it in overridden addTransaction  
-- `canWithdraw` disallows if account inactive by inactivity rule otherwise ensure non negative balance  
-- `accountLifeCycle` computes months since last transaction and sets status to inactive and notifies user when needed  
-- `calculateInterest` returns zero in current model  
-- `notifyUser` prints an inactivity notification
+- Tracks `lastTransactionDate`; updates it in overridden `addTransaction`.  
+- `canWithdraw`: Disallows if inactive by inactivity rule; ensures non-negative balance.  
+- `accountLifeCycle`: Computes months since last transaction; sets status inactive and notifies when needed.  
+- `calculateInterest`: Returns zero.  
+- `notifyUser`: Prints inactivity notification.
 
 ### CurrentAccount
-- holds overdraftLimit and interest on overdraft  
-- `canWithdraw` allows withdrawal up to overdraft limit  
-- `accountLifeCycle` freezes account when balance breaches overdraft beyond limit  
-- `calculateInterest` returns negative interest amount when balance negative representing cost to customer
+- Holds `overdraftLimit` and interest on overdraft.  
+- `canWithdraw`: Allows withdrawal up to overdraft limit.  
+- `accountLifeCycle`: Freezes account when overdraft beyond limit.  
+- `calculateInterest`: Returns negative interest amount when balance negative.
 
 ### LoanAccount
-- opening balance is negative loan amount amountRepaid tracked on deposits  
-- `deposit` overridden to behave as loan repayment updates amountRepaid and if balance reaches zero mark loan cleared and close account  
-- `accountLifeCycle` checks and marks loan cleared if applicable  
-- `calculateInterest` returns negative interest on outstanding loan using interestRate
+- Opening balance is negative loan amount; `amountRepaid` tracked on deposits.  
+- `deposit`: Overridden to behave as loan repayment; updates `amountRepaid`; closes when repaid.  
+- `accountLifeCycle`: Marks loan cleared if applicable.  
+- `calculateInterest`: Returns negative interest on outstanding loan using `interestRate`.
 
 ### BankModel
-- `openAccount(account)` add account into branch resizing array when needed  
-- `closeAccount(accountNumber)` mark account status closed  
-- `searchAccount(accountNumber)` linear search for account  
-- `addToAllTransactions(transaction)` append branch level transaction resizing array as needed  
-- `withdraw(accountNumber,amount)` find account call account.withdraw and mirror last transaction if balance changed  
-- `deposit(accountNumber,amount)` find account call account.deposit and mirror last transaction if balance changed  
-- `getAccountStatement(accountNumber,start,end)` find account and call its getStatementByDate which prints statement  
-- `generateEODReport()` run lifecycle checks post interest only on first day of month mirror interest transactions to branch log and print branch transactions summary
+- `openAccount(account)`: Add account (resizes array when needed).  
+- `closeAccount(accountNumber)`: Mark status closed.  
+- `searchAccount(accountNumber)`: Linear search.  
+- `addToAllTransactions(transaction)`: Append branch-level transaction (resize as needed).  
+- `withdraw(accountNumber, amount)`: Invoke account withdrawal; mirror transaction if balance changed.  
+- `deposit(accountNumber, amount)`: Invoke account deposit; mirror transaction if balance changed.  
+- `getAccountStatement(accountNumber, start, end)`: Call account statement method.  
+- `generateEODReport()`: Run lifecycle; post interest; mirror interest transactions; print summary.
 
 ### BankController
-- `openAccount(data)` build specific account subclass from view supplied data and call model.openAccount  
-- `deposit(accountNumber,amount)` forward deposit request to model  
-- `withdraw(accountNumber,amount)` forward withdraw request to model  
-- `getStatement(accNo,start,end)` forward statement request to model  
-- `generateReport()` forward eod request to model
+- `openAccount(data)`: Build subclass and call `model.openAccount()`.  
+- `deposit(accountNumber, amount)`: Forward.  
+- `withdraw(accountNumber, amount)`: Forward.  
+- `getStatement(accNo, start, end)`: Forward.  
+- `generateReport()`: Forward.
 
 ### BankView
-- user driven console interface with start main menu and helper input methods  
-- `start()` drives main loop collects user input and calls controller methods  
-- `getNewAccountDetails()` collect info for account creation including overdraft for current accounts  
-- `getAccountNumberInput()` `getAmountInput()` prompt for inputs used by controller
+- Console interface with main menu and helper input methods.  
+- `start()`: Drives main loop.  
+- `getNewAccountDetails()`: Collect info including overdraft for current accounts.  
+- `getAccountNumberInput()`, `getAmountInput()`: Prompt helpers.
 
 ---
-
