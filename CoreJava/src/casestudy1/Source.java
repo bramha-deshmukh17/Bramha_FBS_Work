@@ -924,7 +924,8 @@ class BankView {
         System.out.println("4. Generate EOD Report");
         System.out.println("5. Get Account Statement (Date Range)");
         System.out.println("6. Close Account");
-        System.out.println("7. Exit");
+        System.out.println("7. Get Account Info");
+        System.out.println("8. Exit");
         System.out.print("Select Option: ");
         return sc.nextInt();
     }
