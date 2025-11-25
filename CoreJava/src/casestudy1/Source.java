@@ -697,8 +697,7 @@ class BankModel {
         allTransactionsCount++;
     }
 
-    // perform withdrawal via account and mirror transaction to branch log if
-    // successful
+    // perform withdrawal via account and mirror transaction to branch log if successful
     void withdraw(int accountNumber, double amount) {
         Account a = searchAccount(accountNumber);
         if (a == null) {
@@ -712,8 +711,7 @@ class BankModel {
         }
     }
 
-    // perform deposit via account and mirror transaction to branch log if
-    // successful
+    // perform deposit via account and mirror transaction to branch log if successful
     void deposit(int accountNumber, double amount) {
         Account a = searchAccount(accountNumber);
         if (a == null) {
@@ -737,8 +735,7 @@ class BankModel {
         a.getStatementByDate(start, end);
     }
 
-    // run end of day tasks apply lifecycle and post interest only on first day of
-    // month
+    // run end of day tasks apply lifecycle and post interest only on first day of month
     void generateEODReport() {
         System.out.println("\n--- EOD Report (Today's Transactions) ---");
 
@@ -830,6 +827,50 @@ class BankController {
     void generateReport() {
         bm.generateEODReport();
     }
+
+    // delete account using account number
+    void closeAccount(int account_number){
+        bm.closeAccount(account_number);
+    }
+
+    void getAccountInfo(int accountNumber) {
+        Account acc = bm.searchAccount(accountNumber);
+        if (acc == null) {
+            System.out.println("Account not found");
+            return;
+        }
+
+        System.out.println("\n--- Account Info ---");
+        System.out.println("Type: " + acc.getClass().getSimpleName());
+        System.out.println("Account No: " + acc.getAccountNumber());
+        System.out.println("Holder: " + acc.getAccountHolderName());
+        System.out.println("Email: " + acc.getAccountHolderEmail());
+        System.out.println("Mobile: " + acc.getAccountHolderMobile());
+        System.out.println("Opened On: " + acc.getDateOpened());
+        System.out.println("Status: " + acc.getStatus());
+        System.out.println("Balance: " + acc.getBalance());
+
+        if (acc instanceof SavingsAccount) {
+            System.out.println("Min Balance: " + SavingsAccount.getMinBalance());
+            System.out.println("Interest Rate: " + SavingsAccount.getInterestRate() + "%");
+        } else if (acc instanceof SalaryAccount) {
+            SalaryAccount sa = (SalaryAccount) acc;
+            System.out.println("Last Transaction Date: " + sa.getLastTransactionDate());
+            System.out.println("Inactive Limit (months): " + SalaryAccount.getInactiveMonthsLimit());
+        } else if (acc instanceof CurrentAccount) {
+            CurrentAccount ca = (CurrentAccount) acc;
+            System.out.println("Overdraft Limit: " + ca.getOverdraftLimit());
+            System.out.println("OD Interest: " + CurrentAccount.getOverdraftLimitInterest() + "%");
+        } else if (acc instanceof LoanAccount) {
+            LoanAccount la = (LoanAccount) acc;
+            System.out.println("Loan Amount: " + la.getLoanAmount());
+            System.out.println("Amount Repaid: " + la.getAmountRepaid());
+            System.out.println("Interest Rate: " + la.getInterestRate() + "%");
+            System.out.println("EMI Due Date: " + la.getEmiDueDate());
+            System.out.println("Loan Cleared: " + la.isLoanCleared());
+        }
+    }
+
 }
 
 class BankView {
@@ -862,6 +903,11 @@ class BankView {
                     getDatesForStatement();
                     break;
                 case 6:
+                    controller.closeAccount(getAccountNumberInput());
+                    break;
+                case 7:
+                    controller.getAccountInfo(getAccountNumberInput());
+                case 8:
                     running = false;
                     break;
                 default:
@@ -877,7 +923,8 @@ class BankView {
         System.out.println("3. Withdraw");
         System.out.println("4. Generate EOD Report");
         System.out.println("5. Get Account Statement (Date Range)");
-        System.out.println("6. Exit");
+        System.out.println("6. Close Account");
+        System.out.println("7. Exit");
         System.out.print("Select Option: ");
         return sc.nextInt();
     }
