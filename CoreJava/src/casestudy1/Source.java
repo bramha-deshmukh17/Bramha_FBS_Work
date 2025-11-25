@@ -847,29 +847,19 @@ class BankView {
             int choice = showMainMenu();
             switch (choice) {
                 case 1:
-                    Object[] data = getNewAccountDetails();
-                    controller.openAccount(data);
+                    controller.openAccount(getNewAccountDetails());
                     break;
                 case 2:
-                    int depId = getAccountNumberInput();
-                    double depAmt = getAmountInput();
-                    controller.deposit(depId, depAmt);
+                    controller.deposit(getAccountNumberInput(), getAmountInput());
                     break;
                 case 3:
-                    int witId = getAccountNumberInput();
-                    double witAmt = getAmountInput();
-                    controller.withdraw(witId, witAmt);
+                    controller.withdraw(getAccountNumberInput(), getAmountInput());
                     break;
                 case 4:
                     controller.generateReport();
                     break;
                 case 5:
-                    int id = getAccountNumberInput();
-                    System.out.print("Enter Start Date (YYYY-MM-DD): ");
-                    LocalDate s = LocalDate.parse(sc.next());
-                    System.out.print("Enter End Date (YYYY-MM-DD): ");
-                    LocalDate e = LocalDate.parse(sc.next());
-                    controller.getStatement(id, s, e);
+                    getDatesForStatement();
                     break;
                 case 6:
                     running = false;
@@ -932,6 +922,15 @@ class BankView {
         }
 
         return new Object[] { type, id, name, email, mobile, balance, od };
+    }
+
+    void getDatesForStatement() {
+        int id = getAccountNumberInput();
+        System.out.print("Enter Start Date (YYYY-MM-DD): ");
+        LocalDate s = LocalDate.parse(sc.next());
+        System.out.print("Enter End Date (YYYY-MM-DD): ");
+        LocalDate e = LocalDate.parse(sc.next());
+        controller.getStatement(id, s, e);
     }
 
     // simple message display helper
