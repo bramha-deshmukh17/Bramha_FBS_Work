@@ -21,10 +21,7 @@
   - [BankModel](#bankmodel)  
   - [BankController](#bankcontroller)  
   - [BankView](#bankview)  
-- [How to Compile and Run](#how-to-compile-and-run)  
-- [Design Notes and Limitations](#design-notes-and-limitations)  
-- [Next Improvements (Suggestions)](#next-improvements-suggestions)  
-- [Source Code](#source-code)
+
 
 ---
 
