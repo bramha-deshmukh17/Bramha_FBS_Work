@@ -1,43 +1,27 @@
 package Classwork.Nov_24;
 
 public class Test {
-	
+
 	public static void main(String[] args) {
-		
-		//int a = Integer.parseInt(args[0]);
-		//int b = Integer.parseInt(args[1]);
-		//if(b==0)
-		//	System.out.println("second value can't be zero");
-		//else {
-		//	int c = a/b;
-		//	System.out.println(c);
-		//}
-		
-		String s = args[0];
-		
-		//way 1
-		if (s.matches("-?\\d+")) {  
-		    int n = Integer.parseInt(s);
-		    System.out.println(n);
-		} else {
-		    System.out.println("Not a valid integer");
-		}
-		
-		//way 2
-		boolean valid = true;
 
-		int start = (s.startsWith("-") ? 1 : 0);
-		for (int i = start; i < s.length(); i++) {
-		    if (!Character.isDigit(s.charAt(i))) {
-		        valid = false;
-		        break;
-		    }
+		try {
+			int a = Integer.parseInt(args[0]);
+			int b = Integer.parseInt(args[1]);
+			
+			int c = a / b;
+			System.out.println(c);
 		}
-
-		if (valid) {
-		    int n = Integer.parseInt(s);
-		} else {
-		    System.out.println("Not a number");
+		catch (ArithmeticException ae) {
+			System.out.println("2nd value should non zero");
+		} 
+		catch (ArrayIndexOutOfBoundsException aie) {
+			System.out.println("Enter at least two args");
+		}
+		catch (NumberFormatException ne) {
+			System.out.println("Enter only digits");
+		}
+		catch (Exception e) {
+			System.out.println("Oops something went wrong...!!");
 		}
 
 	}
