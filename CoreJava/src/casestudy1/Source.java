@@ -697,7 +697,8 @@ class BankModel {
         allTransactionsCount++;
     }
 
-    // perform withdrawal via account and mirror transaction to branch log if successful
+    // perform withdrawal via account and mirror transaction to branch log if
+    // successful
     void withdraw(int accountNumber, double amount) {
         Account a = searchAccount(accountNumber);
         if (a == null) {
@@ -711,7 +712,8 @@ class BankModel {
         }
     }
 
-    // perform deposit via account and mirror transaction to branch log if successful
+    // perform deposit via account and mirror transaction to branch log if
+    // successful
     void deposit(int accountNumber, double amount) {
         Account a = searchAccount(accountNumber);
         if (a == null) {
@@ -729,13 +731,14 @@ class BankModel {
     void getAccountStatement(int accountNumber, LocalDate start, LocalDate end) {
         Account a = searchAccount(accountNumber);
         if (a == null) {
-            System.out.println("No transactions found");
+            System.out.println("No account found");
             return;
         }
         a.getStatementByDate(start, end);
     }
 
-    // run end of day tasks apply lifecycle and post interest only on first day of month
+    // run end of day tasks apply lifecycle and post interest only on first day of
+    // month
     void generateEODReport() {
         System.out.println("\n--- EOD Report (Today's Transactions) ---");
 
@@ -757,14 +760,24 @@ class BankModel {
             }
         }
 
+        boolean foundToday = false;
+        LocalDate today = LocalDate.now();
+
         if (allTransactionsCount == 0) {
             System.out.println("No transactions today.");
         } else {
             for (int i = 0; i < allTransactionsCount; i++) {
                 Transaction t = allTransactions[i];
-                System.out.println("Acc:" + t.accountNumber + " | " + t.toString());
+                //check for todays transaction only
+                if (t.date.equals(today)) {
+                    System.out.println("Acc:" + t.accountNumber + " | " + t.toString());
+                    foundToday = true;
+                }
             }
-            System.out.println("Total Txns Today: " + allTransactionsCount);
+
+            if (!foundToday) {
+                System.out.println("No transactions found for today.");
+            }
         }
         System.out.println("------------------");
     }
@@ -829,7 +842,7 @@ class BankController {
     }
 
     // delete account using account number
-    void closeAccount(int account_number){
+    void closeAccount(int account_number) {
         bm.closeAccount(account_number);
     }
 
@@ -907,6 +920,7 @@ class BankView {
                     break;
                 case 7:
                     controller.getAccountInfo(getAccountNumberInput());
+                    break;
                 case 8:
                     running = false;
                     break;
