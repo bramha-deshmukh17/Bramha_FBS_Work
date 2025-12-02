@@ -34,6 +34,10 @@ public class EmployeeController {
 		}
 		return false;
 	}
+	
+	public void sortEmployee(int type) {
+		ed.sortEmployee(type);
+	}
 
 	public void displayAll() {
 

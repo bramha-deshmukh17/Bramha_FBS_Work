@@ -27,6 +27,7 @@ public class EmployeeView {
 			System.out.println("3. Update an Employee");
 			System.out.println("4. Delete an Employee");
 			System.out.println("5. Display all Employees");
+			System.out.println("6. Sort Employees");
 
 			System.out.println("Enter your choice:");
 			choice = sc.nextInt();
@@ -73,7 +74,7 @@ public class EmployeeView {
 						System.out.println("SalesManager added");
 					}
 
-				} else {
+				}else {
 					System.out.println("Invalid Employee Type!");
 				}
 
@@ -107,6 +108,13 @@ public class EmployeeView {
 				break;
 			case 5:
 				ec.displayAll();
+				break;
+			case 6:
+				System.out.println("\n1. Sort by Id");
+				System.out.println("2. Sort by Name");
+				System.out.println("3. Sort by Salary");
+				System.out.println("Enter choice: ");
+				ec.sortEmployee(sc.nextInt());
 				break;
 			}
 		} while (choice != 0);
