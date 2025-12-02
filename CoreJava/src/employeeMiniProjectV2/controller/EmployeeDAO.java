@@ -55,8 +55,6 @@ public class EmployeeDAO {
     }
 
     public void displayAll() {
-        for (Employee e : eArr) {
-            System.out.println(e);
-        }
+        System.out.println(eArr);
     }
 }

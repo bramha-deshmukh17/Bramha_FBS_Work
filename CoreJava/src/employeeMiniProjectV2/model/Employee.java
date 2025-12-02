@@ -48,7 +48,7 @@ public abstract class Employee {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "ID: " + this.id + " Name: " + this.name + " Salary: " + this.salary;
+		return "\nID: " + this.id + " Name: " + this.name + " Salary: " + this.salary;
 	}
 
 }
