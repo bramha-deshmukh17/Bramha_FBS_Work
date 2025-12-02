@@ -31,6 +31,7 @@ public class ComparatorTest {
 			switch(choice) {
 			case 0:
 				System.out.println("Exited");
+				break;
 			case 1:
 				MyIdComparator mic = new MyIdComparator();
 				Collections.sort(l1, mic);
