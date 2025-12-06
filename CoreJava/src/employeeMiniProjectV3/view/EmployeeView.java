@@ -21,7 +21,7 @@ public class EmployeeView {
 		int choice = 0;
 
 		do {
-			System.out.println("0. Exit");
+			System.out.println("\n0. Exit");
 			System.out.println("1. Add an Employee");
 			System.out.println("2. Search an Employee");
 			System.out.println("3. Update an Employee");
