@@ -6,29 +6,29 @@ public class AddSortedArray {
 
 	public static void main(String[] args) {
 
-//		Scanner sc = new Scanner(System.in);
-//
-//		System.out.print("Enter size of array: ");
-//		int size1 = sc.nextInt();
-//		int[] arr1 = new int[size1];
-//
-//		System.out.print("\nEnter size of array 2: ");
-//		int size2 = sc.nextInt();
-//		int[] arr2 = new int[size2];
-//
-//		System.out.println("Enter array 1 elements in sorted way: ");
-//		for (int i = 0; i < size1; i++) {
-//			arr1[i] = sc.nextInt();
-//
-//		}
-//
-//		System.out.println("Enter array 2 elements in sorted way: ");
-//		for (int i = 0; i < size2; i++) {
-//			arr2[i] = sc.nextInt();
-//		}
-		int[] arr2 = { 1, 2, 4, 7, 9 };
-		int[] arr1 = { 2, 4, 6 };
-		int size1 = 3, size2 = 5;
+		Scanner sc = new Scanner(System.in);
+
+		System.out.print("Enter size of array: ");
+		int size1 = sc.nextInt();
+		int[] arr1 = new int[size1];
+
+		System.out.print("\nEnter size of array 2: ");
+		int size2 = sc.nextInt();
+		int[] arr2 = new int[size2];
+
+		System.out.println("Enter array 1 elements in sorted way: ");
+		for (int i = 0; i < size1; i++) {
+			arr1[i] = sc.nextInt();
+
+		}
+
+		System.out.println("Enter array 2 elements in sorted way: ");
+		for (int i = 0; i < size2; i++) {
+			arr2[i] = sc.nextInt();
+		}
+		// int[] arr2 = { 1, 2, 4, 7, 9 };
+		// int[] arr1 = { 2, 4, 6 };
+		// int size1 = 3, size2 = 5;
 
 		for (int x : arr1)
 			System.out.print(x);
@@ -90,7 +90,7 @@ public class AddSortedArray {
 		for (int i = 0; i < size3; i++) {
 			System.out.print(arr3[i]);
 		}
-
+		sc.close();
 	}
 
 }
