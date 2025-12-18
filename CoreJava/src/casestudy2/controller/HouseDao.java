@@ -173,21 +173,32 @@ public class HouseDao {
         return device.isOn() ? 1 : 0;
     }
 
-    public long totalTimeTillLastStateChange(int roomId, int deviceId) {
+    public String totalTimeTillLastStateChange(int roomId, int deviceId) {
         Device device = findDevice(roomId, deviceId);
         if (device == null)
-            return -1;
+            return null;
 
         String time = device.isOn() ? device.getTimeLastOn() : device.getTimeLastoff();
 
         if (time == null)
-            return 0;
+            return "00:00:00";
 
         try {
             LocalTime last = LocalTime.parse(time, TIME_FORMAT);
-            return Math.max(0, Duration.between(last, LocalTime.now()).toMillis());
+            Duration duration = Duration.between(last, LocalTime.now());
+
+            if (duration.isNegative()) {
+                return "00:00:00";
+            }
+
+            long seconds = duration.getSeconds();
+            long hours = seconds / 3600;
+            long minutes = (seconds % 3600) / 60;
+            long secs = seconds % 60;
+
+            return String.format("%02d:%02d:%02d", hours, minutes, secs);
         } catch (Exception e) {
-            return 0;
+            return "00:00:00";
         }
     }
 

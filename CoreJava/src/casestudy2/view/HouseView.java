@@ -218,12 +218,11 @@ public class HouseView {
 		System.out.print("Device ID: ");
 		int id = sc.nextInt();
 		sc.nextLine();
-		long t = hc.totalTimeTillLastStateChange(roomId, id);
-		if (t == -1) {
-			System.out.println("Failed to get time.");
-		} else {
-			System.out.println("Time since last state change (ms): " + t);
-		}
+		String t = hc.totalTimeTillLastStateChange(roomId, id);
+		if (t == null)
+			System.out.println("Failed to get device time.");
+		else
+			System.out.println("Time since last state change: " + t);
 	}
 
 	public void checkStatus() {

@@ -45,7 +45,7 @@ public class HouseController {
         return dao.checkDeviceStatus(roomId, deviceId);
     }
 
-    public long totalTimeTillLastStateChange(int roomId, int deviceId) {
+    public String totalTimeTillLastStateChange(int roomId, int deviceId) {
         return dao.totalTimeTillLastStateChange(roomId, deviceId);
     }
 
