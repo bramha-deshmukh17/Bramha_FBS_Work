@@ -3,18 +3,17 @@ package com.studentmanagement;
 import java.time.LocalDate;
 
 public class Student {
-	String frn, name, email, gitrepo;
+	String frn, name, email, gitRepo;
 	long mobileNo;
-	LocalDate birthDate;
-	
-	Student(String frn, String name, String email, String gitrepo, long mobileNo, LocalDate birthDate) {
-		super();
+	LocalDate dob;
+
+	Student(String frn, String name, String email, String gitRepo, long mobileNo, LocalDate dob) {
 		this.frn = frn;
 		this.name = name;
 		this.email = email;
-		this.gitrepo = gitrepo;
+		this.gitRepo = gitRepo;
 		this.mobileNo = mobileNo;
-		this.birthDate = birthDate;
+		this.dob = dob;
 	}
 
 	String getFrn() {
@@ -41,12 +40,12 @@ public class Student {
 		this.email = email;
 	}
 
-	String getGitrepo() {
-		return gitrepo;
+	String getgitRepo() {
+		return gitRepo;
 	}
 
-	void setGitrepo(String gitrepo) {
-		this.gitrepo = gitrepo;
+	void setgitRepo(String gitRepo) {
+		this.gitRepo = gitRepo;
 	}
 
 	long getMobileNo() {
@@ -57,19 +56,18 @@ public class Student {
 		this.mobileNo = mobileNo;
 	}
 
-	LocalDate getBirthDate() {
-		return birthDate;
+	LocalDate getdob() {
+		return dob;
 	}
 
-	void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
+	void setdob(LocalDate dob) {
+		this.dob = dob;
 	}
 
 	@Override
 	public String toString() {
-		return "Student [frn=" + frn + ", name=" + name + ", email=" + email + ", gitrepo=" + gitrepo + ", mobileNo="
-				+ mobileNo + ", birthDate=" + birthDate + "]";
+		return "Student [frn=" + frn + ", name=" + name + ", email=" + email + ", gitRepo=" + gitRepo + ", mobileNo="
+				+ mobileNo + ", dob=" + dob + "]";
 	}
-	
-	
+
 }
