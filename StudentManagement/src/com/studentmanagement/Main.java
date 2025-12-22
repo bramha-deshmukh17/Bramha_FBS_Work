@@ -4,6 +4,9 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+
+import com.studentmanagement.services.Sms;
+
 import java.util.ArrayList;
 
 public class Main {
@@ -162,34 +165,26 @@ public class Main {
 					System.out.print("Enter choice: ");
 					switch (sc.nextInt()) {
 						case 1: {
-							System.out.println("Enter FRN: ");
-							String frn = sc.next();
 							System.out.println("Sorting by FRN...");
-							ArrayList<Student> sortedByFrn = sm.sortByFrn(frn, true);
+							ArrayList<Student> sortedByFrn = sm.sortByFrn(true);
 							displayStudentDetails(sortedByFrn);
 							break;
 						}
 						case 2: {
-							System.out.println("Enter Name: ");
-							String name = sc.next();
 							System.out.println("Sorting by Name...");
-							ArrayList<Student> sortedByName = sm.sortByName(name, true);
+							ArrayList<Student> sortedByName = sm.sortByName(true);
 							displayStudentDetails(sortedByName);
 							break;
 						}
 						case 3: {
-							System.out.println("Enter FRN: ");
-							String frn = sc.next();
 							System.out.println("Sorting by FRN...");
-							ArrayList<Student> sortedByFrn = sm.sortByFrn(frn, false);
+							ArrayList<Student> sortedByFrn = sm.sortByFrn(false);
 							displayStudentDetails(sortedByFrn);
 							break;
 						}
 						case 4: {
-							System.out.println("Enter Name: ");
-							String name = sc.next();
 							System.out.println("Sorting by Name...");
-							ArrayList<Student> sortedByName = sm.sortByName(name, false);
+							ArrayList<Student> sortedByName = sm.sortByName(false);
 							displayStudentDetails(sortedByName);
 							break;
 						}
@@ -207,7 +202,9 @@ public class Main {
 					} else {
 						System.out.println("Birthday Wishes to:");
 						for (Student s : birthdayStudents) {
-							System.out.println(s.getName() + " (" + s.getMobileNo() + ")");
+
+							String message = "Happy birthday " + s.getName();
+							Sms.sendSms(message, s.getMobileNo());
 						}
 					}
 					break;
@@ -225,9 +222,11 @@ public class Main {
 
 	static void displayStudentDetails(Student s) {
 		if (s != null) {
-			System.out.printf("%-10s %-15s %-25s %-25s %-12s %-12s%n", "FRN", "Name", "Email", "GitRepo", "Mobile", "DOB");
-			String dobStr = (s.getdob() != null) ? StudentManagement.dtf.format(s.getdob()) : "-";
-			System.out.printf("%-10s %-15s %-25s %-25s %-12s %-12s%n", s.getFrn(), s.getName(), s.getEmail(), s.getgitRepo(), s.getMobileNo(),
+			System.out.printf("%-10s %-15s %-25s %-25s %-12s %-12s%n", "FRN", "Name", "Email", "GitRepo", "Mobile",
+					"DOB");
+			String dobStr = (s.getDob() != null) ? StudentManagement.dtf.format(s.getDob()) : "-";
+			System.out.printf("%-10s %-15s %-25s %-25s %-12s %-12s%n", s.getFrn(), s.getName(), s.getEmail(),
+					s.getGitRepo(), s.getMobileNo(),
 					dobStr);
 		} else {
 			System.out.println("Student not found!");
@@ -239,9 +238,9 @@ public class Main {
 			System.out.printf("%-10s %-15s %-25s %-25s %-12s %-12s%n", "FRN", "Name", "Email", "GitRepo", "Mobile",
 					"DOB");
 			for (Student s : students) {
-				String dobStr = (s.getdob() != null) ? StudentManagement.dtf.format(s.getdob()) : "-";
+				String dobStr = (s.getDob() != null) ? StudentManagement.dtf.format(s.getDob()) : "-";
 				System.out.printf("%-10s %-15s %-25s %-25s %-12s %-12s%n", s.getFrn(), s.getName(), s.getEmail(),
-						s.getgitRepo(), s.getMobileNo(),
+						s.getGitRepo(), s.getMobileNo(),
 						dobStr);
 			}
 		} else {

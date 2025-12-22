@@ -6,7 +6,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+
+import com.studentmanagement.comparator.FRNComparator;
+import com.studentmanagement.comparator.NameComparator;
 
 public class StudentManagement {
 	private final ArrayList<Student> students = new ArrayList<>();
@@ -108,50 +110,26 @@ public class StudentManagement {
 		}
 		ArrayList<Student> result = new ArrayList<>();
 		for (Student s : students) {
-			if (s.getdob().equals(date)) {
+			if (s.getDob().equals(date)) {
 				result.add(s);
 			}
 		}
 		return result;
 	}
 
-	public ArrayList<Student> sortByFrn(String frn, boolean ascending) {
+	public ArrayList<Student> sortByFrn(boolean ascending) {
 		ArrayList<Student> sorted = new ArrayList<>(students);
-		if (ascending) {
-			Collections.sort(sorted, new Comparator<Student>() {
-				@Override
-				public int compare(Student a, Student b) {
-					return a.getFrn().compareTo(b.getFrn());
-				}
-			});
-		} else {
-			Collections.sort(sorted, new Comparator<Student>() {
-				@Override
-				public int compare(Student a, Student b) {
-					return b.getFrn().compareTo(a.getFrn());
-				}
-			});
-		}
+
+		Collections.sort(sorted, new FRNComparator(ascending));
+
 		return sorted;
 	}
 
-	public ArrayList<Student> sortByName(String name, boolean ascending) {
+	public ArrayList<Student> sortByName(boolean ascending) {
 		ArrayList<Student> sorted = new ArrayList<>(students);
-		if (ascending) {
-			Collections.sort(sorted, new Comparator<Student>() {
-				@Override
-				public int compare(Student a, Student b) {
-					return a.getName().compareTo(b.getName());
-				}
-			});
-		} else {
-			Collections.sort(sorted, new Comparator<Student>() {
-				@Override
-				public int compare(Student a, Student b) {
-					return b.getName().compareTo(a.getName());
-				}
-			});
-		}
+
+		Collections.sort(sorted, new NameComparator(ascending));
+
 		return sorted;
 	}
 
@@ -159,8 +137,8 @@ public class StudentManagement {
 		ArrayList<Student> birthdayStudents = new ArrayList<>();
 		LocalDate today = LocalDate.now();
 		for (Student s : students) {
-			if (s.getdob().getDayOfMonth() == today.getDayOfMonth() &&
-					s.getdob().getMonth() == today.getMonth()) {
+			if (s.getDob().getDayOfMonth() == today.getDayOfMonth() &&
+					s.getDob().getMonth() == today.getMonth()) {
 				birthdayStudents.add(s);
 			}
 		}

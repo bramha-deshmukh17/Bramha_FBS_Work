@@ -16,51 +16,51 @@ public class Student {
 		this.dob = dob;
 	}
 
-	String getFrn() {
+	public String getFrn() {
 		return frn;
 	}
 
-	void setFrn(String frn) {
+	public void setFrn(String frn) {
 		this.frn = frn;
 	}
 
-	String getName() {
+	public String getName() {
 		return name;
 	}
 
-	void setName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	void setEmail(String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	String getgitRepo() {
+	public String getGitRepo() {
 		return gitRepo;
 	}
 
-	void setgitRepo(String gitRepo) {
+	public void setGitRepo(String gitRepo) {
 		this.gitRepo = gitRepo;
 	}
 
-	long getMobileNo() {
+	public long getMobileNo() {
 		return mobileNo;
 	}
 
-	void setMobileNo(long mobileNo) {
+	public void setMobileNo(long mobileNo) {
 		this.mobileNo = mobileNo;
 	}
 
-	LocalDate getdob() {
+	public LocalDate getDob() {
 		return dob;
 	}
 
-	void setdob(LocalDate dob) {
+	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
 
