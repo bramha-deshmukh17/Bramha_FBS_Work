@@ -4,15 +4,15 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class StudentManagement {
-	static int currIndex = 0;
-	static int size = 100;
-	static Student[] sList = new Student[size];
+	private final ArrayList<Student> students = new ArrayList<>();
 	static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	StudentManagement() {
-		// default addition of 10 students
 		dataSeeder();
 	}
 
@@ -40,37 +40,26 @@ public class StudentManagement {
 	}
 
 	public void addStudent(Student s) {
-		sList[currIndex++] = s;
+		students.add(s);
 	}
 
-	public Student[] getStudentDetails() {
-		Student[] students = new Student[currIndex];
-		for (int i = 0; i < currIndex; i++) {
-			students[i] = sList[i];
-		}
-		return students;
+	public ArrayList<Student> getStudentDetails() {
+		return new ArrayList<>(students);
 	}
 
 	public Student searchByFrn(String frn) {
-
-		for (int i = 0; i < currIndex; i++) {
-			if (sList[i].getFrn().equals(frn)) {
-				return sList[i];
+		for (Student s : students) {
+			if (s.getFrn().equals(frn)) {
+				return s;
 			}
 		}
 		return null;
-
 	}
 
 	public boolean deleteStudent(String frn) {
-		for (int i = 0; i < currIndex; i++) {
-			if (sList[i].getFrn().equals(frn)) {
-				// Shift elements to the left to fill the gap
-				for (int j = i; j < currIndex - 1; j++) {
-					sList[j] = sList[j + 1];
-				}
-				sList[currIndex - 1] = null;
-				currIndex--;
+		for (int i = 0; i < students.size(); i++) {
+			if (students.get(i).getFrn().equals(frn)) {
+				students.remove(i);
 				return true;
 			}
 		}
@@ -78,75 +67,103 @@ public class StudentManagement {
 	}
 
 	public Student searchByEmail(String email) {
-		for (int i = 0; i < currIndex; i++) {
-			if (sList[i].getEmail().equals(email)) {
-				return sList[i];
+		for (Student s : students) {
+			if (s.getEmail().equals(email)) {
+				return s;
 			}
 		}
 		return null;
 	}
 
 	public Student searchByMobile(long mobileNo) {
-		for (int i = 0; i < currIndex; i++) {
-			if (sList[i].getMobileNo() == mobileNo) {
-				return sList[i];
+		for (Student s : students) {
+			if (s.getMobileNo() == mobileNo) {
+				return s;
 			}
 		}
 		return null;
 	}
 
-	public Student[] searchByName(String name) {
-		int count = 0;
+	public ArrayList<Student> searchByName(String name) {
+		ArrayList<Student> result = new ArrayList<>();
 		String trimmedName = name.trim();
-		for (int i = 0; i < currIndex; i++) {
-			if (sList[i].getName().equalsIgnoreCase(trimmedName)) {
-				count++;
-			}
-		}
-
-		if (count == 0) {
-			return new Student[0];
-		}
-
-		Student[] result = new Student[count];
-		int resultIndex = 0;
-		for (int i = 0; i < currIndex; i++) {
-			if (sList[i].getName().equalsIgnoreCase(trimmedName)) {
-				result[resultIndex++] = sList[i];
+		for (Student s : students) {
+			if (s.getName().equalsIgnoreCase(trimmedName)) {
+				result.add(s);
 			}
 		}
 		return result;
 	}
 
-	public Student[] searchByDob(String dob) {
+	public ArrayList<Student> searchByDob(String dob) {
 		LocalDate date;
 		try {
 			date = LocalDate.parse(dob, dtf);
 		} catch (DateTimeParseException e) {
 			System.out.println("Invalid date format! Please use DD/MM/YYYY.");
-			return new Student[0];
+			return new ArrayList<>();
 		} catch (DateTimeException e) {
 			System.out.println("Invalid date! Please enter a valid date.");
-			return new Student[0];
+			return new ArrayList<>();
 		}
-		int count = 0;
-		for (int i = 0; i < currIndex; i++) {
-			if (sList[i].getdob().equals(date)) {
-				count++;
-			}
-		}
-		if (count == 0) {
-			return new Student[0];
-		}
-
-		Student[] result = new Student[count];
-		int resultIndex = 0;
-
-		for (int i = 0; i < currIndex; i++) {
-			if (sList[i].getdob().equals(date)) {
-				result[resultIndex++] = sList[i];
+		ArrayList<Student> result = new ArrayList<>();
+		for (Student s : students) {
+			if (s.getdob().equals(date)) {
+				result.add(s);
 			}
 		}
 		return result;
+	}
+
+	public ArrayList<Student> sortByFrn(String frn, boolean ascending) {
+		ArrayList<Student> sorted = new ArrayList<>(students);
+		if (ascending) {
+			Collections.sort(sorted, new Comparator<Student>() {
+				@Override
+				public int compare(Student a, Student b) {
+					return a.getFrn().compareTo(b.getFrn());
+				}
+			});
+		} else {
+			Collections.sort(sorted, new Comparator<Student>() {
+				@Override
+				public int compare(Student a, Student b) {
+					return b.getFrn().compareTo(a.getFrn());
+				}
+			});
+		}
+		return sorted;
+	}
+
+	public ArrayList<Student> sortByName(String name, boolean ascending) {
+		ArrayList<Student> sorted = new ArrayList<>(students);
+		if (ascending) {
+			Collections.sort(sorted, new Comparator<Student>() {
+				@Override
+				public int compare(Student a, Student b) {
+					return a.getName().compareTo(b.getName());
+				}
+			});
+		} else {
+			Collections.sort(sorted, new Comparator<Student>() {
+				@Override
+				public int compare(Student a, Student b) {
+					return b.getName().compareTo(a.getName());
+				}
+			});
+		}
+		return sorted;
+	}
+
+	public ArrayList<Student> getBirthdayStudents() {
+		ArrayList<Student> birthdayStudents = new ArrayList<>();
+		LocalDate today = LocalDate.now();
+		for (Student s : students) {
+			if (s.getdob().getDayOfMonth() == today.getDayOfMonth() &&
+					s.getdob().getMonth() == today.getMonth()) {
+				birthdayStudents.add(s);
+			}
+		}
+		return birthdayStudents;
 	}
 }

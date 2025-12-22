@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -56,7 +57,7 @@ public class Main {
 				}
 
 				case 2: {
-					Student[] students = sm.getStudentDetails();
+					ArrayList<Student> students = sm.getStudentDetails();
 					displayStudentDetails(students);
 					break;
 				}
@@ -133,7 +134,7 @@ public class Main {
 							System.out.print("Enter name: ");
 							sc.nextLine();
 							String name = sc.nextLine();
-							Student[] sByName = sm.searchByName(name);
+							ArrayList<Student> sByName = sm.searchByName(name);
 							displayStudentDetails(sByName);
 							break;
 						}
@@ -141,9 +142,8 @@ public class Main {
 							System.out.print("Enter DOB(DD/MM/YYYY): ");
 							sc.nextLine();
 							String dob = sc.nextLine();
-							Student[] sByDob = sm.searchByDob(dob);
+							ArrayList<Student> sByDob = sm.searchByDob(dob);
 							displayStudentDetails(sByDob);
-
 							break;
 						}
 						default:
@@ -154,6 +154,64 @@ public class Main {
 					break;
 				}
 
+				case 6: {
+					System.out.println("\n1. Sort by FRN in ascending order");
+					System.out.println("2. Sort by Name in ascending order");
+					System.out.println("3. Sort by FRN in descending order");
+					System.out.println("4. Sort by Name in descending order");
+					System.out.print("Enter choice: ");
+					switch (sc.nextInt()) {
+						case 1: {
+							System.out.println("Enter FRN: ");
+							String frn = sc.next();
+							System.out.println("Sorting by FRN...");
+							ArrayList<Student> sortedByFrn = sm.sortByFrn(frn, true);
+							displayStudentDetails(sortedByFrn);
+							break;
+						}
+						case 2: {
+							System.out.println("Enter Name: ");
+							String name = sc.next();
+							System.out.println("Sorting by Name...");
+							ArrayList<Student> sortedByName = sm.sortByName(name, true);
+							displayStudentDetails(sortedByName);
+							break;
+						}
+						case 3: {
+							System.out.println("Enter FRN: ");
+							String frn = sc.next();
+							System.out.println("Sorting by FRN...");
+							ArrayList<Student> sortedByFrn = sm.sortByFrn(frn, false);
+							displayStudentDetails(sortedByFrn);
+							break;
+						}
+						case 4: {
+							System.out.println("Enter Name: ");
+							String name = sc.next();
+							System.out.println("Sorting by Name...");
+							ArrayList<Student> sortedByName = sm.sortByName(name, false);
+							displayStudentDetails(sortedByName);
+							break;
+						}
+						default:
+							System.out.println("Invalid choice! Please try again.");
+							break;
+					}
+					break;
+				}
+
+				case 7: {
+					ArrayList<Student> birthdayStudents = sm.getBirthdayStudents();
+					if (birthdayStudents.isEmpty()) {
+						System.out.println("No birthdays today.");
+					} else {
+						System.out.println("Birthday Wishes to:");
+						for (Student s : birthdayStudents) {
+							System.out.println(s.getName() + " (" + s.getMobileNo() + ")");
+						}
+					}
+					break;
+				}
 				default: {
 					System.out.println("Invalid choice! Please try again.");
 					break;
@@ -176,11 +234,10 @@ public class Main {
 		}
 	}
 
-	static void displayStudentDetails(Student[] students) {
-		if (students != null && students.length > 0) {
+	static void displayStudentDetails(ArrayList<Student> students) {
+		if (students != null && !students.isEmpty()) {
 			System.out.printf("%-10s %-15s %-25s %-25s %-12s %-12s%n", "FRN", "Name", "Email", "GitRepo", "Mobile",
 					"DOB");
-			
 			for (Student s : students) {
 				String dobStr = (s.getdob() != null) ? StudentManagement.dtf.format(s.getdob()) : "-";
 				System.out.printf("%-10s %-15s %-25s %-25s %-12s %-12s%n", s.getFrn(), s.getName(), s.getEmail(),
@@ -191,5 +248,4 @@ public class Main {
 			System.out.println("Student not found!");
 		}
 	}
-
 }
