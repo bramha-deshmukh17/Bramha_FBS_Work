@@ -10,7 +10,7 @@ public class MyBubbleSort {
 		int count = 0, swap = 0;
 
 		for (int i = 0; i < arr.length - 1; i++) {
-			boolean sorted = false;
+			boolean sorted = true;
 
 			for (int j = 0; j < arr.length - i - 1; j++) {
 
@@ -18,9 +18,8 @@ public class MyBubbleSort {
 					temp = arr[j];
 					arr[j] = arr[j + 1];
 					arr[j + 1] = temp;
-					swap++;
-				}else {
-					sorted = true;
+					swap++;			
+					sorted = false;
 				}
 
 			}
@@ -50,6 +49,7 @@ public class MyBubbleSort {
 			System.out.print("\t" + num);
 		}
 
+		sc.close();
 	}
 
 }

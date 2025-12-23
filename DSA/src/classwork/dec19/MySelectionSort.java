@@ -39,6 +39,7 @@ public class MySelectionSort {
 		for (int num : arr) {
 			System.out.print("\t" + num);
 		}
+		sc.close();
 
 	}
 
