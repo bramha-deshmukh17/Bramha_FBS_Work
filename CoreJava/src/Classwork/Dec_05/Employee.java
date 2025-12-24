@@ -1,10 +1,5 @@
 package Classwork.Dec_05;
 
-
-
-
-import java.util.*;
-
 public class Employee {
 	int id;
 	String name;

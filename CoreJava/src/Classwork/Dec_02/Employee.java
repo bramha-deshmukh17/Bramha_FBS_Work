@@ -1,9 +1,6 @@
 package Classwork.Dec_02;
 
 
-
-import java.util.*;
-
 public class Employee implements Comparable<Employee>{
 	int id;
 	String name;

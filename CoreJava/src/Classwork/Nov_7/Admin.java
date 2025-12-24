@@ -1,5 +1,5 @@
 package Classwork.Nov_7;
-import java.util.Scanner;
+
 class Admin {
     int id;
     String name;
