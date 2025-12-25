@@ -1,0 +1,237 @@
+package com.studentmanagement.consoleview;
+
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import com.studentmanagement.controller.StudentManagement;
+import com.studentmanagement.model.Student;
+import com.studentmanagement.services.Sms;
+
+public class StudentView {
+	public void showMenu() {
+
+		StudentManagement sm = new StudentManagement();
+		Scanner sc = new Scanner(System.in);
+		int choice;
+
+		do {
+			System.out.println("\n0. To Exit and Save");
+			System.out.println("1. Add Student");
+			System.out.println("2. Display Students");
+			System.out.println("3. Update Student");
+			System.out.println("4. Delete Student");
+			System.out.println("5. Search Student");
+			System.out.println("6. sort Student");
+			System.out.println("7. Wish Birthday");
+			System.out.println("71 update mock details");
+			System.out.println("8.Get Mock Result by FRN");
+
+			System.out.print("Enter choice: ");
+			choice = sc.nextInt();
+			sc.nextLine();
+
+			switch (choice) {
+				case 0:
+					System.out.println("Saving data and exiting...");
+					sm.saveStudents(sm.getStudentDetails());
+					break;
+
+				case 1: {
+					System.out.println("Enter FRN, name, email, mobile, github repo, date of birth(DD/MM/YYYY): ");
+					String frn = sc.nextLine();
+					String name = sc.nextLine();
+					String email = sc.nextLine();
+					long mobileNo = Long.parseLong(sc.nextLine().trim());
+					String gitRepo = sc.nextLine();
+					String dobInput = sc.nextLine();
+
+					LocalDate dob = null;
+					try {
+						dob = LocalDate.parse(dobInput, StudentManagement.dtf);
+					} catch (DateTimeParseException e) {
+						System.out.println("Invalid date format! Please use DD/MM/YYYY.");
+					} catch (DateTimeException e) {
+						System.out.println("Invalid date! Please enter a valid date.");
+					}
+
+					Student s = new Student(frn, email, mobileNo, name, gitRepo, dob);
+					sm.addStudent(s);
+					break;
+				}
+
+				case 2: {
+					ArrayList<Student> students = sm.getStudentDetails();
+					displayStudentDetails(students);
+					break;
+				}
+
+				case 3: {
+					System.out.println("Enter FRN number: ");
+					String frn = sc.nextLine();
+
+					System.out.println("\n1. To update the email");
+					System.out.println("2. To update mobile no");
+					System.out.print("Enter choice: ");
+					int updateChoice = Integer.parseInt(sc.nextLine().trim());
+
+					switch (updateChoice) {
+						case 1: {
+							System.out.println("Enter new email: ");
+							String newEmail = sc.nextLine();
+							boolean ok = sm.updateStudentEmail(frn, newEmail);
+							System.out.println(ok ? "Email updated successfully!" : "Student not found!");
+							break;
+						}
+						case 2: {
+							System.out.println("Enter new mobile no: ");
+							long newMobile = Long.parseLong(sc.nextLine().trim());
+							boolean ok = sm.updateStudentMobile(frn, newMobile);
+							System.out.println(ok ? "Mobile no updated successfully!" : "Student not found!");
+							break;
+						}
+						default:
+							System.out.println("Invalid choice! Please try again.");
+					}
+					break;
+				}
+
+				case 4: {
+					System.out.println("Enter FRN number to delete: ");
+					String frn = sc.nextLine();
+					boolean deleted = sm.deleteStudent(frn);
+					System.out.println(deleted ? "Student deleted successfully!" : "Student not found!");
+					break;
+				}
+
+				case 5: {
+					System.out.println("\n1. Search by FRN");
+					System.out.println("2. Search by email");
+					System.out.println("3. Search by mobile no");
+					System.out.println("4. Search by name");
+					System.out.println("5. Search by DOB");
+					System.out.print("Enter choice: ");
+					int searchChoice = Integer.parseInt(sc.nextLine().trim());
+
+					switch (searchChoice) {
+						case 1: {
+							System.out.print("Enter FRN number: ");
+							String frn = sc.nextLine();
+							Student sByFrn = sm.searchByFrn(frn);
+							displayStudentDetails(sByFrn);
+							break;
+						}
+						case 2: {
+							System.out.print("Enter email: ");
+							String email = sc.nextLine();
+							Student sByEmail = sm.searchByEmail(email);
+							displayStudentDetails(sByEmail);
+							break;
+						}
+						case 3: {
+							System.out.print("Enter mobile no: ");
+							long mobileNo = Long.parseLong(sc.nextLine().trim());
+							Student sByMobile = sm.searchByMobile(mobileNo);
+							displayStudentDetails(sByMobile);
+							break;
+						}
+						case 4: {
+							System.out.print("Enter name: ");
+							String name = sc.nextLine();
+							ArrayList<Student> sByName = sm.searchByName(name);
+							displayStudentDetails(sByName);
+							break;
+						}
+						case 5: {
+							System.out.print("Enter DOB(DD/MM/YYYY): ");
+							String dob = sc.nextLine();
+							ArrayList<Student> sByDob = sm.searchByDob(dob);
+							displayStudentDetails(sByDob);
+							break;
+						}
+						default:
+							System.out.println("Invalid choice! Please try again.");
+							break;
+					}
+					break;
+				}
+
+				case 6: {
+					System.out.println("\n1. Sort by FRN in ascending order");
+					System.out.println("2. Sort by Name in ascending order");
+					System.out.println("3. Sort by FRN in descending order");
+					System.out.println("4. Sort by Name in descending order");
+					System.out.print("Enter choice: ");
+					int sortChoice = Integer.parseInt(sc.nextLine().trim());
+
+					switch (sortChoice) {
+						case 1:
+							displayStudentDetails(sm.sortByFrn(true));
+							break;
+						case 2:
+							displayStudentDetails(sm.sortByName(true));
+							break;
+						case 3:
+							displayStudentDetails(sm.sortByFrn(false));
+							break;
+						case 4:
+							displayStudentDetails(sm.sortByName(false));
+							break;
+						default:
+							System.out.println("Invalid choice! Please try again.");
+					}
+					break;
+				}
+
+				case 7: {
+					ArrayList<Student> birthdayStudents = sm.getBirthdayStudents();
+					if (birthdayStudents.isEmpty()) {
+						System.out.println("No birthdays today.");
+					} else {
+						System.out.println("Birthday Wishes to:");
+						for (Student s : birthdayStudents) {
+							String message = "Happy birthday " + s.getName();
+							Sms.sendSms(message, s.getMobileNo());
+						}
+					}
+					break;
+				}
+
+				default:
+					System.out.println("Invalid choice! Please try again.");
+					break;
+			}
+
+		} while (choice != 0);
+
+		sc.close();
+	}
+
+	static void displayStudentDetails(Student s) {
+		if (s != null) {
+			System.out.printf("%-10s %-15s %-50s %-50s %-12s %-12s%n", "FRN", "Name", "Email", "GitRepo", "Mobile",
+					"DOB");
+			String dobStr = (s.getDob() != null) ? StudentManagement.dtf.format(s.getDob()) : "-";
+			System.out.printf("%-10s %-15s %-50s %-50s %-12s %-12s%n",
+					s.getFrn(), s.getName(), s.getEmail(), s.getGitRepo(), s.getMobileNo(), dobStr);
+		} else {
+			System.out.println("Student not found!");
+		}
+	}
+
+	static void displayStudentDetails(ArrayList<Student> students) {
+		if (students != null && !students.isEmpty()) {
+			System.out.printf("%-10s %-15s %-50s %-50s %-12s %-12s%n", "FRN", "Name", "Email", "GitRepo", "Mobile",
+					"DOB");
+			for (Student s : students) {
+				String dobStr = (s.getDob() != null) ? StudentManagement.dtf.format(s.getDob()) : "-";
+				System.out.printf("%-10s %-15s %-50s %-50s %-12s %-12s%n",
+						s.getFrn(), s.getName(), s.getEmail(), s.getGitRepo(), s.getMobileNo(), dobStr);
+			}
+		} else {
+			System.out.println("Student not found!");
+		}
+	}
+}

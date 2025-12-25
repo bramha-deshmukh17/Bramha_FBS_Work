@@ -1,8 +1,8 @@
-package com.studentmanagement.comparator;
+package com.studentmanagement.services.comparator;
 
 import java.util.Comparator;
 
-import com.studentmanagement.Student;
+import com.studentmanagement.model.Student;
 
 public class FRNComparator implements Comparator<Student> {
 
