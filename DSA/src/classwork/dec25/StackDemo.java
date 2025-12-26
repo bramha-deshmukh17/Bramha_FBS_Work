@@ -2,52 +2,13 @@ package classwork.dec25;
 
 import java.util.Scanner;
 
-class Stack {
-	int[] arr;
-	int top;
-
-	Stack(int size) {
-		arr = new int[size];
-		top = -1;
-	}
-
-	boolean isFull() {
-		return top == arr.length - 1;
-	}
-
-	boolean isEmpty() {
-		return top == -1;
-	}
-
-	void push(int num) {
-		if (!isFull())
-			arr[++top] = num;
-		else
-			System.out.println("Stack overflow");
-	}
-
-	int pop() {
-		if (!isEmpty())
-			return arr[top--];
-		else
-			return -1;
-	}
-
-	int peek() {
-		if (!isEmpty())
-			return arr[top];
-		else
-			return -1;
-	}
-}
-
 public class StackDemo {
 
 	public static void main(String[] args) {
 
 		int choice = 1, num;
 		Scanner sc = new Scanner(System.in);
-		Stack s = new Stack(5);
+		StackInt s = new StackInt(5);
 
 		while (choice != 4) {
 			System.out.println("\n1. To Push");
