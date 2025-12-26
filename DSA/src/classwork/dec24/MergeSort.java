@@ -5,52 +5,37 @@ import java.util.Scanner;
 public class MergeSort {
 
 
-    static void mergeSort(int[] arr, int left, int right) {
-        if (left < right) {
-            int mid = (left + right) / 2;
-            mergeSort(arr, left, mid);
-            mergeSort(arr, mid + 1, right);
-            combine(arr, left, mid, right);
+    static void mergeSort(int[] arr, int start, int end) {
+        if (start < end) {
+            int mid = (start + end) / 2;
+            mergeSort(arr, start, mid);
+            mergeSort(arr, mid + 1, end);
+            combine(arr, start, mid, end);
         }
     }
 
-    static void combine(int[] arr, int left, int mid, int right) {
-        int n1 = mid - left + 1;
-        int n2 = right - mid;
-
-        int[] L = new int[n1];
-        int[] R = new int[n2];
-
-        for (int i = 0; i < n1; i++) {
-            L[i] = arr[left + i];
-        }
-        for (int j = 0; j < n2; j++) {
-            R[j] = arr[mid + 1 + j];
-        }
-
-        int i = 0, j = 0;
-        int k = left;
-        while (i < n1 && j < n2) {
-            if (L[i] <= R[j]) {
-                arr[k] = L[i];
-                i++;
+    static void combine(int[] arr, int start, int mid, int end) {
+        int i = start;  
+        int j = mid + 1;
+        int k = 0;   
+        int[] temp = new int[end - start + 1];
+        while (i <= mid && j <= end) {
+            if (arr[i] < arr[j]) {
+                temp[k++] = arr[i++];
             } else {
-                arr[k] = R[j];
-                j++;
+                temp[k++] = arr[j++];
             }
-            k++;
         }
 
-        while (i < n1) {
-            arr[k] = L[i];
-            i++;
-            k++;
-        }
+        // copy any remaining elements
+        while (i <= mid)
+            temp[k++] = arr[i++];
+        while (j <= end)
+            temp[k++] = arr[j++];
 
-        while (j < n2) {
-            arr[k] = R[j];
-            j++;
-            k++;
+        // copy back to original array
+        for(int p = 0; p < temp.length; p++) {
+            arr[start++] = temp[p];
         }
     }
     
