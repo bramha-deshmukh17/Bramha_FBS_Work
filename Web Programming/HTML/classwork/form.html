@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+</head>
+
+<body>
+    <form action="/submit">
+        <h1>Registration Form</h1>
+        <table>
+            <tr>
+                <td>Enter name:</td>
+                <td><input type="text" name="Username" required></td>
+            </tr>
+            <tr>
+                <td>Enter Password:</td>
+                <td><input type="password" name="password" required></td>
+            </tr>
+            <tr>
+                <td>Enter address:</td>
+                <td><input type="text" name="address" required></td>
+            </tr>
+            <tr>
+                <td>Mobile no.:</td>
+                <td><input type="number" name="mobile" required></td>
+            </tr>
+            <tr>
+                <td>Games:</td>
+                <td>
+                    <input type="checkbox" name="games">Hockey<br>
+                    <input type="checkbox" name="games">Football<br>
+                    <input type="checkbox" name="games">cricket<br>
+                    <input type="checkbox" name="games">Badminton<br>
+                </td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>
+                    <input type="radio" name="Gender" value="male">Male
+                    <input type="radio" name="Gender" value="female">Female
+                    <input type="radio" name="Gender" value="other">Other
+                </td>
+            </tr>
+            <tr>
+                <td>Select City:</td>
+                <td>
+                    <input type="text" name="City" list="city" placeholder="Select" required>
+                    <datalist id="city">
+                        
+                        <option value="Pune"></option>
+                        <option value="Nanded"></option>
+                        <option value="Mumbai"></option>
+                        <option value="Nagpur"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>Select Photo:</td>
+                <td><input type="file" name="photo" required></td>
+            </tr>
+            <tr>
+                <td><center><input type="submit" value="Submit"></center></td>
+                <td><input type="reset" value="Reset"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>
