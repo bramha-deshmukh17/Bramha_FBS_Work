@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.studentmanagement.controller.StudentManagement;
 import com.studentmanagement.model.Student;
+import com.studentmanagement.model.MockDetail;
 import com.studentmanagement.services.Sms;
 
 public class StudentFrameView extends JFrame {
@@ -54,6 +55,7 @@ public class StudentFrameView extends JFrame {
         JButton sortButton = new JButton("Sort");
         JButton birthdayButton = new JButton("Wish Birthday");
         JButton refreshButton = new JButton("Refresh/Display All");
+        JButton mockDetailsButton = new JButton("Mock Details");
 
         buttonPanel.add(addButton);
         buttonPanel.add(updateButton);
@@ -61,6 +63,7 @@ public class StudentFrameView extends JFrame {
         buttonPanel.add(searchButton);
         buttonPanel.add(sortButton);
         buttonPanel.add(birthdayButton);
+        buttonPanel.add(mockDetailsButton);
         buttonPanel.add(refreshButton);
 
         // Add components to frame
@@ -71,7 +74,8 @@ public class StudentFrameView extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                int confirm = JOptionPane.showConfirmDialog(StudentFrameView.this, "Do you want to save changes before exiting?", "Exit",
+                int confirm = JOptionPane.showConfirmDialog(StudentFrameView.this,
+                        "Do you want to save changes before exiting?", "Exit",
                         JOptionPane.YES_NO_CANCEL_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {
                     sm.saveStudents(sm.getStudentDetails());
@@ -96,12 +100,14 @@ public class StudentFrameView extends JFrame {
 
         birthdayButton.addActionListener(e -> wishBirthday());
 
+        mockDetailsButton.addActionListener(e -> showMockDetails());
+
         // Initial data load
         refreshTable(sm.getStudentDetails());
     }
 
     public void refreshTable(List<Student> students) {
-        tableModel.setRowCount(0); 
+        tableModel.setRowCount(0);
         if (students != null) {
             for (Student s : students) {
                 String dobStr = (s.getDob() != null) ? StudentManagement.dtf.format(s.getDob()) : "-";
@@ -160,35 +166,57 @@ public class StudentFrameView extends JFrame {
 
     public void updateStudent() {
         String frn = JOptionPane.showInputDialog(this, "Enter FRN of student to update:");
-        if (frn != null && !frn.trim().isEmpty()) {
-            Student student = sm.searchByFrn(frn.trim());
-            if (student == null) {
-                JOptionPane.showMessageDialog(this, "Student not found!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+        if (frn == null || frn.trim().isEmpty()) {
+            return;
+        }
 
-            String[] options = { "Update Email", "Update Mobile" };
-            int choice = JOptionPane.showOptionDialog(this, "What do you want to update?", "Update Student",
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+        ArrayList<Student> list = sm.search("frn", frn.trim());
+        Student existing = list.isEmpty() ? null : list.get(0);
 
-            if (choice == 0) { // Update Email
-                String newEmail = JOptionPane.showInputDialog(this, "Enter new email:", student.getEmail());
-                if (newEmail != null) {
-                    sm.updateStudentEmail(frn, newEmail);
-                }
-            } else if (choice == 1) { // Update Mobile
-                String newMobileStr = JOptionPane.showInputDialog(this, "Enter new mobile:", student.getMobileNo());
-                if (newMobileStr != null) {
-                    try {
-                        long newMobile = Long.parseLong(newMobileStr);
-                        sm.updateStudentMobile(frn, newMobile);
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(this, "Invalid mobile number.", "Error",
-                                JOptionPane.ERROR_MESSAGE);
-                    }
-                }
+        if (existing == null) {
+            JOptionPane.showMessageDialog(this, "Student not found!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        JTextField nameField = new JTextField(existing.getName());
+        JTextField emailField = new JTextField(existing.getEmail());
+        JTextField mobileField = new JTextField(String.valueOf(existing.getMobileNo()));
+        JTextField gitRepoField = new JTextField(existing.getGitRepo());
+        JTextField dobField = new JTextField(
+                existing.getDob() != null ? StudentManagement.dtf.format(existing.getDob()) : "dd/MM/yyyy");
+
+        Object[] message = {
+                "FRN: " + existing.getFrn(),
+                "Name:", nameField,
+                "Email:", emailField,
+                "Mobile:", mobileField,
+                "GitHub Repo:", gitRepoField,
+                "DOB (DD/MM/YYYY):", dobField
+        };
+
+        int option = JOptionPane.showConfirmDialog(this, message, "Update Student", JOptionPane.OK_CANCEL_OPTION);
+        if (option == JOptionPane.OK_OPTION) {
+            try {
+                LocalDate dob = LocalDate.parse(dobField.getText(), StudentManagement.dtf);
+                long mobile = Long.parseLong(mobileField.getText());
+
+                Student updated = new Student(
+                        existing.getFrn(),
+                        emailField.getText(),
+                        mobile,
+                        nameField.getText(),
+                        gitRepoField.getText(),
+                        dob);
+
+                sm.updateStudent(updated);
+                refreshTable(sm.getStudentDetails());
+            } catch (DateTimeParseException ex) {
+                JOptionPane.showMessageDialog(this, "Invalid date format! Please use DD/MM/YYYY.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Invalid mobile number format.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
-            refreshTable(sm.getStudentDetails());
         }
     }
 
@@ -221,29 +249,24 @@ public class StudentFrameView extends JFrame {
         ArrayList<Student> results = new ArrayList<>();
         switch (choice) {
             case 0:
-                Student s = sm.searchByFrn(searchTerm);
-                if (s != null)
-                    results.add(s);
+                results = sm.search("frn", searchTerm);
                 break;
-            case 1: 
-                results = sm.searchByName(searchTerm);
+            case 1:
+                results = sm.search("name", searchTerm);
                 break;
-            case 2: 
-                Student sByEmail = sm.searchByEmail(searchTerm);
-                if (sByEmail != null)
-                    results.add(sByEmail);
+            case 2:
+                results = sm.search("email", searchTerm);
                 break;
-            case 3: 
+            case 3:
                 try {
-                    Student sByMobile = sm.searchByMobile(Long.parseLong(searchTerm));
-                    if (sByMobile != null)
-                        results.add(sByMobile);
+                    Long.parseLong(searchTerm);
+                    results = sm.search("mobile", searchTerm);
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(this, "Invalid mobile number.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
-            case 4: 
-                results = sm.searchByDob(searchTerm);
+            case 4:
+                results = sm.search("dob", searchTerm);
                 break;
             default:
                 return;
@@ -262,16 +285,16 @@ public class StudentFrameView extends JFrame {
         ArrayList<Student> sortedList = null;
         switch (choice) {
             case 0:
-                sortedList = sm.sortByFrn(true);
+                sortedList = sm.sort("frn", true);
                 break;
             case 1:
-                sortedList = sm.sortByName(true);
+                sortedList = sm.sort("name", true);
                 break;
             case 2:
-                sortedList = sm.sortByFrn(false);
+                sortedList = sm.sort("frn", false);
                 break;
             case 3:
-                sortedList = sm.sortByName(false);
+                sortedList = sm.sort("name", false);
                 break;
             default:
                 return;
@@ -291,5 +314,34 @@ public class StudentFrameView extends JFrame {
             }
             JOptionPane.showMessageDialog(this, message.toString(), "Birthday Wishes", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+
+    public void showMockDetails() {
+        String frn;
+
+        frn = JOptionPane.showInputDialog(this, "Enter FRN of student to view mock details:");
+        if (frn == null || frn.trim().isEmpty()) {
+            return;
+        }
+        frn = frn.trim();
+
+        ArrayList<MockDetail> mocks = sm.getMockDetailsByFRN(frn);
+        if (mocks == null || mocks.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No mock details found for FRN: " + frn);
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder("Mock details for FRN ").append(frn).append(":\n\n");
+        for (MockDetail md : mocks) {
+            String dateStr = (md.getMockdate() != null)
+                    ? StudentManagement.dtf.format(md.getMockdate())
+                    : "-";
+            sb.append("Module: ").append(md.getModuleName())
+                    .append("\nStatus: ").append(md.getMockStatus())
+                    .append("\nDate: ").append(dateStr)
+                    .append("\n\n");
+        }
+
+        JOptionPane.showMessageDialog(this, sb.toString(), "Mock Details", JOptionPane.INFORMATION_MESSAGE);
     }
 }

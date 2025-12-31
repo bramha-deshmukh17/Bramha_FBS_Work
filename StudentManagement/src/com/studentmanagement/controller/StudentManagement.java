@@ -27,66 +27,24 @@ public class StudentManagement {
 		return studentDao.getStudentDetails();
 	}
 
-	public Student searchByFrn(String frn) {
-		return studentDao.searchByFrn(frn);
+	public ArrayList<Student> search(String field, String value) {
+		return studentDao.search(field, value);
 	}
 
-	public Student searchByEmail(String email) {
-		return studentDao.searchByEmail(email);
-	}
-
-	public Student searchByMobile(long mobileNo) {
-		return studentDao.searchByMobile(mobileNo);
-	}
-
-	public ArrayList<Student> searchByName(String name) {
-		return studentDao.searchByName(name);
-	}
-
-	public ArrayList<Student> searchByDob(String dob) {
-		return studentDao.searchByDob(dob);
+	public void updateStudent(Student s) {
+		studentDao.updateStudent(s);
 	}
 
 	public boolean deleteStudent(String frn) {
 		return studentDao.deleteStudent(frn);
 	}
 
-	public boolean updateStudentEmail(String frn, String newEmail) {
-		Student s = studentDao.searchByFrn(frn);
-		if (s == null)
-			return false;
-
-		s.setEmail(newEmail);
-		return true;
-	}
-
-	public boolean updateStudentMobile(String frn, long newMobile) {
-		Student s = studentDao.searchByFrn(frn);
-		if (s == null)
-			return false;
-
-		s.setMobileNo(newMobile);
-		return true;
-	}
-
-	public ArrayList<Student> sortByFrn(boolean ascending) {
-		return studentDao.sortByFrn(ascending);
-	}
-
-	public ArrayList<Student> sortByName(boolean ascending) {
-		return studentDao.sortByName(ascending);
+	public ArrayList<Student> sort(String field, boolean ascending) {
+		return studentDao.sort(field, ascending);
 	}
 
 	public ArrayList<Student> getBirthdayStudents() {
 		return studentDao.getBirthdayStudents();
-	}
-
-	public void sendTodaysBdayWish() {
-		ArrayList<Student> birthdayStudents = getBirthdayStudents();
-		for (Student s : birthdayStudents) {
-			String message = "Happy birthday " + s.getName();
-			Sms.sendSms(message, s.getMobileNo());
-		}
 	}
 
 	public ArrayList<MockDetail> getMockDetailsByFRN(String frn) {
@@ -96,4 +54,22 @@ public class StudentManagement {
 	public void saveStudents(ArrayList<Student> students) {
 		studentDao.saveStudents(students);
 	}
+
+	public void saveMockDetails(String frn, ArrayList<MockDetail> mockDetails) {
+		studentDao.saveMockDetails(frn, mockDetails);
+	}
+
+	public void sendTodayBirthdayWishes() {
+		ArrayList<Student> birthdayStudents = getBirthdayStudents();
+		if (birthdayStudents.isEmpty()) {
+			System.out.println("No birthdays today.");
+		} else {
+			System.out.println("Birthday Wishes to:");
+			for (Student s : birthdayStudents) {
+				String message = "Happy birthday " + s.getName();
+				Sms.sendSms(message, s.getMobileNo());
+			}
+		}
+	}
+
 }

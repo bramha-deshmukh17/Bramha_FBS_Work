@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.studentmanagement.controller.StudentManagement;
+import com.studentmanagement.model.MockDetail;
+import com.studentmanagement.model.MockStatus;
 import com.studentmanagement.model.Student;
-import com.studentmanagement.services.Sms;
 
 public class StudentView {
 	public void showMenu() {
@@ -18,17 +19,17 @@ public class StudentView {
 		int choice;
 
 		do {
-			System.out.println("\n0. To Exit and Save");
-			System.out.println("1. Add Student");
+			System.out.println("\n1. Add Student");
 			System.out.println("2. Display Students");
 			System.out.println("3. Update Student");
 			System.out.println("4. Delete Student");
 			System.out.println("5. Search Student");
 			System.out.println("6. sort Student");
 			System.out.println("7. Wish Birthday");
-			System.out.println("71 update mock details");
-			System.out.println("8.Get Mock Result by FRN");
-
+			System.out.println("8. Get mock details by FRN");
+			System.out.println("9. Update mock details");
+			System.out.println("0. To Exit and Save");
+			
 			System.out.print("Enter choice: ");
 			choice = sc.nextInt();
 			sc.nextLine();
@@ -72,6 +73,13 @@ public class StudentView {
 					System.out.println("Enter FRN number: ");
 					String frn = sc.nextLine();
 
+					ArrayList<Student> list = sm.search("frn", frn.trim());
+					if (list.isEmpty()) {
+						System.out.println("Student not found!");
+						break;
+					}
+					Student existing = list.get(0);
+
 					System.out.println("\n1. To update the email");
 					System.out.println("2. To update mobile no");
 					System.out.print("Enter choice: ");
@@ -81,15 +89,17 @@ public class StudentView {
 						case 1: {
 							System.out.println("Enter new email: ");
 							String newEmail = sc.nextLine();
-							boolean ok = sm.updateStudentEmail(frn, newEmail);
-							System.out.println(ok ? "Email updated successfully!" : "Student not found!");
+							existing.setEmail(newEmail);
+							sm.updateStudent(existing);
+							System.out.println("Email updated successfully!");
 							break;
 						}
 						case 2: {
 							System.out.println("Enter new mobile no: ");
 							long newMobile = Long.parseLong(sc.nextLine().trim());
-							boolean ok = sm.updateStudentMobile(frn, newMobile);
-							System.out.println(ok ? "Mobile no updated successfully!" : "Student not found!");
+							existing.setMobileNo(newMobile);
+							sm.updateStudent(existing);
+							System.out.println("Mobile no updated successfully!");
 							break;
 						}
 						default:
@@ -119,36 +129,41 @@ public class StudentView {
 						case 1: {
 							System.out.print("Enter FRN number: ");
 							String frn = sc.nextLine();
-							Student sByFrn = sm.searchByFrn(frn);
-							displayStudentDetails(sByFrn);
+							ArrayList<Student> result = sm.search("frn", frn);
+							displayStudentDetails(result);
 							break;
 						}
 						case 2: {
 							System.out.print("Enter email: ");
 							String email = sc.nextLine();
-							Student sByEmail = sm.searchByEmail(email);
-							displayStudentDetails(sByEmail);
+							ArrayList<Student> result = sm.search("email", email);
+							displayStudentDetails(result);
 							break;
 						}
 						case 3: {
 							System.out.print("Enter mobile no: ");
-							long mobileNo = Long.parseLong(sc.nextLine().trim());
-							Student sByMobile = sm.searchByMobile(mobileNo);
-							displayStudentDetails(sByMobile);
+							String mobileStr = sc.nextLine().trim();
+							try {
+								Long.parseLong(mobileStr); // validate
+								ArrayList<Student> result = sm.search("mobile", mobileStr);
+								displayStudentDetails(result);
+							} catch (NumberFormatException e) {
+								System.out.println("Invalid mobile number.");
+							}
 							break;
 						}
 						case 4: {
 							System.out.print("Enter name: ");
 							String name = sc.nextLine();
-							ArrayList<Student> sByName = sm.searchByName(name);
-							displayStudentDetails(sByName);
+							ArrayList<Student> result = sm.search("name", name);
+							displayStudentDetails(result);
 							break;
 						}
 						case 5: {
 							System.out.print("Enter DOB(DD/MM/YYYY): ");
 							String dob = sc.nextLine();
-							ArrayList<Student> sByDob = sm.searchByDob(dob);
-							displayStudentDetails(sByDob);
+							ArrayList<Student> result = sm.search("dob", dob);
+							displayStudentDetails(result);
 							break;
 						}
 						default:
@@ -168,16 +183,16 @@ public class StudentView {
 
 					switch (sortChoice) {
 						case 1:
-							displayStudentDetails(sm.sortByFrn(true));
+							displayStudentDetails(sm.sort("frn", true));
 							break;
 						case 2:
-							displayStudentDetails(sm.sortByName(true));
+							displayStudentDetails(sm.sort("name", true));
 							break;
 						case 3:
-							displayStudentDetails(sm.sortByFrn(false));
+							displayStudentDetails(sm.sort("frn", false));
 							break;
 						case 4:
-							displayStudentDetails(sm.sortByName(false));
+							displayStudentDetails(sm.sort("name", false));
 							break;
 						default:
 							System.out.println("Invalid choice! Please try again.");
@@ -186,14 +201,74 @@ public class StudentView {
 				}
 
 				case 7: {
-					ArrayList<Student> birthdayStudents = sm.getBirthdayStudents();
-					if (birthdayStudents.isEmpty()) {
-						System.out.println("No birthdays today.");
+					sm.sendTodayBirthdayWishes();
+					break;
+				}
+
+				case 8: {
+					System.out.print("Enter FRN number: ");
+					String frn = sc.nextLine();
+					ArrayList<MockDetail> mockDetails = sm.getMockDetailsByFRN(frn.trim());
+					if (mockDetails == null || mockDetails.isEmpty()) {
+						System.out.println("No mock details available for the provided FRN.");
 					} else {
-						System.out.println("Birthday Wishes to:");
-						for (Student s : birthdayStudents) {
-							String message = "Happy birthday " + s.getName();
-							Sms.sendSms(message, s.getMobileNo());
+						System.out.println("Mock details:");
+						System.out.printf("%-5s %-20s %-15s %-15s%n",
+								"No.", "Module Name", "Status", "Date Attempted");
+						for (int i = 0; i < mockDetails.size(); i++) {
+							MockDetail md = mockDetails.get(i);
+							String dateStr = md.getMockdate() != null
+									? StudentManagement.dtf.format(md.getMockdate())
+									: "-";
+							System.out.printf("%-5d %-20s %-15s %-15s%n",
+									i + 1,
+									md.getModuleName(),
+									md.getMockStatus(),
+									dateStr);
+						}
+					}
+					break;
+				}
+
+				case 9: {
+					System.out.print("Provide FRN to add/update mock info: ");
+					String frnInput = sc.nextLine().trim();
+
+					ArrayList<MockDetail> existingMocks = sm.getMockDetailsByFRN(frnInput);
+					if (existingMocks == null) {
+						existingMocks = new ArrayList<>();
+					}
+
+					System.out.print("Enter module name: ");
+					String moduleName = sc.nextLine().trim();
+
+					System.out.print("Enter mock status (e.g., CLEAR/NOT_CLEAR/ABSENT): ");
+					String status = sc.nextLine().trim();
+
+					MockStatus mockStatus = null;
+					mockStatus = MockStatus.valueOf(status.toUpperCase());
+					LocalDate mockDate = LocalDate.now();
+
+					MockDetail target = null;
+					for (MockDetail md : existingMocks) {
+						if (md.getModuleName() != null && md.getModuleName().equalsIgnoreCase(moduleName)) {
+							target = md;
+							break;
+						}
+					}
+
+					if (target == null) {
+						target = new MockDetail(moduleName, mockStatus, mockDate);
+						existingMocks.add(target);
+						System.out.println("Mock detail added for student.");
+					} else {
+						if(mockStatus != MockStatus.CLEAR) {
+							target.setModuleName(moduleName);
+							target.setMockStatus(mockStatus);
+							target.setMockdate(mockDate);
+							System.out.println("Mock detail updated for student.");
+						}else{
+							System.out.println("Mock already cleared!");
 						}
 					}
 					break;
