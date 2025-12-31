@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selectors</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        h2,
+        nav {
+            margin-top: 10px;
+        }
+
+        div {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin: 10px 0;
+        }
+
+        .title {
+            color: darkblue;
+        }
+
+        #demo-box {
+            background-color: #f9f9f9;
+        }
+
+        #demo-box p {
+            color: green;
+        }
+
+        #demo-box>strong {
+            color: red;
+        }
+
+        label+input {
+            border: 2px solid orange;
+        }
+
+        label~small {
+            color: gray;
+        }
+
+        a[target] {
+            text-decoration: underline;
+        }
+
+        a:hover {
+            color: purple;
+        }
+        
+    </style>
+
+</head>
+
+<body>
+    <p>Lorem ipsum dolor sit <b>This is bold in p <i>Italic inside b</i></b> amet consectetur adipisicing elit. Magnam
+        cumque voluptatum sed hic, vero, dicta quisquam
+        saepe non ipsam velit quae quaerat rem impedit quis reprehenderit eaque nemo placeat est autem tempore deleniti?
+        Nobis similique maiores <i>some italic inside p</i> aut dolores eligendi earum temporibus blanditiis cum, minima
+        illo veniam modi. </p>
+
+    <div id="demo-box">
+        <h2 class="title">Selectors demo</h2>
+        <strong>Child selector text</strong>
+        <p>Descendant selector text</p>
+    </div>
+
+    <div>
+        <label>Username</label>
+        <input type="text">
+        <small>General sibling selector text</small>
+    </div>
+
+    <nav>
+        <a href="https://example.com" target="_blank">Attribute selector link</a>
+        <a href="#">Normal link</a>
+    </nav>
+
+</body>
+
+</html>
