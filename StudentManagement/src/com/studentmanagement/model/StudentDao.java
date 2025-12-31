@@ -8,15 +8,7 @@ public interface StudentDao {
 
     public void addStudent(Student s);
 
-    public Student searchByFrn(String frn);
-
-    public Student searchByEmail(String email);
-
-    public Student searchByMobile(long mobileNo);
-
-    public ArrayList<Student> searchByName(String name);
-
-    public ArrayList<Student> searchByDob(String dob);
+    public ArrayList<Student> search(String field, String value);
 
     public boolean deleteStudent(String frn);
 
@@ -26,10 +18,10 @@ public interface StudentDao {
 
     public ArrayList<MockDetail> getMockDetailsByFRN(String frn);
 
-    public ArrayList<Student> sortByFrn(boolean ascending);
+    public void saveMockDetails(String frn, ArrayList<MockDetail> mockDetails);
 
-    public ArrayList<Student> sortByName(boolean ascending);
+    public ArrayList<Student> sort(String field, boolean ascending);
 
-    public ArrayList<Student> getBirthdayStudents() ;
+    public ArrayList<Student> getBirthdayStudents();
 
 }
