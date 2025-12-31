@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 5 Q1</title>
+</head>
+
+<body>
+    <form action="/submit" method="post">
+        <h1>Registration Form</h1>
+        <table>
+            <tr>
+                <td><label for="username">Username:</label></td>
+                <td><input type="text" name="username" required></td>
+            </tr>
+
+            <tr>
+                <td><label for="email">Email:</label></td>
+                <td><input type="email" name="email" required></td>
+            </tr>
+
+            <tr>
+                <td><label for="password">Password:</label></td>
+                <td><input type="password" name="password" required></td>
+            </tr>
+
+            <tr>
+                <td><label for="age">Age:</label></td>
+                <td><input type="number" name="age"></td>
+            </tr>
+
+            <tr>
+                <td><label for="birthdate">Birth Date:</label></td>
+                <td><input type="date" name="birthdate"></td>
+            </tr>
+
+            <tr>
+                <td>Gender:</td>
+                <td>
+                    <input type="radio" id="male" name="gender" value="male">
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">Female</label>
+                    <input type="radio" id="other" name="gender" value="other">
+                    <label for="other">Other</label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Interests:</td>
+                <td>
+                    <input type="checkbox" id="coding" name="interests" value="coding">
+                    <label for="coding">Coding</label>
+                    <input type="checkbox" id="music" name="interests" value="music">
+                    <label for="music">Music</label>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label for="file">Upload File:</label></td>
+                <td><input type="file" id="file" name="file" multiple></td>
+            </tr>
+
+            <tr>
+                <td><label for="phone">Phone:</label></td>
+                <td><input type="tel" name="phone"></td>
+            </tr>
+
+            <tr>
+                <td><input type="reset" value="Reset Form"></td>
+                <td><input type="submit" value="Submit Form"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>
