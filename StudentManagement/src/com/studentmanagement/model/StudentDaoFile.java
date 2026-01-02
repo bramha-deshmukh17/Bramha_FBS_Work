@@ -1,6 +1,7 @@
 package com.studentmanagement.model;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -22,8 +23,23 @@ public class StudentDaoFile implements StudentDao {
 
 	static {
 		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_PATH))) {
-			students = (ArrayList<Student>) ois.readObject();
-		} catch (Exception e) {
+			Object obj = ois.readObject();
+			if (obj instanceof ArrayList) {
+				students = (ArrayList<Student>) obj;
+			} else {
+				students = new ArrayList<>();
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("Student data file not found. Starting with empty list.");
+			students = new ArrayList<>();
+		} catch (ClassNotFoundException e) {
+			System.out.println("Stored student data is incompatible with current version.");
+			students = new ArrayList<>();
+		} catch (IOException e) {
+			System.out.println("Error loading students from file: " + e.getMessage());
+			students = new ArrayList<>();
+		} catch (ClassCastException e) {
+			System.out.println("Student data file has unexpected format. Starting fresh.");
 			students = new ArrayList<>();
 		}
 	}
@@ -33,7 +49,7 @@ public class StudentDaoFile implements StudentDao {
 	}
 
 	public ArrayList<Student> getStudentDetails() {
-		return new ArrayList<>(students);
+		return StudentDaoFile.students;
 	}
 
 	public ArrayList<Student> search(String field, String value) {
@@ -92,6 +108,8 @@ public class StudentDaoFile implements StudentDao {
 					}
 				}
 				break;
+			default:
+				System.out.println("Unsupported search field: " + field);
 		}
 
 		return result;
@@ -139,13 +157,12 @@ public class StudentDaoFile implements StudentDao {
 		}
 	}
 
-	public void saveStudents(ArrayList<Student> studentsToSave) {
-		// Update the in-memory list and save it to the file.
-		StudentDaoFile.students = studentsToSave;
+	public void saveStudents(ArrayList<Student> students) {
+
 		try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
-			objectOutputStream.writeObject(studentsToSave);
+			objectOutputStream.writeObject(students);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Error saving students to file: " + e.getMessage());
 		}
 	}
 
@@ -159,7 +176,8 @@ public class StudentDaoFile implements StudentDao {
 			case "name":
 				Collections.sort(sorted, new NameComparator(ascending));
 				break;
-				
+			default:
+				System.out.println("Unsupported sort field: " + field);
 		}
 		return sorted;
 	}

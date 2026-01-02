@@ -122,22 +122,25 @@ public class StudentDaoHardCoded implements StudentDao {
     }
 
     public ArrayList<Student> getAllStudents() {
-        FileInputStream fileInputStream = null;
-        ObjectInputStream objectInputStream = null;
+        try (FileInputStream fileInputStream = new FileInputStream(FILE_PATH);
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
 
-        try {
-            fileInputStream = new FileInputStream(FILE_PATH);
-            objectInputStream = new ObjectInputStream(fileInputStream);
+            Object obj = objectInputStream.readObject();
+            if (obj instanceof ArrayList) {
+                students = (ArrayList<Student>) obj;
+            }
 
-            students = (ArrayList<Student>) objectInputStream.readObject();
-
-        } catch (IOException | ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            System.out.println("Student data file not found. Using in-memory default data.");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Stored student data is incompatible with current version.");
+        } catch (IOException e) {
+            System.out.println("Error reading student data file: " + e.getMessage());
+        } catch (ClassCastException e) {
+            System.out.println("Student data file has unexpected format.");
         }
 
         return students;
-
     }
 
     public void addStudent(Student s) {
@@ -145,7 +148,7 @@ public class StudentDaoHardCoded implements StudentDao {
     }
 
     public ArrayList<Student> getStudentDetails() {
-        return new ArrayList<>(students);
+        return StudentDaoFile.students;
     }
 
     public ArrayList<Student> search(String field, String value) {
@@ -205,7 +208,7 @@ public class StudentDaoHardCoded implements StudentDao {
                 }
                 break;
             default:
-                // unsupported field -> empty result
+                System.out.println("Unsupported search field: " + field);
         }
 
         return result;
@@ -255,21 +258,16 @@ public class StudentDaoHardCoded implements StudentDao {
     }
 
     public void saveStudents(ArrayList<Student> students) {
-        FileOutputStream fileOutputStream;
-        try {
-            fileOutputStream = new FileOutputStream(FILE_PATH);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+
+        try (FileOutputStream fileOutputStream = new FileOutputStream(FILE_PATH);
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
 
             objectOutputStream.writeObject(students);
 
-            objectOutputStream.close();
-
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.out.println("Unable to create/open student data file: " + e.getMessage());
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.out.println("Error writing student data file: " + e.getMessage());
         }
     }
 
@@ -284,7 +282,7 @@ public class StudentDaoHardCoded implements StudentDao {
                 Collections.sort(sorted, new NameComparator(ascending));
                 break;
             default:
-                // unsupported field -> return unsorted copy
+                System.out.println("Unsupported sort field: " + field);
         }
         return sorted;
     }

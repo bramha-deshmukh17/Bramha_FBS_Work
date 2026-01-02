@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import com.studentmanagement.controller.StudentManagement;
 import com.studentmanagement.model.Student;
 import com.studentmanagement.model.MockDetail;
+import com.studentmanagement.model.MockStatus;
 import com.studentmanagement.services.Sms;
 
 public class StudentFrameView extends JFrame {
@@ -41,7 +44,7 @@ public class StudentFrameView extends JFrame {
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Make table cells non-editable
+                return false; // Makes table cells non-editable
             }
         };
         studentTable = new JTable(tableModel);
@@ -56,6 +59,7 @@ public class StudentFrameView extends JFrame {
         JButton birthdayButton = new JButton("Wish Birthday");
         JButton refreshButton = new JButton("Refresh/Display All");
         JButton mockDetailsButton = new JButton("Mock Details");
+        JButton updateMockButton = new JButton("Update Mock");
 
         buttonPanel.add(addButton);
         buttonPanel.add(updateButton);
@@ -64,9 +68,9 @@ public class StudentFrameView extends JFrame {
         buttonPanel.add(sortButton);
         buttonPanel.add(birthdayButton);
         buttonPanel.add(mockDetailsButton);
+        buttonPanel.add(updateMockButton);
         buttonPanel.add(refreshButton);
 
-        // Add components to frame
         add(new JScrollPane(studentTable), BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
@@ -86,21 +90,69 @@ public class StudentFrameView extends JFrame {
             }
         });
 
-        refreshButton.addActionListener(e -> refreshTable(sm.getStudentDetails()));
+        refreshButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                refreshTable(sm.getStudentDetails());
+            }
+        });
 
-        addButton.addActionListener(e -> addStudent());
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addStudent();
+            }
+        });
 
-        updateButton.addActionListener(e -> updateStudent());
+        updateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateStudent();
+            }
+        });
 
-        deleteButton.addActionListener(e -> deleteStudent());
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteStudent();
+            }
+        });
 
-        searchButton.addActionListener(e -> searchStudent());
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                searchStudent();
+            }
+        });
 
-        sortButton.addActionListener(e -> sortStudents());
+        sortButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sortStudents();
+            }
+        });
 
-        birthdayButton.addActionListener(e -> wishBirthday());
+        birthdayButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                wishBirthday();
+            }
+        });
 
-        mockDetailsButton.addActionListener(e -> showMockDetails());
+        mockDetailsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showMockDetails();
+            }
+        });
+
+        updateMockButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateMockDetails();
+            }
+        });
+
 
         // Initial data load
         refreshTable(sm.getStudentDetails());
@@ -343,5 +395,72 @@ public class StudentFrameView extends JFrame {
         }
 
         JOptionPane.showMessageDialog(this, sb.toString(), "Mock Details", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void updateMockDetails() {
+        String frn = JOptionPane.showInputDialog(this, "Enter FRN of student to update mock details:");
+        if (frn == null || frn.trim().isEmpty()) {
+            return;
+        }
+        frn = frn.trim();
+
+        String moduleName = JOptionPane.showInputDialog(this, "Enter module name to add/update:");
+        if (moduleName == null || moduleName.trim().isEmpty()) {
+            return;
+        }
+        moduleName = moduleName.trim();
+
+        String[] statusOptions = { "CLEAR", "NOT_CLEAR", "ABSENT" };
+        String status = (String) JOptionPane.showInputDialog(
+                this,
+                "Select mock status:",
+                "Mock Status",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                statusOptions,
+                statusOptions[0]);
+        if (status == null) {
+            return;
+        }
+
+        MockStatus mockStatus;
+        try {
+            mockStatus = MockStatus.valueOf(status);
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Invalid mock status selected.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        LocalDate mockDate = LocalDate.now();
+        ArrayList<MockDetail> mocks = sm.getMockDetailsByFRN(frn);
+        if (mocks == null) {
+            mocks = new ArrayList<>();
+        }
+
+        MockDetail target = null;
+        for (MockDetail md : mocks) {
+            if (md.getModuleName() != null && md.getModuleName().equalsIgnoreCase(moduleName)) {
+                target = md;
+                break;
+            }
+        }
+
+        if (target == null) {
+            target = new MockDetail(moduleName, mockStatus, mockDate);
+            mocks.add(target);
+            JOptionPane.showMessageDialog(this, "Mock detail added for student.");
+        } else {
+            if (target.getMockStatus() != MockStatus.CLEAR) {
+                target.setModuleName(moduleName);
+                target.setMockStatus(mockStatus);
+                target.setMockdate(mockDate);
+                JOptionPane.showMessageDialog(this, "Mock detail updated for student.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Mock already cleared!", "Info",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        sm.saveMockDetails(frn, mocks);
     }
 }
