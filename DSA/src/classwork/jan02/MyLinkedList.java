@@ -96,27 +96,31 @@ public class MyLinkedList {
 	}
 
 	public void deleteAt(int pos) {
-		if (isEmpty()) {
-			System.out.println("List is empty");
-			return;
-		} else if (pos == 1) {
-			System.out.println(start.getData() + " deleted");
-			start = start.getNext();
-			size--;
-		} else {
-			int count = 1;
-			Node temp = start;
-			while (temp.getNext() != null && count < pos - 1) {
-				temp = temp.getNext();
-				count++;
-			}
-			if (temp.getNext() == null) {
-				System.out.println("Invalid position");
-			} else {
-				System.out.println(temp.getNext().getData() + " deleted");
-				temp.setNext(temp.getNext().getNext());
+		if(pos>1 || pos<size) {
+			if (isEmpty()) {
+				System.out.println("List is empty");
+				return;
+			} else if (pos == 1) {
+				System.out.println(start.getData() + " deleted");
+				start = start.getNext();
 				size--;
+			} else {
+				int count = 1;
+				Node temp = start;
+				while (temp.getNext() != null && count < pos - 1) {
+					temp = temp.getNext();
+					count++;
+				}
+				if (temp.getNext() == null) {
+					System.out.println("Invalid position");
+				} else {
+					System.out.println(temp.getNext().getData() + " deleted");
+					temp.setNext(temp.getNext().getNext());
+					size--;
+				}
 			}
+		}else {
+			System.out.println("Position out of range");
 		}
 	}
 

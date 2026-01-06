@@ -52,24 +52,52 @@ public class MyLinkedList {
 			curr.setNext(temp);
 		}
 	}
-	
-	public void deleteAt(int pos) {
-		if(isEmpty()) 
+
+	public void deleteAtBeg() {
+		if (!isEmpty()) {
+			System.out.println(start.getData() + " deleted");
+			start = start.getNext();
+		} else {
 			System.out.println("List is empty");
-		
-		else if(pos==1)
-			start=start.getNext();
+		}
+	}
+
+	public void delete() {
+		if (!isEmpty()) {
+			if(start.getNext() == null) {
+				start=null;
+				return;
+			}
+			Node temp = start;
+			while (temp.getNext().getNext() != null) {
+				temp = temp.getNext();
+			}
+
+			System.out.println(temp.getNext().getData() + " deleted");
+			temp.setNext(null);
+		} else {
+			System.out.println("List is empty");
+		}
+
+	}
+
+	public void deleteAt(int pos) {
+		if (isEmpty())
+			System.out.println("List is empty");
+
+		else if (pos == 1)
+			start = start.getNext();
 		else {
-			int count=1;
-			Node temp=start;
-			while(temp.getNext()!=null && count<pos-1) {
-				temp=temp.getNext();
+			int count = 1;
+			Node temp = start;
+			while (temp.getNext() != null && count < pos - 1) {
+				temp = temp.getNext();
 				count++;
 			}
-			if(temp.getNext()==null)
+			if (temp.getNext() == null)
 				System.out.println("Invalid position");
 			else {
-				System.out.println(temp.getNext().getData()+" deleted");
+				System.out.println(temp.getNext().getData() + " deleted");
 				temp.setNext(temp.getNext().getNext());
 			}
 		}
