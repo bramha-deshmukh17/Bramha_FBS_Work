@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation</title>
+    <style>
+        * {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .main {
+            display: flex;
+        }
+
+        .left {
+            width: 20%;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #000;
+            color: #fff;
+            padding: 10px;
+
+            hr {
+                border: 1px solid grey;
+            }
+
+            .index {
+                li {
+                    margin-left: -25px;
+                    margin-top: 5px;
+                }
+            }
+        }
+
+        .right {
+            width: 80%;
+            height: 100vh;
+            overflow-y: auto;
+            background-color: #fff;
+            padding: 0 7vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="left">
+            <h2 class="heading">Documentation</h2>
+            <hr>
+            <ul class="index" type="none">
+                <li>Introduction</li>
+                <li>Getting Started</li>
+                <li>Syntax Overview</li>
+                <li>Code Examples</li>
+                <li>Best Practices</li>
+            </ul>
+        </div>
+        <div class="right">
+            <h2>Introduction</h2>
+            <p>This technical deocumentation provides an overview of how touse and structure your code for better
+                redability and performance. It comes best practices, syntax standards, and exmples for modern web
+                development.</p>
+            <br>
+
+            <h2>Getting Started</h2>
+            <p>Before you begin, ensure you have a basic text editor and a modern web browser installed. Familarity with
+                HTML, and CSS is helpful for following along.</p>
+            <br>
+
+            <h2>Syntax Overview</h2>
+            <p>HTML provides the structure of the page, while CSS styles its visulas appearance. It's important to
+                maintain clean and demantic code for accessibility and maintainability.</p>
+            <br>
+
+            <h2>Code Syntax</h2>
+            <p>Here's a simple HTML syntax</p>
+            <pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Documentation Page&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p&gt;Hello Bramha&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+            </code></pre>
+
+            <h2>Best Practices</h2>
+            <p>Use comments, consistent indentation, and modular CSS. Keep your code DRY (Don't Repeate Yourself) and responsive for different devices.</p>
+            <br><br><br>
+        </div>
+    </div>
+</body>
+
+</html>
