@@ -1,4 +1,4 @@
-package assignment.assignment1;
+package assignment.assignment2;
 
 public class QueueHospital {
 	int front = -1, rear = -1;
