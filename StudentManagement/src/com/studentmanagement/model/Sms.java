@@ -1,4 +1,4 @@
-package com.studentmanagement.services;
+package com.studentmanagement.model;
 
 public class Sms{
 

@@ -4,10 +4,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import com.studentmanagement.model.MockDetail;
+import com.studentmanagement.model.Sms;
 import com.studentmanagement.model.Student;
 import com.studentmanagement.model.StudentDao;
-import com.studentmanagement.model.StudentDaoFile;
-import com.studentmanagement.services.Sms;
+// import com.studentmanagement.model.StudentDaoFile;
+import com.studentmanagement.model.StudentDaoJDBC;
 
 public class StudentManagement {
 
@@ -16,7 +17,7 @@ public class StudentManagement {
 	final StudentDao studentDao;
 
 	public StudentManagement() {
-		studentDao = new StudentDaoFile();
+		studentDao = new StudentDaoJDBC();
 	}
 
 	public void addStudent(Student stud) {

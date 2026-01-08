@@ -12,9 +12,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import com.studentmanagement.services.comparator.FRNComparator;
-import com.studentmanagement.services.comparator.NameComparator;
-
 public class StudentDaoHardCoded implements StudentDao {
 
     static String FILE_PATH = System.getProperty("user.home") + "/studentdata.txt";

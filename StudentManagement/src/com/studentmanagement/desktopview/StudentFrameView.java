@@ -24,7 +24,7 @@ import com.studentmanagement.controller.StudentManagement;
 import com.studentmanagement.model.Student;
 import com.studentmanagement.model.MockDetail;
 import com.studentmanagement.model.MockStatus;
-import com.studentmanagement.services.Sms;
+import com.studentmanagement.model.Sms;
 
 public class StudentFrameView extends JFrame {
 

@@ -1,8 +1,6 @@
-package com.studentmanagement.services.comparator;
+package com.studentmanagement.model;
 
 import java.util.Comparator;
-
-import com.studentmanagement.model.Student;
 
 public class NameComparator implements Comparator<Student> {
 
