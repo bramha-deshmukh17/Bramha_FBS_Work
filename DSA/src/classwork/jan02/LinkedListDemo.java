@@ -20,6 +20,11 @@ public class LinkedListDemo {
 			System.out.println("6. To delete at beginning");
 			System.out.println("7. To delete at position");
 			System.out.println("8. To delete at end");
+			System.out.println("9. To display prime number in list");
+			System.out.println("10. To sort the list - ascending");
+			System.out.println("11. To sort the list - descending");
+			System.out.println("12. To reverse the list");
+			System.out.println("13. To search an element");
 			System.out.println("0. To Exit");
 			System.out.print("Enter a choice: ");
 			choice = sc.nextInt();
@@ -65,6 +70,31 @@ public class LinkedListDemo {
 
 				case 8:
 					ml.delete();
+					break;
+
+				case 9:
+					System.out.println("Prime number: ");
+					ml.displayPrimes();
+					break;
+
+				case 10:
+					System.out.println("Sorted list:");
+					ml.sort(true);
+					break;
+
+				case 11:
+					System.out.println("Sorted list:");
+					ml.sort(false);
+					break;
+
+				case 12:
+					System.out.println("Reverse: ");
+					ml.reverseDisplay();
+					break;
+
+				case 13:
+					System.out.print("Enter element to search: ");
+					ml.search(sc.nextInt());
 					break;
 
 				case 0:

@@ -96,7 +96,7 @@ public class MyLinkedList {
 	}
 
 	public void deleteAt(int pos) {
-		if(pos>1 || pos<size) {
+		if (pos > 1 || pos < size) {
 			if (isEmpty()) {
 				System.out.println("List is empty");
 				return;
@@ -119,7 +119,7 @@ public class MyLinkedList {
 					size--;
 				}
 			}
-		}else {
+		} else {
 			System.out.println("Position out of range");
 		}
 	}
@@ -138,7 +138,82 @@ public class MyLinkedList {
 		System.out.println();
 	}
 
+	void displayPrimes() {
+		System.out.println();
+		if (isEmpty()) {
+			System.out.println("LinkedList is empty");
+		} else {
+			Node temp = start;
+			while (temp != null) {
+				isPrime(temp.getData());
+				temp = temp.getNext();
+			}
+		}
+		System.out.println();
+	}
+
+	void isPrime(int num) {
+		if (num == 2) {
+			System.err.println(num + " ");
+			return;
+		}
+		boolean prime = true;
+		for (int i = 2; i < num; i++) {
+			if (num % i == 0) {
+				prime = false;
+				break;
+			}
+		}
+		if (prime)
+			System.out.print(num + " ");
+	}
+
+	void sort(boolean ascending) {
+		if (!isEmpty() && size > 1) {
+			for (int i = 0; i < size - 1; i++) {
+				Node current = start;
+				Node next = start.getNext();
+				for (int j = 0; j < size - i - 1; j++) {
+					if (ascending ? current.getData() > next.getData() : current.getData() < next.getData()) {
+						int temp = current.getData();
+						current.setData(next.getData());
+						next.setData(temp);
+					}
+					current = next;
+					next = next.getNext();
+				}
+			}
+		}
+	}
+
+	void reverseDisplay() {
+		reverse(start);
+	}
+
+	void reverse(Node temp) {
+		if (temp != null) {
+			reverse(temp.getNext());
+			System.out.print(temp.getData() + " ");
+		}
+	}
+
 	boolean isEmpty() {
 		return start == null;
+	}
+
+	public void search(int num) {
+		if (isEmpty()) {
+			System.out.println("LinkedList is empty");
+		} else {
+			int pos = 1;
+			Node temp = start;
+			while (temp != null) {
+				if (temp.getData() == num) {
+					System.out.println("Found at position: " + pos);
+					return;
+				}
+				temp = temp.getNext();
+			}
+		}
 	}
 }
