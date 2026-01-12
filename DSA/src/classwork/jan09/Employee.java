@@ -1,7 +1,5 @@
 package classwork.jan09;
 
-import java.util.Objects;
-
 public class Employee {
 	int id;
 	String name;

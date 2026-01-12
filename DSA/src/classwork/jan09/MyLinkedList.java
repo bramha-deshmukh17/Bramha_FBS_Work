@@ -52,7 +52,7 @@ public class MyLinkedList<T>  {
 				size--;
 			} else {
 				int count = 1;
-				Node temp = start;
+				Node<T> temp = start;
 				while (temp.getNext() != null && count < pos - 1) {
 					temp = temp.getNext();
 					count++;
