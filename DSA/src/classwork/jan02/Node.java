@@ -8,19 +8,19 @@ public class Node {
 		this.data = data;
 	}
 
-	int getData() {
+	public int getData() {
 		return data;
 	}
 
-	void setData(int data) {
+	public void setData(int data) {
 		this.data = data;
 	}
 
-	Node getNext() {
+	public Node getNext() {
 		return next;
 	}
 
-	void setNext(Node next) {
+	public void setNext(Node next) {
 		this.next = next;
 	}
 	
