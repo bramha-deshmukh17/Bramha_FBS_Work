@@ -262,7 +262,7 @@ public class StudentView {
 							existingMocks.add(target);
 							System.out.println("Mock detail added for student.");
 						} else {
-							if (mockStatus != MockStatus.CLEAR) {
+							if (target.getMockStatus() != MockStatus.CLEAR) {
 								target.setModuleName(moduleName);
 								target.setMockStatus(mockStatus);
 								target.setMockdate(mockDate);
@@ -271,6 +271,8 @@ public class StudentView {
 								System.out.println("Mock already cleared!");
 							}
 						}
+						// Save the updated list back to the database
+						sm.saveMockDetails(frnInput, existingMocks);
 						break;
 					}
 
