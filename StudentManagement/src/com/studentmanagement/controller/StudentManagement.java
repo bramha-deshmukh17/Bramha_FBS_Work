@@ -73,4 +73,10 @@ public class StudentManagement {
 		}
 	}
 
+	// private StudentDao dao;
+
+	public String addOrUpdateMockDetail(String frn, String moduleName, String statusInput) {
+		return studentDao.addOrUpdateMockDetail(frn, moduleName, statusInput);
+	}
+
 }

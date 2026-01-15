@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 import com.studentmanagement.controller.StudentManagement;
 import com.studentmanagement.model.MockDetail;
-import com.studentmanagement.model.MockStatus;
 import com.studentmanagement.model.Student;
 
 public class StudentView {
@@ -234,45 +233,13 @@ public class StudentView {
 						System.out.print("Provide FRN to add/update mock info: ");
 						String frnInput = sc.nextLine().trim();
 
-						ArrayList<MockDetail> existingMocks = sm.getMockDetailsByFRN(frnInput);
-						if (existingMocks == null) {
-							existingMocks = new ArrayList<>();
-						}
-
 						System.out.print("Enter module name: ");
 						String moduleName = sc.nextLine().trim();
 
 						System.out.print("Enter mock status (e.g., CLEAR/NOT_CLEAR/ABSENT): ");
 						String status = sc.nextLine().trim();
 
-						MockStatus mockStatus = null;
-						mockStatus = MockStatus.valueOf(status.toUpperCase());
-						LocalDate mockDate = LocalDate.now();
-
-						MockDetail target = null;
-						for (MockDetail md : existingMocks) {
-							if (md.getModuleName() != null && md.getModuleName().equalsIgnoreCase(moduleName)) {
-								target = md;
-								break;
-							}
-						}
-
-						if (target == null) {
-							target = new MockDetail(moduleName, mockStatus, mockDate);
-							existingMocks.add(target);
-							System.out.println("Mock detail added for student.");
-						} else {
-							if (target.getMockStatus() != MockStatus.CLEAR) {
-								target.setModuleName(moduleName);
-								target.setMockStatus(mockStatus);
-								target.setMockdate(mockDate);
-								System.out.println("Mock detail updated for student.");
-							} else {
-								System.out.println("Mock already cleared!");
-							}
-						}
-						// Save the updated list back to the database
-						sm.saveMockDetails(frnInput, existingMocks);
+						System.out.println(sm.addOrUpdateMockDetail(frnInput, moduleName, status));
 						break;
 					}
 

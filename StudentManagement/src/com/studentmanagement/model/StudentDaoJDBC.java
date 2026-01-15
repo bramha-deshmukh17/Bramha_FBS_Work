@@ -1,6 +1,7 @@
 package com.studentmanagement.model;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class StudentDaoJDBC implements StudentDao {
@@ -208,6 +209,61 @@ public class StudentDaoJDBC implements StudentDao {
     public void saveStudents(ArrayList<Student> students) {
         // In JDBC, data is persisted immediately.
         // We can leave this empty or use it for a bulk sync if needed.
+    }
+
+    @Override
+    public String addOrUpdateMockDetail(String frn, String moduleName, String statusInput) {
+        if (frn == null || frn.trim().isEmpty())
+            return "FRN is required.";
+        if (moduleName == null || moduleName.trim().isEmpty())
+            return "Module name is required.";
+        if (statusInput == null || statusInput.trim().isEmpty())
+            return "Mock status is required.";
+
+        String frnTrim = frn.trim();
+        String moduleTrim = moduleName.trim();
+
+        ArrayList<Student> found = search("frn", frnTrim);
+        if (found == null || found.isEmpty())
+            return "Student with " + frnTrim + " not found";
+
+        MockStatus mockStatus;
+        try {
+            mockStatus = MockStatus.valueOf(statusInput.trim().toUpperCase());
+        } catch (IllegalArgumentException ex) {
+            return "Invalid mock status. Use CLEAR / NOT_CLEAR / ABSENT.";
+        }
+
+        ArrayList<MockDetail> existingMocks = getMockDetailsByFRN(frnTrim);
+        if (existingMocks == null)
+            existingMocks = new ArrayList<>();
+
+        MockDetail target = null;
+        for (MockDetail md : existingMocks) {
+            if (md != null && md.getModuleName() != null && md.getModuleName().equalsIgnoreCase(moduleTrim)) {
+                target = md;
+                break;
+            }
+        }
+
+        LocalDate mockDate = LocalDate.now();
+
+        if (target == null) {
+            existingMocks.add(new MockDetail(moduleTrim, mockStatus, mockDate));
+            saveMockDetails(frnTrim, existingMocks);
+            return "Mock detail added for student.";
+        }
+
+        if (target.getMockStatus() == MockStatus.CLEAR) {
+            return "Mock already cleared!";
+        }
+
+        target.setModuleName(moduleTrim);
+        target.setMockStatus(mockStatus);
+        target.setMockdate(mockDate);
+
+        saveMockDetails(frnTrim, existingMocks);
+        return "Mock detail updated for student.";
     }
 
     private Student extractStudentFromResultSet(ResultSet rs) throws SQLException {

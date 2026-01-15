@@ -10,15 +10,17 @@ public interface StudentDao {
 
     public ArrayList<Student> search(String field, String value);
 
+    public ArrayList<MockDetail> getMockDetailsByFRN(String frn);
+
+    public void saveMockDetails(String frn, ArrayList<MockDetail> mockDetails);
+
+    public String addOrUpdateMockDetail(String frn, String moduleName, String statusInput);
+
     public boolean deleteStudent(String frn);
 
     public void saveStudents(ArrayList<Student> students);
 
     public void updateStudent(Student students);
-
-    public ArrayList<MockDetail> getMockDetailsByFRN(String frn);
-
-    public void saveMockDetails(String frn, ArrayList<MockDetail> mockDetails);
 
     public ArrayList<Student> sort(String field, boolean ascending);
 
