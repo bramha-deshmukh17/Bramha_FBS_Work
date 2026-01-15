@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS button</title>
+    <style>
+        .main {
+            text-align: center;
+            margin-top: 50px;
+
+
+            #num1 {
+                padding: 10px;
+                font-size: 1em;
+                border: 1px solid #000;
+                border-radius: 8px;
+            }
+
+            button {
+                margin: 5px;
+                padding: 10px 20px;
+                background-color: #fff;
+                border: 1px solid #000;
+                border-radius: 8px;
+            }
+
+            button:nth-child(odd){
+                background-color: pink;
+            }
+            button:nth-child(even){
+                background-color: cyan;
+            }
+
+            #result {
+                display: flex;
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+
+                table {
+                    margin: 10px;
+                    border-collapse: collapse;
+                }
+
+                .even {
+                    background-color: cyan;
+                }
+
+                .odd {
+                    background-color: lightgreen;
+                }
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="main">
+        <label for="num1">Enter a number:</label> <input type="number" id="num1" />
+        <br>
+        <div class="btn">
+            <button onclick="factoral()">Factorial</button>
+            <button onclick="isPrime()">Prime</button>
+            <button onclick="isPalindrome()">Palindrome</button>
+            <button onclick="isArmstrong()">Armstrong</button>
+            <button onclick="reverse()">Reverse</button>
+            <button onclick="tables()">Tables</button>
+        </div>
+        <br>
+        <span id="result"></span>
+    </div>
+</body>
+<script>
+    function factoral() {
+        const val = document.getElementById("num1").value
+        if (val === "") {
+            document.getElementById("result").innerHTML = "Please enter a number"
+            return
+        }
+
+        num = parseInt(val)
+        fact = 1
+        for (i = 1; i <= num; i++) {
+            fact *= i
+        }
+        document.getElementById("result").innerHTML = "Factorial: " + fact
+    }
+
+    function isPrime() {
+        const val = document.getElementById("num1").value
+        if (val === "") {
+            document.getElementById("result").innerHTML = "Please enter a number"
+            return
+        }
+
+        num = parseInt(val)
+        if (num <= 1) {
+            document.getElementById("result").innerHTML = "Not a prime number"
+            return
+        }
+        for (i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i === 0) {
+                document.getElementById("result").innerHTML = "Not a prime number"
+                return
+            }
+        }
+        document.getElementById("result").innerHTML = "Prime number"
+    }
+
+    function isPalindrome() {
+        const num = document.getElementById("num1").value
+        if (num === "") {
+            document.getElementById("result").innerHTML = "Please enter a number"
+            return
+        }
+
+        reversed = num.split('').reverse().join('')
+        if (num === reversed) {
+            document.getElementById("result").innerHTML = "Palindrome"
+        } else {
+            document.getElementById("result").innerHTML = "Not a palindrome"
+        }
+    }
+
+    function isArmstrong() {
+        const val = document.getElementById("num1").value
+        if (val === "") {
+            document.getElementById("result").innerHTML = "Please enter a number"
+            return
+        }
+
+        num = parseInt(val)
+        sum = 0
+        temp = num
+        digits = num.toString().length
+        while (temp > 0) {
+            digit = temp % 10
+            sum += Math.pow(digit, digits)
+            temp = Math.floor(temp / 10)
+        }
+        if (sum === num) {
+            document.getElementById("result").innerHTML = "Armstrong number"
+        } else {
+            document.getElementById("result").innerHTML = "Not an Armstrong number"
+        }
+    }
+
+    function reverse() {
+        const num = document.getElementById("num1").value
+        if (num === "") {
+            document.getElementById("result").innerHTML = "Please enter a number"
+            return
+        }
+
+        reversed = num.split('').reverse().join('')
+        document.getElementById("result").innerHTML = "Reversed: " + reversed
+    }
+
+    function tables() {
+        const num = document.getElementById("num1").value
+        if (num === "") {
+            document.getElementById("result").innerHTML = "Please enter a number"
+            return
+        }
+
+        num2 = parseInt(prompt("Enter the second number for range:"));
+        result = ""
+        for (i = num; i <= num2; i++) {
+            className = (i % 2 === 0) ? "even" : "odd"
+
+            result += `<table border="1" class="${className}">
+                        <tr><th>Multiplication Table of ${i}</th></tr>`
+
+            for (j = 1; j <= 10; j++) {
+                result += `<tr><td>${i} x ${j} = ${i * j}</td></tr>`
+            }
+
+            result += `</table>`
+        }
+        document.getElementById("result").innerHTML = result
+    }
+</script>
+
+</html>
