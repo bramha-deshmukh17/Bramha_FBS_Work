@@ -1,0 +1,15 @@
+﻿frn,email,mobile_no,name,git_repo,dob
+FRN001,aarav.sharma@example.com,9876543210,Aarav Sharma,https://github.com/aaravsharma/StudentManagement,14-02-2001
+FRN002,ananya.iyer@example.com,9123456780,Ananya Iyer,https://github.com/ananyaiyer/java-mocks,29-11-2000
+FRN003,rohan.patil@example.com,9988776655,Rohan Patil,https://github.com/rohanpatil/sms-project,07-06-2002
+FRN004,priya.nair@example.com,9090909090,Priya Nair,https://github.com/priyanair/student-tracker,18-09-2001
+FRN005,vikram.singh@example.com,9012345678,Vikram Singh,https://github.com/vikramsingh/mock-status,25-12-2000
+FRN006,meera.kulkarni@example.com,9797979797,Meera Kulkarni,https://github.com/meerak/student-management,03-03-2002
+FRN007,arjun.reddy@example.com,9654321098,Arjun Reddy,https://github.com/arjunreddy/java-sql,21-08-2001
+FRN008,neha.gupta@example.com,9345678901,Neha Gupta,https://github.com/nehagupta/spring-basics,12-01-2002
+FRN009,siddharth.menon@example.com,9887766554,Siddharth Menon,https://github.com/siddharthmenon/mock-eval,05-05-2001
+FRN010,kavya.joshi@example.com,9000012345,Kavya Joshi,https://github.com/kavyajoshi/github-repo,30-10-2000
+FRN021,sonal.jain@gmail.com,9876123456,Sonal Jain,https://github.com/sonaljain,14-09-1999
+FRN012,deepak.pawar@gmail.com,9753124680,Deepak Pawar,https://github.com/deepakpawar,05-08-2000
+FRN013,mehul.gupta@gmail.com,9647382910,Mehul Gupta,https://github.com/mehulgupta,01-12-1998
+FRN014,sneha.kulkarni@gmail.com,9823012345,Sneha Kulkarni,https://github.com/snehakulkarni,18-01-2001

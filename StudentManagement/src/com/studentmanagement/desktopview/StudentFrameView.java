@@ -463,4 +463,5 @@ public class StudentFrameView extends JFrame {
         }
         sm.saveMockDetails(frn, mocks);
     }
+
 }

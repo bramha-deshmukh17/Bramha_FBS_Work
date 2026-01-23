@@ -1,5 +1,6 @@
 package com.studentmanagement.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public interface StudentDao {
@@ -14,7 +15,7 @@ public interface StudentDao {
 
     public void saveMockDetails(String frn, ArrayList<MockDetail> mockDetails);
 
-    public String addOrUpdateMockDetail(String frn, String moduleName, String statusInput);
+    public String addOrUpdateMockDetail(String frn, String moduleName, String statusInput, LocalDate mockDate);
 
     public boolean deleteStudent(String frn);
 

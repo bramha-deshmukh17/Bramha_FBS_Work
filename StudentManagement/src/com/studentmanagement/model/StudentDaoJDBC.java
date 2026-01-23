@@ -40,18 +40,47 @@ public class StudentDaoJDBC implements StudentDao {
 
     @Override
     public void addStudent(Student s) {
-        String sql = "insert into students (frn, email, mobile_no, name, git_repo, dob) values (?, ?, ?, ?, ?, ?)";
-        try (Connection con = getConnection();
-                PreparedStatement ps = con.prepareStatement(sql)) {
+        String updateSql = "update students set email = ?, mobile_no = ?, name = ?, git_repo = ?, dob = ? where frn = ?";
+        String insertSql = "insert into students (frn, email, mobile_no, name, git_repo, dob) values (?, ?, ?, ?, ?, ?)";
 
-            ps.setString(1, s.getFrn());
-            ps.setString(2, s.getEmail());
-            ps.setLong(3, s.getMobileNo());
-            ps.setString(4, s.getName());
-            ps.setString(5, s.getGitRepo());
-            ps.setDate(6, Date.valueOf(s.getDob()));
+        try (Connection con = getConnection()) {
+            con.setAutoCommit(false);
 
-            ps.executeUpdate();
+            try (PreparedStatement ups = con.prepareStatement(updateSql);
+                    PreparedStatement ips = con.prepareStatement(insertSql)) {
+
+                // Try update first (UPSERT style)
+                ups.setString(1, s.getEmail());
+                ups.setLong(2, s.getMobileNo());
+                ups.setString(3, s.getName());
+                ups.setString(4, s.getGitRepo());
+                ups.setDate(5, Date.valueOf(s.getDob()));
+                ups.setString(6, s.getFrn());
+
+                int rowsAffected = ups.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    con.commit();
+                    System.out.println("Student updated: " + s.getFrn());
+                    return;
+                }
+
+                // If no update happened, insert new row
+                ips.setString(1, s.getFrn());
+                ips.setString(2, s.getEmail());
+                ips.setLong(3, s.getMobileNo());
+                ips.setString(4, s.getName());
+                ips.setString(5, s.getGitRepo());
+                ips.setDate(6, Date.valueOf(s.getDob()));
+                ips.executeUpdate();
+
+                con.commit();
+                System.out.println("Student inserted: " + s.getFrn());
+
+            } catch (SQLException e) {
+                con.rollback();
+                throw e;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -212,7 +241,7 @@ public class StudentDaoJDBC implements StudentDao {
     }
 
     @Override
-    public String addOrUpdateMockDetail(String frn, String moduleName, String statusInput) {
+    public String addOrUpdateMockDetail(String frn, String moduleName, String statusInput, LocalDate mockDate) {
         if (frn == null || frn.trim().isEmpty())
             return "FRN is required.";
         if (moduleName == null || moduleName.trim().isEmpty())
@@ -246,16 +275,16 @@ public class StudentDaoJDBC implements StudentDao {
             }
         }
 
-        LocalDate mockDate = LocalDate.now();
+        LocalDate mock_date = (mockDate == null) ? LocalDate.now() : mockDate;
 
         if (target == null) {
-            existingMocks.add(new MockDetail(moduleTrim, mockStatus, mockDate));
+            existingMocks.add(new MockDetail(moduleTrim, mockStatus, mock_date));
             saveMockDetails(frnTrim, existingMocks);
-            return "Mock detail added for student.";
+            return frnTrim+": Mock detail added for student.";
         }
 
         if (target.getMockStatus() == MockStatus.CLEAR) {
-            return "Mock already cleared!";
+            return frnTrim+": Mock already cleared!";
         }
 
         target.setModuleName(moduleTrim);
@@ -263,7 +292,7 @@ public class StudentDaoJDBC implements StudentDao {
         target.setMockdate(mockDate);
 
         saveMockDetails(frnTrim, existingMocks);
-        return "Mock detail updated for student.";
+        return frnTrim+": Mock detail updated for student.";
     }
 
     private Student extractStudentFromResultSet(ResultSet rs) throws SQLException {

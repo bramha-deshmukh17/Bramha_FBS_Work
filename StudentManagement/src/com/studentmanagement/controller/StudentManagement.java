@@ -1,5 +1,6 @@
 package com.studentmanagement.controller;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -75,8 +76,8 @@ public class StudentManagement {
 
 	// private StudentDao dao;
 
-	public String addOrUpdateMockDetail(String frn, String moduleName, String statusInput) {
-		return studentDao.addOrUpdateMockDetail(frn, moduleName, statusInput);
+	public String addOrUpdateMockDetail(String frn, String moduleName, String statusInput, LocalDate mockDate) {
+		return studentDao.addOrUpdateMockDetail(frn, moduleName, statusInput, mockDate);
 	}
 
 }

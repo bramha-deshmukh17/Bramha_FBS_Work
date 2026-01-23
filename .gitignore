@@ -2,3 +2,5 @@
 *.exe
 /.metadata/
 /CoreJava/**/*.class
+/AdvJavaData/
+/AdvJava/.metadata/

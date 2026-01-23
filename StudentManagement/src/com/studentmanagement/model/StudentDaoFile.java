@@ -192,7 +192,7 @@ public class StudentDaoFile implements StudentDao {
 	}
 
 	@Override
-	public String addOrUpdateMockDetail(String frn, String moduleName, String statusInput) {
+	public String addOrUpdateMockDetail(String frn, String moduleName, String statusInput, LocalDate mockDate) {
 		if (frn == null || frn.trim().isEmpty())
 			return "FRN is required.";
 		if (moduleName == null || moduleName.trim().isEmpty())
@@ -226,10 +226,10 @@ public class StudentDaoFile implements StudentDao {
 			}
 		}
 
-		LocalDate mockDate = LocalDate.now();
+		LocalDate mock_date = (mockDate == null) ? LocalDate.now() : mockDate;
 
 		if (target == null) {
-			existingMocks.add(new MockDetail(moduleTrim, mockStatus, mockDate));
+			existingMocks.add(new MockDetail(moduleTrim, mockStatus, mock_date));
 			saveMockDetails(frnTrim, existingMocks);
 			return "Mock detail added for student.";
 		}

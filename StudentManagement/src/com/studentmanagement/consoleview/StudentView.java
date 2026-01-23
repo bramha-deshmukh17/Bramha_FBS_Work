@@ -5,10 +5,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import com.studentmanagement.controller.StudentManagement;
 import com.studentmanagement.model.MockDetail;
 import com.studentmanagement.model.Student;
+import com.studentmanagement.tools.CsvToDbImporter;
 
 public class StudentView {
 	public void showMenu() {
@@ -27,6 +30,7 @@ public class StudentView {
 			System.out.println("7. Wish Birthday");
 			System.out.println("8. Get mock details by FRN");
 			System.out.println("9. Update mock details");
+			System.out.println("10. Import CSV to DB (Students / Mocks)");
 			System.out.println("0. To Exit and Save");
 
 			System.out.print("Enter choice: ");
@@ -239,7 +243,34 @@ public class StudentView {
 						System.out.print("Enter mock status (e.g., CLEAR/NOT_CLEAR/ABSENT): ");
 						String status = sc.nextLine().trim();
 
-						System.out.println(sm.addOrUpdateMockDetail(frnInput, moduleName, status));
+						System.out.println(sm.addOrUpdateMockDetail(frnInput, moduleName, status, LocalDate.now()));
+						break;
+					}
+
+					case 10: {
+						System.out.println("\n1. Import Students CSV to DB");
+						System.out.println("2. Import Mock CSV to DB");
+						System.out.print("Enter choice: ");
+						int importChoice = Integer.parseInt(sc.nextLine().trim());
+
+						System.out.print("Enter full CSV file path: ");
+						String p = sc.nextLine().trim();
+						Path csv = Path.of(p);
+
+						if (!Files.exists(csv)) {
+							System.out.println("File not found: " + csv);
+							break;
+						}
+
+						if (importChoice == 1) {
+							var result = CsvToDbImporter.importStudentsCsvToDb(csv);
+							System.out.println(result.message);
+						} else if (importChoice == 2) {
+							var result = CsvToDbImporter.importMocksCsvToDb(csv);
+							System.out.println(result.message);
+						} else {
+							System.out.println("Invalid import choice.");
+						}
 						break;
 					}
 
