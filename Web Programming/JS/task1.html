@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Decoration</title>
+    <style>
+        * {
+            margin-top: 10px
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <img src="https://tse4.mm.bing.net/th/id/OIP.Nb1HZQH77R7GG38wFdq18wHaEK?pid=Api&P=0&h=180" alt="Jadoo"
+            id="image" width="200px" height="200px">
+
+
+        <div>
+            <input type="checkbox" id="border-checkbox" checked> <label for="border-checkbox">Border</label>
+            <div id="values">
+                <input type="number" id="border-width" placeholder="Width (px)" min="0" value="1"><label
+                    for="border-width">PX &nbsp</label>
+                <select id="border-type">
+                    <option value="solid">Solid</option>
+                    <option value="dashed">Dashed</option>
+                    <option value="dotted">Dotted</option>
+                </select>
+                <input type="color" id="border-color" value="#000000">
+            </div>
+        </div>
+        <div>
+            <label for="img-shape">Image Shape</label>
+            <select id="img-shape">
+                <option value="rectangle">Rectangle</option>
+                <option value="circle">Circle</option>
+                <option value="oval">Oval</option>
+            </select>
+        </div>
+        <button type="button" id="apply">Apply</button>
+
+    </div>
+
+    <script>
+        img = document.getElementById('image')
+        border = document.getElementById('border-checkbox')
+
+        border.addEventListener('click', function () {
+            if (border.checked) {
+                document.getElementById('values').style.display = 'block'
+            } else {
+                document.getElementById('values').style.display = 'none'
+            }
+        })
+        document.getElementById('apply').addEventListener('click', function () {
+            if (border.checked) {
+                width = document.getElementById('border-width').value
+                type = document.getElementById('border-type').value
+                color = document.getElementById('border-color').value
+                img.style.border = `${width}px ${type} ${color}`
+            } else {
+                img.style.border = 'none'
+            }
+
+            shape = document.getElementById('img-shape').value
+            if (shape === 'circle') {
+                img.style.borderRadius = '50%'
+            } else if (shape === 'oval') {
+                img.style.borderRadius = '30%'
+            } else {
+                img.style.borderRadius = '0'
+            }
+        })
+    </script>
+</body>
+
+</html>
