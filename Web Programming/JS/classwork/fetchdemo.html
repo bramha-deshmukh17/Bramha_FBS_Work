@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+            margin: 0;
+            padding: 20px;
+
+            .recipe-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: center;
+
+                .recipe-card {
+                    background: #fbfbfb;
+                    border-radius: 8px;
+                    box-shadow: 5px 8px 20px rgba(0, 0, 0, 0.1);
+                    width: 300px;
+                    padding: 16px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    img {
+                        width: 100%;
+                        height: 180px;
+                        object-fit: cover;
+                        border-radius: 8px;
+                    }
+
+                    button {
+                        padding: 8px;
+                        border-radius: 8px;
+                        border: none;
+                        background-color: cyan;
+                        cursor: pointer;
+                    }
+
+                    .recipe-info {
+                        font-size: 0.95em;
+                        color: #555;
+                        margin-bottom: 8px;
+                        text-align: center;
+
+                        span {
+                            text-align: center;
+                            color: blue;
+                            cursor: pointer;
+                            text-decoration: underline;
+                        }
+                    }
+
+                }
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center;">Recipe List</h1>
+    <div class="recipe-container" id="recipes"></div>
+
+
+    <script>
+        fetch('https://dummyjson.com/recipes')
+            .then(res => res.json())
+            .then(data => {
+                recipes = data.recipes
+                container = document.getElementById('recipes')
+                innerHTML = ''
+                recipes.forEach(recipe => {
+
+                    innerHTML += `
+                        <div class="recipe-card">
+                        <img src="${recipe.image}" alt="${recipe.name}">
+                        <h3>${recipe.name}</h3>
+
+                        <div class="recipe-info"> Rating: ${recipe.rating}/5 &#9733; | Reviews: ${recipe.reviewCount}</div>
+                        <div class="recipe-info">Cuisine: ${recipe.cuisine} | Difficulty: ${recipe.difficulty} </div>
+
+                        <div class="recipe-info">Prep Time: ${recipe.prepTimeMinutes} min | Cook Time: ${recipe.cookTimeMinutes} min</div>
+                        <div class="recipe-info">Tags: ${recipe.tags.map(tag => `<span>#${tag}</span>&nbsp;&nbsp;`).join('')} </div>
+
+                        <div class="recipe-info">Calories Per Serving: ${recipe.caloriesPerServing}</div>
+                        <div class="recipe-info">Servings: ${recipe.servings}</div>
+
+                        <div id="recipe${recipe.id}" style="display:none;">
+                            <h3>Ingredients:</h3>
+                            <ul>
+                                ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+                            </ul>
+                            <h3>Instructions:</h3>
+                            <ol>
+                                 ${recipe.instructions.map(instruction => `<li>${instruction}</li>`).join('')}
+                            </ol>
+                        </div>
+                        <button onclick="viewDetails('recipe${recipe.id}')">View Recipe</button>
+                        </div>
+                    `
+                });
+                container.innerHTML = innerHTML
+            })
+
+        function viewDetails(id) {
+            const detailsDiv = document.getElementById(id);
+            if (detailsDiv.style.display === "none") {
+                detailsDiv.style.display = "block";
+            } else {
+                detailsDiv.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>
