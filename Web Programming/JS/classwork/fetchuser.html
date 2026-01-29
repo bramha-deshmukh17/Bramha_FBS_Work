@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+    <style>
+        body{
+            font-family: Arial,  sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 10px;
+
+            #users{
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: center;
+
+                .user-card{
+                    background: #fbfbfb;
+                    border-radius: 8px;
+                    box-shadow: 5px 8px 20px rgba(0, 0, 0, 0.1);
+                    width: 300px;
+                    padding: 16px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .details{
+                    text-align: center;
+                }
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="users"></div>
+    <script>
+        fetch('https://dummyjson.com/users')
+            .then(res => res.json())
+            .then(data => {
+                const users = data.users;
+                const container = document.getElementById("users");
+                let innerHTML = ''
+
+                users.forEach(user => {
+                    gender=user.gender.toUpperCase()
+                    innerHTML += `
+                        <div class="user-card">
+                            <div class="user-img"><img src="${user.image}"></div>
+                            <h3 class="details">${user.firstName} ${user.maidenName} ${user.lastName}</h3>
+                            <div class="details">${gender}</div>
+                            <div class="details">${user.phone}</div>
+                            <div class="details">
+                                ${user.address.address}, ${user.address.city}, ${user.address.state} - ${user.address.postalCode}
+                            </div>
+                            <div class="additional-details">
+                                <strong>Company:</strong> ${user.company.name} <br>
+                                <strong>Bank:</strong> ${user.bank.cardType}, ${user.bank.cardNumber} <br>
+                                <strong>University:</strong> ${user.university}
+                            </div>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = innerHTML;
+            });
+    </script>
+</body>
+
+</html>
