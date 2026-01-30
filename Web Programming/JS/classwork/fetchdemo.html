@@ -12,6 +12,21 @@
             margin: 0;
             padding: 20px;
 
+            #username {
+                text-align: center;
+            }
+
+            button {
+                border: none;
+                font-size: 20px;
+                padding: 15px;
+                border-radius: 8px;
+                background-color: red;
+                display: block;
+                margin: 0 auto;
+                cursor: pointer;
+            }
+
             .recipe-container {
                 display: flex;
                 flex-wrap: wrap;
@@ -64,24 +79,30 @@
 </head>
 
 <body>
+    <h1 id="username"></h1>
     <h1 style="text-align: center;">Recipe List</h1>
     <div class="recipe-container" id="recipes"></div>
-
-
+    <button onclick="logout()">Logout</button>
     <script>
+        if (!sessionStorage.getItem("loggedIn")) {
+            alert("Unauthorised login! redirecting...")
+            window.location.href = "redirect.html"
+        }
+        document.getElementById("username").innerHTML = "Hello, " + sessionStorage.getItem("username");
+
         fetch('https://dummyjson.com/recipes')
-            .then(res => res.json())
+        .then(res => res.json())
             .then(data => {
                 recipes = data.recipes
                 container = document.getElementById('recipes')
                 innerHTML = ''
                 recipes.forEach(recipe => {
-
+                    
                     innerHTML += `
-                        <div class="recipe-card">
+                    <div class="recipe-card">
                         <img src="${recipe.image}" alt="${recipe.name}">
                         <h3>${recipe.name}</h3>
-
+                        
                         <div class="recipe-info"> Rating: ${recipe.rating}/5 &#9733; | Reviews: ${recipe.reviewCount}</div>
                         <div class="recipe-info">Cuisine: ${recipe.cuisine} | Difficulty: ${recipe.difficulty} </div>
 
@@ -115,6 +136,11 @@
             } else {
                 detailsDiv.style.display = "none";
             }
+        }
+
+        function logout() {
+            window.open("redirect.html", "_self")
+            sessionStorage.clear();
         }
     </script>
 </body>

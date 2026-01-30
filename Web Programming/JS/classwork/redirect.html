@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Recipe</title>
+    <style>
+        div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        input {
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid black;
+            margin: 15px;
+            font-size: 18px;
+        }
+
+        button {
+            border: none;
+            font-size: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: aqua;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        if (sessionStorage.getItem("loggedIn")) {
+            window.location.href = "fetchdemo.html"
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <input type="text" name="username" id="username" placeholder="Username">
+        <input type="password" name="password" id="password" placeholder="Password">
+        <button onclick="submit()">Login</button>
+    </div>
+
+
+    <script>
+        function submit() {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            if (username === "bramha@email.com" && password === "123456") {
+                sessionStorage.setItem("loggedIn", true);
+                sessionStorage.setItem("username", username);
+                window.location.href = "fetchdemo.html"
+            } else {
+                alert("Invalid username or password");
+            }
+        }
+
+    </script>
+</body>
+
+</html>
