@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+</head>
+
+<body>
+    <canvas id="canvas1" width="200" height="120" style="border:1px solid #000;"></canvas>
+    <canvas id="canvas2" width="200" height="120" style="border:1px solid #000;"></canvas>
+    <canvas id="canvas3" width="200" height="120" style="border:1px solid #000;"></canvas>
+
+    <script>
+
+        c1 = document.getElementById('canvas1').getContext('2d')
+        c1.beginPath()
+        c1.moveTo(10, 10)
+        c1.lineTo(190, 110)
+        c1.stroke()
+
+        c2 = document.getElementById('canvas2').getContext('2d')
+        c2.beginPath()
+        c2.arc(100, 60, 50, 0, 2 * Math.PI)
+        c2.stroke()
+
+        c3 = document.getElementById('canvas3').getContext('2d')
+        c3.strokeRect(70, 25, 70, 70)
+    </script>
+</body>
+
+</html>
