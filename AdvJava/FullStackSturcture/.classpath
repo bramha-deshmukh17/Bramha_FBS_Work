@@ -6,6 +6,40 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="E:/Bramha_FBS_Work/AdvJavaData/hibernate/ant-antlr-1.6.2.jar"/>
+	<classpathentry kind="lib" path="E:/Bramha_FBS_Work/AdvJavaData/hibernate/antlr-2.7.4.jar"/>
+	<classpathentry kind="lib" path="E:/Bramha_FBS_Work/AdvJavaData/hibernate/cglib-full-2.0.2.jar"/>
+	<classpathentry kind="lib" path="E:/Bramha_FBS_Work/AdvJavaData/hibernate/com.mysql.jdbc_5.1.5.jar"/>
+	<classpathentry kind="lib" path="E:/Bramha_FBS_Work/AdvJavaData/hibernate/commons-collections-2.1.1.jar"/>
+	<classpathentry kind="lib" path="E:/Bramha_FBS_Work/AdvJavaData/hibernate/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="E:/Bramha_FBS_Work/AdvJavaData/hibernate/dom4j-1.5.2.jar"/>
+	<classpathentry kind="lib" path="E:/Bramha_FBS_Work/AdvJavaData/hibernate/ehcache-1.1.jar"/>
+	<classpathentry kind="lib" path="E:/Bramha_FBS_Work/AdvJavaData/hibernate/ejb3-persistence.jar"/>
+	<classpathentry kind="lib" path="E:/Bramha_FBS_Work/AdvJavaData/hibernate/hibernate3.jar"/>
+	<classpathentry kind="lib" path="E:/Bramha_FBS_Work/AdvJavaData/hibernate/hibernate-annotations.jar"/>
+	<classpathentry kind="lib" path="E:/Bramha_FBS_Work/AdvJavaData/hibernate/hibernate-commons-annotations.jar"/>
+	<classpathentry kind="lib" path="E:/Bramha_FBS_Work/AdvJavaData/hibernate/jdbc2_0-stdext.jar"/>
+	<classpathentry kind="lib" path="E:/Bramha_FBS_Work/AdvJavaData/hibernate/jta.jar"/>
+	<classpathentry kind="lib" path="E:/Bramha_FBS_Work/AdvJavaData/hibernate/log4j-1.2.9.jar"/>
+	<classpathentry kind="lib" path="E:/Bramha_FBS_Work/AdvJavaData/hibernate/xml-apis.jar"/>
 	<classpathentry kind="lib" path="E:/Bramha_FBS_Work/AdvJavaData/mysql-connector-j-9.6.0/mysql-connector-j-9.6.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hp/.m2/repository/org/hibernate/hibernate-core/5.6.14.Final/hibernate-core-5.6.14.Final.jar" sourcepath="C:/Users/hp/.m2/repository/org/hibernate/hibernate-core/5.6.14.Final/hibernate-core-5.6.14.Final-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.hibernate"/>
+			<attribute name="maven.artifactId" value="hibernate-core"/>
+			<attribute name="maven.version" value="5.6.14.Final"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/hp/.m2/repository/org/hibernate/orm/hibernate-core/6.4.4.Final/hibernate-core-6.4.4.Final.jar" sourcepath="C:/Users/hp/.m2/repository/org/hibernate/orm/hibernate-core/6.4.4.Final/hibernate-core-6.4.4.Final-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.hibernate.orm"/>
+			<attribute name="maven.artifactId" value="hibernate-core"/>
+			<attribute name="maven.version" value="6.4.4.Final"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

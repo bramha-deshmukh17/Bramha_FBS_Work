@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.aug.demo.Mobile" table="mobiletable">
+		<id name="aId" column="IMEINO">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="brand" column="mob_brand"></property>
+		<property name="price"></property>
+		<property name="model"></property>
+		<property name="colour"></property>
+		
+		<one-to-one name="application" class = "com.aug.demo.Application" cascade = "all" ></one-to-one>
+	</class>
+	
+	<class name="com.aug.demo.Application">
+		<id name="aId">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="aName"></property>
+		<property name="aFrontTech"></property>
+		<property name="aBackTech"></property>
+	</class>
+</hibernate-mapping>

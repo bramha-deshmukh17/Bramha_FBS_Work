@@ -2,7 +2,6 @@ package com.layer.bean;
 
 import java.util.Objects;
 
-//Data carrier Java Bean
 public class User {
 	private String userName;
 	private String password;

@@ -1,28 +1,37 @@
 package com.layer.aspect;
 
-import java.io.FileInputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.util.Properties;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.cfg.Configuration;
 
 public class ConnectionProvider {
-	public static Connection provideConnection() {
-		Connection con = null;
-		try {
-			FileInputStream fis = new FileInputStream(
-					"e:/Bramha_FBS_Work/AdvJava/FullStackSturcture/resources/dbconfig.properties");
-			Properties p = new Properties();
-			p.load(fis);
-			String classname = p.getProperty("classname");
-			String url = p.getProperty("url");
-			String user = p.getProperty("username");
-			String pass = p.getProperty("password");
+	
+	static Session s;
 
-			Class.forName(classname);
-			con = DriverManager.getConnection(url, user, pass);
-		} catch (Exception e) {
+	public static Session provideConnection() {
+		try {
+//			FileInputStream fis = new FileInputStream(".//Resources//Config.properties");
+//			Properties prop = new Properties();
+//			prop.load(fis);
+//
+//			String cname = prop.getProperty("classname");
+//			String url = prop.getProperty("url");
+//			String user = prop.getProperty("username");
+//			String pass = prop.getProperty("password");
+//
+//			Class.forName(cname);
+//			Connection con = DriverManager.getConnection(url, user, pass);
+//			return con;
+			
+			s = new Configuration().configure().buildSessionFactory().openSession();
+			
+			return s;
+			
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return con;
+		return null;
 	}
+
 }

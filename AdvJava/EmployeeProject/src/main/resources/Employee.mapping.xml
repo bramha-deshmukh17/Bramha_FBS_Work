@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+
+
+<hibernate-mapping>
+
+	<!-- Employee -->
+	<class name="com.bean.EmployeePojo" table="Employee_pojo">
+		<id name="eId" column="eId">
+			<generator class="identity" />
+		</id>
+		<property name="eName" />
+		<property name="eSal" />
+		<property name="email" />
+
+		<bag name="dev" cascade="all">
+			<key column="eId" />
+			<one-to-many class="com.bean.DevicesPojo" />
+		</bag>
+	</class>
+
+	<!-- Device -->
+	<class name="com.bean.DevicesPojo" table="Device_pojo">
+		<id name="dId" column="dId">
+			<generator class="identity" />
+		</id>
+		<property name="dName" />
+		<property name="dModule" />
+		<property name="dVal" />
+
+	</class>
+
+
+</hibernate-mapping>

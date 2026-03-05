@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gadgets Selection</title>
+</head>
+<body>
+
+<h1>Gadgets Selection Page</h1>
+
+<form action="data" method="post">
+
+    <h2>Select Laptop</h2>
+    <select id="laptop" name="laptop" onchange="showLaptopPrice()" required>
+        <option value="">-- Select Laptop --</option>
+        <option value="Dell">Dell</option>
+        <option value="HP">HP</option>
+        <option value="Lenovo">Lenovo</option>
+        <option value="Apple">Apple</option>
+    </select>
+
+    <p id="laptopPrice"></p>
+
+    <h2>Select Phone</h2>
+    <select id="phone" name="phone" onchange="showPhonePrice()" required>
+        <option value="">-- Select Phone --</option>
+        <option value="Samsung">Samsung</option>
+        <option value="iPhone">Apple (iPhone)</option>
+        <option value="OnePlus">OnePlus</option>
+        <option value="Redmi">Redmi</option>
+    </select>
+
+    <p id="phonePrice"></p>
+
+    <br><br>
+
+	<input type="hidden" id="laptop_price" name="laptop_price">
+    <input type="hidden" id="phone_price" name="phone_price">
+    
+    <button type="submit">Submit</button>
+    
+
+</form>
+
+
+<script>
+const laptopPrices = {
+    Dell: "60000",
+    HP: "55000",
+    Lenovo: "50000",
+    Apple: "120000"
+};
+
+const phonePrices = {
+    Samsung: "30000",
+    iPhone: "70000",
+    OnePlus: "40000",
+    Redmi: "20000"
+};
+
+function showLaptopPrice() {
+    let laptop = document.getElementById("laptop").value;
+    document.getElementById("laptopPrice").innerText =
+        laptop ? "Price: ₹" + laptopPrices[laptop] : "";
+
+    document.getElementById("laptop_price").value = laptopPrices[laptop];
+}
+
+function showPhonePrice() {
+    let phone = document.getElementById("phone").value;
+    document.getElementById("phonePrice").innerText =
+        phone ? "Price: ₹" + phonePrices[phone] : "";
+
+    document.getElementById("phone_price").value = phonePrices[phone];
+}
+</script>
+
+
+</body>
+</html>
